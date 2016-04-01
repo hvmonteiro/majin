@@ -1,8 +1,8 @@
-# QTube
+# Majin
 
-**Clone and run for a quick way to see an Electron in action.**
+**Clone and run for a quick way to see Majin in action.**
 
-An handy application to connect to Youtube to view videos, avoiding the hassle to use a full-blown browser. It renders Youtube's mobile website and can be minimized to desktop's tray.
+An handy application to connect to Youtube to view videos, avoiding the hassle to use a full-blown browser. It requests mobile versions of website and can be minimized to desktop's tray.
 
 ## To Use
 
@@ -10,9 +10,9 @@ To clone and run this repository you'll need [Git](https://git-scm.com) and [Nod
 
 ```bash
 # Clone this repository
-git clone https://github.com/hvmonteiro/qtube
+git clone https://github.com/hvmonteiro/majin
 # Go into the repository
-cd qtube
+cd majin
 # Install dependencies and run the app
 npm install && npm start
 ```
