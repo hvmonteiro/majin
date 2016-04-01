@@ -1,0 +1,30 @@
+{
+  "name": "QTube",
+  "version": "0.0.1",
+  "description": "Quick Youtube Viewer",
+  "desktopName": "*.desktop",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hvmonteiro/qtube.git"
+  },
+  "keywords": [
+    "qtube",
+    "youtube",
+    "viewer",
+    "quick",
+    "system tray"
+  ],
+  "author": "Hugo Monteiro",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/hvmonteiro/qtube/issues"
+  },
+  "homepage": "https://github.com/hvmonteiro/qtube",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.0"
+  }
+}
