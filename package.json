@@ -1,7 +1,7 @@
 {
-  "name": "QTube",
+  "name": "Majin",
   "version": "0.0.1",
-  "description": "Quick Youtube Viewer",
+  "description": "Small Handy Mobile Web Browser for the Desktop",
   "desktopName": "*.desktop",
   "main": "main.js",
   "scripts": {
@@ -9,21 +9,24 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hvmonteiro/qtube.git"
+    "url": "git+https://github.com/hvmonteiro/majin.git"
   },
   "keywords": [
-    "qtube",
-    "youtube",
+    "majin",
+    "mobile",
+    "browser",
+    "chrome",
+    "web",
     "viewer",
     "quick",
-    "system tray"
+    "tray"
   ],
   "author": "Hugo Monteiro",
   "license": "CC0-1.0",
   "bugs": {
-    "url": "https://github.com/hvmonteiro/qtube/issues"
+    "url": "https://github.com/hvmonteiro/majin/issues"
   },
-  "homepage": "https://github.com/hvmonteiro/qtube",
+  "homepage": "https://github.com/hvmonteiro/majin",
   "devDependencies": {
     "electron-prebuilt": "^0.36.0"
   }

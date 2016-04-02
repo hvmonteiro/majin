@@ -1,6 +1,6 @@
 'use strict';
 
-const appName = 'QTube';
+const appName = 'Majin';
 
 // Electron module
 const electron = require('electron');
@@ -33,23 +33,23 @@ if (process.platform === 'darwin') {
 var mainMenu = [{
   label: menuName,
   submenu: [{
-    label: 'Back',
-    accelerator: 'CmdOrCtrl+Left',
-    click: function (item, mainWindow) {
-      if (mainWindow) mainWindow.webContents.goBack();
-    }
-  }, {
-    label: 'Reload',
-    accelerator: 'CmdOrCtrl+R',
-    click: function (item, mainWindow) {
-      if (mainWindow) mainWindow.reload();
-    }
-  }, {
-    label: 'Forward',
-    accelerator: 'CmdOrCtrl+Right',
-    click: function (item, mainWindow) {
-      if (mainWindow) mainWindow.webContents.goForward();
-    }
+    label: 'Go To »',
+    submenu: [{
+      label: 'Home',
+      click: function (item, mainWindow) {
+        mainWindow.loadURL('file://index.html', browserOptions);
+      }
+    }, {
+      label: 'Youtube',
+      click: function (item, mainWindow) {
+        mainWindow.loadURL('http://www.youtube.com/', browserOptions);
+      }
+    }, {
+      label: 'Vimeo',
+      click: function (item, mainWindow) {
+        mainWindow.loadURL('http://www.vimeo.com/', browserOptions);
+      }
+    }]
   }, {
     type: 'separator'
   }, {
@@ -62,7 +62,7 @@ var mainMenu = [{
       if (focusedWindow) focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
     }
   }, {
-    label: 'Minimize to Tray ',
+    label: 'Close to Tray ',
     type: 'checkbox',
     checked: true
   }, {
@@ -80,11 +80,11 @@ var mainMenu = [{
     type: 'separator'
   }, {
     label: 'Auto-Hide Menu',
+    type: 'checkbox',
+    checked: 'true',
     click: function (item, focusedWindow) {
       if (focusedWindow) focusedWindow.setAutoHideMenuBar(!focusedWindow.isMenuBarAutoHide());
     },
-    type: 'checkbox',
-    checked: 'true'
   }, {
     type: 'separator'
   }, {
@@ -92,6 +92,27 @@ var mainMenu = [{
     accelerator: 'CmdOrCtrl+Q',
     click: function (item, focusedWindow) {
       if (focusedWindow) focusedWindow.close();
+    }
+  }]
+}, {
+  label: 'Navigation',
+  submenu: [{
+    label: 'Back',
+    accelerator: 'CmdOrCtrl+Left',
+    click: function (item, mainWindow) {
+      if (mainWindow) mainWindow.webContents.goBack();
+    }
+  }, {
+    label: 'Reload',
+    accelerator: 'CmdOrCtrl+R',
+    click: function (item, mainWindow) {
+      if (mainWindow) mainWindow.reload();
+    }
+  }, {
+    label: 'Forward',
+    accelerator: 'CmdOrCtrl+Right',
+    click: function (item, mainWindow) {
+      if (mainWindow) mainWindow.webContents.goForward();
     }
   }]
 }, {
@@ -170,6 +191,7 @@ function createWindow () {
     skipTaskbar: false,
     kiosk: true,
     resizable: false,
+    show: false,
     icon: 'images/icon@2.png'
   });
 
@@ -185,10 +207,9 @@ function createWindow () {
   });
 
   // and load the index.html of the app.
-  mainWindow.loadURL('about:config', browserOptions);
-  // mainWindow.loadURL('http://www.youtube.com/', browserOptions);
+  // mainWindow.loadURL('about:config', browserOptions);
+  mainWindow.loadURL('file:///index.html', browserOptions);
 
-  // mainWindow.show();
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
   mainWindow.on('show', function () {
@@ -209,6 +230,14 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null;
   });
+  mainWindow.onbeforeunload = function(e) {
+    mainWindow.hide();
+    contextMenu.items[0].checked = false;
+    e.returnValue = false;
+    event.preventDefault();
+  };
+
+  mainWindow.show();
 } // function createWindow
 
 // This method will be called when Electron has finished
