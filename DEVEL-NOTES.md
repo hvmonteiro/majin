@@ -24,20 +24,44 @@ https://github.com/atom/electron/blob/master/docs/api/tray.md
 ## Using Application Icons
 https://github.com/atom/electron/blob/master/docs/api/native-image.md
 
-# Electron Modules
 
-## System tray menu module:
+
+# Packaging & Distribution
+
+## package.json (NPM Documentation)
+https://docs.npmjs.com/files/package.json
+
+# Electron Packager
+https://github.com/electron-userland/electron-packager
+
+# Electron Windows Installer
+https://github.com/electron/windows-installer
+
+# Electron Archive
+https://github.com/electron/asar
+
+
+
+# Misc References
+
+## Electron System tray menu module:
 https://github.com/maxogden/menubar
 
 ## System Tray menu module example Application:
 https://github.com/maxogden/monu
 
 
-# Misc References
-
 ## Web Device Metrics
 http://www.useragentstring.com/pages/Mobile%20Browserlist
 
-
 ## List of all Browsers Agent string:
 http://www.useragentstring.com/pages/Browserlist/
+
+# Icon Convert Web Tool
+https://iconverticons.com/online/
+
+# Image Editor
+http://www.gimp.org/
+
+# Licensing
+http://choosealicense.com/licenses/

@@ -1,11 +1,11 @@
 {
   "name": "Majin",
   "version": "0.0.1",
-  "description": "Small Handy Mobile Web Browser for the Desktop",
+  "description": "Mobile Browser for the Desktop",
   "desktopName": "*.desktop",
-  "main": "main.js",
+  "main": "majin.js",
   "scripts": {
-    "start": "electron main.js"
+    "start": "electron majin.js"
   },
   "repository": {
     "type": "git",
@@ -13,12 +13,9 @@
   },
   "keywords": [
     "majin",
-    "mobile",
     "browser",
-    "chrome",
-    "web",
-    "viewer",
-    "quick",
+    "mobile",
+    "desktop",
     "tray"
   ],
   "author": "Hugo Monteiro",
@@ -28,6 +25,9 @@
   },
   "homepage": "https://github.com/hvmonteiro/majin",
   "devDependencies": {
-    "electron-prebuilt": "^0.36.0"
+    "electron-prebuilt": "^0.36.0",
+    "remote": "^0.2.6",
+    "dialog": "^0.1.8",
+    "path": ">=0.4.9"
   }
 }
