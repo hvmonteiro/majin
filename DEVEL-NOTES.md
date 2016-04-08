@@ -31,14 +31,18 @@ https://github.com/atom/electron/blob/master/docs/api/native-image.md
 ## package.json (NPM Documentation)
 https://docs.npmjs.com/files/package.json
 
-# Electron Packager
+## Electron Packager
 https://github.com/electron-userland/electron-packager
 
-# Electron Windows Installer
+## Electron Windows Installer
 https://github.com/electron/windows-installer
 
-# Electron Archive
+## Electron Archive
 https://github.com/electron/asar
+
+## Application Distribution
+http://electron.atom.io/docs/v0.37.4/tutorial/application-distribution/
+
 
 
 
@@ -57,11 +61,14 @@ http://www.useragentstring.com/pages/Mobile%20Browserlist
 ## List of all Browsers Agent string:
 http://www.useragentstring.com/pages/Browserlist/
 
-# Icon Convert Web Tool
+## Icon Convert Web Tool
 https://iconverticons.com/online/
 
-# Image Editor
+## Image Editor
 http://www.gimp.org/
+
+## Command line tool to edit resources of .exe files
+https://github.com/atom/rcedit
 
 # Licensing
 http://choosealicense.com/licenses/

@@ -23,6 +23,10 @@ const browserOptions = {
   'userAgent': 'Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30'
 };
 
+var trayIcon = null;
+var appMenu = null;
+var contextMenu = null;
+
 var path = require('path');
 
 var menuName = '';
@@ -39,11 +43,10 @@ var mainMenu = [{
     accelerator: 'CmdOrCtrl+T',
     type: 'checkbox',
     checked: false,
-    click: function (item, focusedWindow) {
-      if (focusedWindow) {
-        focusedWindow.setAlwaysOnTop(item.checked);
+    click: function (item, mainWindow) {
+        mainWindow.setAlwaysOnTop(item.checked);
         contextMenu.items[1].checked = item.checked;
-      }
+        trayIcon.setContextMenu(contextMenu);
     }
   }, {
     type: 'separator'
@@ -63,7 +66,7 @@ var mainMenu = [{
     type: 'checkbox',
     checked: 'true',
     click: function (item, focusedWindow) {
-      if (item.checked) focusedWindow.setAutoHideMenuBar(item.checked);
+      focusedWindow.setAutoHideMenuBar(item.checked);
     }
   }, {
     type: 'separator'
@@ -108,7 +111,7 @@ var mainMenu = [{
   submenu: [{
     label: 'Learn More',
     click: function () {
-      require('electron').shell.openExternal('https://github.com/hvmonteiro/qtube');
+      require('electron').shell.openExternal('https://github.com/hvmonteiro/majin');
     }
   }, {
     label: 'About'
@@ -126,7 +129,7 @@ var mainMenu = [{
   }]
 }];
 
-var sysTrayMenu = [{
+var syscontextMenu = [{
   label: 'Show Window',
   type: 'checkbox',
   checked: true,
@@ -146,7 +149,7 @@ var sysTrayMenu = [{
   checked: false,
   click: function (item, BrowserWindow) {
     mainWindow.setAlwaysOnTop(item.checked);
-    appMenu.items[0].submenu.items[3].checked = item.checked;
+    appMenu.items[0].submenu.items[0].checked = item.checked;
   }
 }, {
   type: 'separator'
@@ -158,8 +161,8 @@ var sysTrayMenu = [{
   }
 }];
 
-var appMenu = Menu.buildFromTemplate(mainMenu);
-var contextMenu = Menu.buildFromTemplate(sysTrayMenu);
+appMenu = Menu.buildFromTemplate(mainMenu);
+contextMenu = Menu.buildFromTemplate(syscontextMenu);
 
 app.setName(appName);
 Menu.setApplicationMenu(appMenu);
@@ -186,21 +189,25 @@ function createWindow () {
     icon: path.join(__dirname, 'images', 'icon@2.png')
   });
 
-  var appIcon = new Tray(path.join(__dirname, 'images', 'icon@2.png'));
+  trayIcon = new Tray(path.join(__dirname, 'images', 'icon@2.png'));
 
-  appIcon.setToolTip(appName + ' - Mobile Browser for the Desktop');
-  appIcon.setContextMenu(contextMenu);
+  trayIcon.setToolTip(appName + ' - Mobile Browser for the Desktop');
+  trayIcon.setContextMenu(contextMenu);
 
-  appIcon.on('click', function () {
+  trayIcon.on('click', function () {
     if (mainWindow === null) {
       mainWindow.createWindow();
     }
   });
 
-  appIcon.on('double-click', function () {
+  trayIcon.on('double-click', function () {
     if (mainWindow.isVisible()) {
+      contextMenu.items[0].checked = false; // contextMenu Item 'Show Window'
+      trayIcon.setContextMenu(contextMenu); // re-set contextMenu to reflect changes made above
       mainWindow.hide();
     } else {
+      contextMenu.items[0].checked = true; // contextMenu Item 'Show Window'
+      trayIcon.setContextMenu(contextMenu); // re-set contextMenu to reflect changes made above
       mainWindow.show();
     }
   });
@@ -220,10 +227,7 @@ function createWindow () {
   mainWindow.on('minimize', function () {
     if (appMenu.items[0].submenu.items[2].checked) { // appMenu Item 'Minimize To Tray'
       contextMenu.items[0].checked = false; // contextMenu Item 'Show Window'
-      // appMenu.items[0].submenu.items[2].checked = false; // appMenu Item 'Minimize To Tray'
-      console.log(contextMenu.items[0].checked);
-      contextMenu.items[0].checked = true;
-      console.log(contextMenu.items[0].checked);
+      trayIcon.setContextMenu(contextMenu); // re-set contextMenu to reflect changes made above
       mainWindow.hide();
     }
   });
