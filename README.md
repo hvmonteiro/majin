@@ -13,9 +13,11 @@ To clone and run this repository you'll need [Git](https://git-scm.com) and [Nod
 git clone https://github.com/hvmonteiro/majin
 # Go into the repository
 cd majin
-# Install dependencies and run the app
-npm install && npm start
+# Install dependencies
+npm install
+# Run the app 
+npm start
+_or_
+electron majin
 ```
 
-
-#### License [CC0 (Public Domain)](LICENSE.md)
