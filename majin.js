@@ -1,15 +1,21 @@
 'use strict';
 
+// Debug Log
+console.log(require('module').globalPaths);
+console.log(require('electron');
+
 const appName = 'Majin';
 
 // Electron module
 const electron = require('electron');
 
 // Module to control application life.
-const app = electron.app;
+// const app = electron.app;
+const app = require('app');
 
 // Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow;
+// const BrowserWindow = electron.BrowserWindow;
+const BrowserWindow = require('browser-window');
 
 // Module to create window main menu
 const Menu = electron.Menu;
