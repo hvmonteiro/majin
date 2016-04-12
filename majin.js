@@ -44,9 +44,9 @@ var mainMenu = [{
     type: 'checkbox',
     checked: false,
     click: function (item, mainWindow) {
-        mainWindow.setAlwaysOnTop(item.checked);
-        contextMenu.items[1].checked = item.checked;
-        trayIcon.setContextMenu(contextMenu);
+      mainWindow.setAlwaysOnTop(item.checked);
+      contextMenu.items[1].checked = item.checked;
+      trayIcon.setContextMenu(contextMenu);
     }
   }, {
     type: 'separator'
@@ -73,8 +73,11 @@ var mainMenu = [{
   }, {
     label: 'Quit',
     accelerator: 'CmdOrCtrl+Q',
-    click: function (item, focusedWindow) {
-      if (focusedWindow) focusedWindow.close();
+    click: function (item, BrowserWindow) {
+      if (mainWindow) {
+        BrowserWindow._events.close = null; // Unreference function show that App can close
+        app.quit();
+      }
     }
   }]
 }, {
@@ -157,7 +160,10 @@ var syscontextMenu = [{
   label: 'Quit',
   accelerator: 'CmdOrCtrl+Q',
   click: function (item, BrowserWindow) {
-    if (mainWindow) mainWindow.close();
+    if (mainWindow) {
+      BrowserWindow._events.close = null; // Unreference function show that App can close
+      app.quit();
+    }
   }
 }];
 
@@ -223,6 +229,10 @@ function createWindow () {
     appMenu.items[0].submenu.items[0].checked = contextMenu.items[1].checked;
   });
 
+  mainWindow.on('page-title-updated', function (e) {
+    e.preventDefault();
+  });
+
   //
   mainWindow.on('minimize', function () {
     if (appMenu.items[0].submenu.items[2].checked) { // appMenu Item 'Minimize To Tray'
@@ -232,44 +242,38 @@ function createWindow () {
     }
   });
 
-  // Emitted when the window is going to be closed, but it's still opened.
-  mainWindow.on('close', function (e) {
-    if (!appMenu.items[0].submenu.items[3].checked) { // appMenu Item 'Close To Tray'
-      console.log('Close to Tray' + appMenu.items[0].submenu.items[3].checked);
+  function onBeforeUnload (e) { // Working: but window is still always closed
+    console.log(mainWindow);
+    if (appMenu.items[0].submenu.items[3].checked) { // appMenu Item 'Close To Tray'
+      e.preventDefault();
+      mainWindow.hide();
       e.returnValue = false;
     } else {
       mainWindow = null;
     }
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-  });
+  }
+  // Emitted when the window is going to be closed, but it's still opened.
+  mainWindow.on('close', onBeforeUnload);
 
-  mainWindow.onbeforeunload = function(e) {
-      console.log('onbeforeunload');
+  /*
+  mainWindow.onbeforeunload = function (e) {
+    console.log('onbeforeunload');
     var remote = require('remote');
     var dialog = remote.require('dialog');
     var choice = dialog.showMessageBox(
-            remote.getCurrentWindow(),
-            {
-                type: 'question',
-                buttons: ['Yes', 'No'],
-                title: 'Confirm',
-                message: 'Are you sure you want to quit?'
-            });
+    remote.getCurrentWindow(),
+      {
+        type: 'question',
+        buttons: ['Yes', 'No'],
+        title: 'Confirm',
+        message: 'Are you sure you want to quit?'
+      });
     e.returnValue = false;
 
     return choice === 0;
-    /*
-    if (appMenu.items[0].submenu.items[4].checked) { // appMenu Item 'Close To Tray'
-      contextMenu.items[0].checked = false; // contextMenu Item 'Show Window'
-      e.returnValue = false;
-      e.preventDefault();
-      mainWindow.hide();
-    }
-*/
-};
 
+  };
+  */
   mainWindow.show();
 } // function createWindow
 
