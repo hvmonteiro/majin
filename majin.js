@@ -1,4 +1,4 @@
-//'use strict'; // jshint ignore:line
+// 'use strict'; // jshint ignore:line
 
 /* globals require: true, __dirname: true, process: true */
 
@@ -56,7 +56,7 @@ var mainMenu = [{
     accelerator: 'CmdOrCtrl+T',
     type: 'checkbox',
     checked: false,
-    click: function (item, mainWindow) {
+    click: function (item, BrowserWindow) {
       mainWindow.setAlwaysOnTop(item.checked);
       contextMenu.items[1].checked = item.checked;
       trayIcon.setContextMenu(contextMenu);
@@ -78,7 +78,7 @@ var mainMenu = [{
     label: 'Auto-Hide Menu Bar',
     type: 'checkbox',
     checked: true,
-    click: function (item, mainWindow) {
+    click: function (item, BrowserWindow) {
       mainWindow.setAutoHideMenuBar(item.checked);
     }
   }, {
@@ -86,7 +86,7 @@ var mainMenu = [{
   }, {
     label: 'Quit',
     accelerator: 'CmdOrCtrl+Q',
-    click: function (item, mainWindow) {
+    click: function (item, BrowserWindow) {
       if (mainWindow) {
         mainWindow._events.close = null; // Unreference function show that App can close
         app.quit();
@@ -98,7 +98,7 @@ var mainMenu = [{
   submenu: [{
     label: 'Home',
     accelerator: 'CmdOrCtrl+H',
-    click: function (item, mainWindow) {
+    click: function (item, BrowserWindow) {
       mainWindow.loadURL('file:///' + path.join(__dirname, 'index.html'), browserOptions);
     }
   }, {
@@ -106,19 +106,19 @@ var mainMenu = [{
   }, {
     label: 'Back',
     accelerator: 'CmdOrCtrl+Left',
-    click: function (item, mainWindow) {
+    click: function (item, BrowserWindow) {
       if (mainWindow) mainWindow.webContents.goBack();
     }
   }, {
     label: 'Reload',
     accelerator: 'CmdOrCtrl+R',
-    click: function (item, mainWindow) {
+    click: function (item, BrowserWindow) {
       if (mainWindow) mainWindow.reload();
     }
   }, {
     label: 'Forward',
     accelerator: 'CmdOrCtrl+Right',
-    click: function (item, mainWindow) {
+    click: function (item, BrowserWindow) {
       if (mainWindow) mainWindow.webContents.goForward();
     }
   }]
@@ -156,7 +156,7 @@ var syscontextMenu = [{
   label: 'Show Window',
   type: 'checkbox',
   checked: true,
-  click: function (item, mainWindow) {
+  click: function (item, BrowserWindow) {
     if (mainWindow.isVisible()) {
       mainWindow.hide();
       item.checked = false;
@@ -169,7 +169,7 @@ var syscontextMenu = [{
   label: 'On Top',
   type: 'checkbox',
   checked: false,
-  click: function (item, mainWindow) {
+  click: function (item, BrowserWindow) {
     mainWindow.setAlwaysOnTop(item.checked);
     appMenu.items[0].submenu.items[0].checked = item.checked;
   }
@@ -178,7 +178,7 @@ var syscontextMenu = [{
 }, {
   label: 'Quit',
   accelerator: 'CmdOrCtrl+Q',
-  click: function (item, mainWindow) {
+  click: function (item, BrowserWindow) {
     if (mainWindow) {
       mainWindow._events.close = null; // Unreference function show that App can close
       app.quit();
@@ -222,7 +222,7 @@ function createWindow () {
     }
   });
 
-  trayIcon.on('double-click', function (mainWindow) {
+  trayIcon.on('double-click', function (BrowserWindow) {
     if (mainWindow.isVisible()) {
       contextMenu.items[0].checked = false; // contextMenu Item 'Show Window'
       trayIcon.setContextMenu(contextMenu); // re-set contextMenu to reflect changes made above
@@ -240,8 +240,7 @@ function createWindow () {
   // mainWindow.loadURL('about:config', browserOptions);
   mainWindow.loadURL('file:///' + path.join(__dirname, 'index.html'), browserOptions);
 
-
-  mainWindow.on('show', function () {
+  mainWindow.on('show', function (BrowserWindow) {
     mainWindow.setAlwaysOnTop(contextMenu.items[1].checked); // contextMenu Item 'On Top'
     appMenu.items[0].submenu.items[0].checked = contextMenu.items[1].checked;
     mainWindow.on('close', onBeforeUnload);
