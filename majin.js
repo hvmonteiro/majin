@@ -1,4 +1,6 @@
-'use strict';
+//'use strict'; // jshint ignore:line
+
+/* globals require: true, __dirname: true, process: true */
 
 // Debug Log
 // console.log(require('module').globalPaths);
@@ -18,6 +20,9 @@ const app = require('app');
 // const BrowserWindow = electron.BrowserWindow;
 const BrowserWindow = require('browser-window');
 
+// Module to display a dialog box
+const dialog = require('electron').dialog;
+
 // Module to create window main menu
 const Menu = electron.Menu;
 
@@ -30,6 +35,7 @@ const browserOptions = {
   'userAgent': 'Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30'
 };
 
+var mainWindow = null;
 var trayIcon = null;
 var appMenu = null;
 var contextMenu = null;
@@ -72,15 +78,15 @@ var mainMenu = [{
     label: 'Auto-Hide Menu Bar',
     type: 'checkbox',
     checked: true,
-    click: function (item, focusedWindow) {
-      focusedWindow.setAutoHideMenuBar(item.checked);
+    click: function (item, mainWindow) {
+      mainWindow.setAutoHideMenuBar(item.checked);
     }
   }, {
     type: 'separator'
   }, {
     label: 'Quit',
     accelerator: 'CmdOrCtrl+Q',
-    click: function (item, BrowserWindow) {
+    click: function (item, mainWindow) {
       if (mainWindow) {
         mainWindow._events.close = null; // Unreference function show that App can close
         app.quit();
@@ -121,17 +127,26 @@ var mainMenu = [{
   submenu: [{
     label: 'Learn More',
     click: function () {
-      require('electron').shell.openExternal('https://github.com/hvmonteiro/majin');
+      electron.shell.openExternal('https://github.com/hvmonteiro/majin');
+    }
+  }, {
+    label: 'License',
+    click: function () {
+      dialog.showMessageBox({
+        'type': 'info',
+        'title': 'License',
+        buttons: ['Close'],
+        'message': ' '
+      });
     }
   }, {
     label: 'About',
     click: function () {
-      const dialog = require('electron').dialog;
       dialog.showMessageBox({
         'type': 'info',
         'title': 'About',
         buttons: ['Close'],
-        'message': 'Majin\n\n' + 'Mobile Browser for the Desktop\n\n' + 'Version: ' + appVersion
+        'message': 'Majin\nVersion ' + appVersion + '\nGPL 2.0 License'
       });
     }
   }]
@@ -141,7 +156,7 @@ var syscontextMenu = [{
   label: 'Show Window',
   type: 'checkbox',
   checked: true,
-  click: function (item, BrowserWindow) {
+  click: function (item, mainWindow) {
     if (mainWindow.isVisible()) {
       mainWindow.hide();
       item.checked = false;
@@ -154,7 +169,7 @@ var syscontextMenu = [{
   label: 'On Top',
   type: 'checkbox',
   checked: false,
-  click: function (item, BrowserWindow) {
+  click: function (item, mainWindow) {
     mainWindow.setAlwaysOnTop(item.checked);
     appMenu.items[0].submenu.items[0].checked = item.checked;
   }
@@ -163,7 +178,7 @@ var syscontextMenu = [{
 }, {
   label: 'Quit',
   accelerator: 'CmdOrCtrl+Q',
-  click: function (item, BrowserWindow) {
+  click: function (item, mainWindow) {
     if (mainWindow) {
       mainWindow._events.close = null; // Unreference function show that App can close
       app.quit();
@@ -176,10 +191,6 @@ contextMenu = Menu.buildFromTemplate(syscontextMenu);
 
 app.setName(appName);
 Menu.setApplicationMenu(appMenu);
-
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-let mainWindow;
 
 function createWindow () {
   // Create the browser window.
@@ -203,6 +214,7 @@ function createWindow () {
 
   trayIcon.setToolTip(appName + ' - Mobile Browser for the Desktop');
   trayIcon.setContextMenu(contextMenu);
+  trayIcon.setHighlightMode(false);
 
   trayIcon.on('click', function () {
     if (mainWindow === null) {
@@ -210,15 +222,17 @@ function createWindow () {
     }
   });
 
-  trayIcon.on('double-click', function () {
+  trayIcon.on('double-click', function (mainWindow) {
     if (mainWindow.isVisible()) {
       contextMenu.items[0].checked = false; // contextMenu Item 'Show Window'
       trayIcon.setContextMenu(contextMenu); // re-set contextMenu to reflect changes made above
       mainWindow.hide();
+      console.log('hide');
     } else {
       contextMenu.items[0].checked = true; // contextMenu Item 'Show Window'
       trayIcon.setContextMenu(contextMenu); // re-set contextMenu to reflect changes made above
       mainWindow.show();
+      console.log('show');
     }
   });
 
