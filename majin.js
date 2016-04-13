@@ -1,10 +1,11 @@
 'use strict';
 
 // Debug Log
-console.log(require('module').globalPaths);
-console.log(require('electron');
+// console.log(require('module').globalPaths);
+// console.log(require('electron'));
 
 const appName = 'Majin';
+const appVersion = '0.1';
 
 // Electron module
 const electron = require('electron');
@@ -70,7 +71,7 @@ var mainMenu = [{
   }, {
     label: 'Auto-Hide Menu Bar',
     type: 'checkbox',
-    checked: 'true',
+    checked: true,
     click: function (item, focusedWindow) {
       focusedWindow.setAutoHideMenuBar(item.checked);
     }
@@ -81,7 +82,7 @@ var mainMenu = [{
     accelerator: 'CmdOrCtrl+Q',
     click: function (item, BrowserWindow) {
       if (mainWindow) {
-        BrowserWindow._events.close = null; // Unreference function show that App can close
+        mainWindow._events.close = null; // Unreference function show that App can close
         app.quit();
       }
     }
@@ -123,18 +124,16 @@ var mainMenu = [{
       require('electron').shell.openExternal('https://github.com/hvmonteiro/majin');
     }
   }, {
-    label: 'About'
-    /*
+    label: 'About',
     click: function () {
-      var remote = require('remote');
-      var dialog = remote.require('dialog');
+      const dialog = require('electron').dialog;
       dialog.showMessageBox({
         'type': 'info',
         'title': 'About',
         buttons: ['Close'],
-        'message': 'Mobile DEsktop Browser that can be minimized to desktop\'s tray.'
+        'message': 'Majin\n\n' + 'Mobile Browser for the Desktop\n\n' + 'Version: ' + appVersion
       });
-  }*/
+    }
   }]
 }];
 
@@ -150,7 +149,6 @@ var syscontextMenu = [{
       mainWindow.show();
       item.checked = true;
     }
-    console.log(contextMenu.items[0].checked);
   }
 }, {
   label: 'On Top',
@@ -167,7 +165,7 @@ var syscontextMenu = [{
   accelerator: 'CmdOrCtrl+Q',
   click: function (item, BrowserWindow) {
     if (mainWindow) {
-      BrowserWindow._events.close = null; // Unreference function show that App can close
+      mainWindow._events.close = null; // Unreference function show that App can close
       app.quit();
     }
   }
@@ -228,11 +226,11 @@ function createWindow () {
   // mainWindow.loadURL('about:config', browserOptions);
   mainWindow.loadURL('file:///' + path.join(__dirname, 'index.html'), browserOptions);
 
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+
   mainWindow.on('show', function () {
     mainWindow.setAlwaysOnTop(contextMenu.items[1].checked); // contextMenu Item 'On Top'
     appMenu.items[0].submenu.items[0].checked = contextMenu.items[1].checked;
+    mainWindow.on('close', onBeforeUnload);
   });
 
   mainWindow.on('page-title-updated', function (e) {
@@ -249,9 +247,10 @@ function createWindow () {
   });
 
   function onBeforeUnload (e) { // Working: but window is still always closed
-    console.log(mainWindow);
     if (appMenu.items[0].submenu.items[3].checked) { // appMenu Item 'Close To Tray'
       e.preventDefault();
+      contextMenu.items[0].checked = false;
+      trayIcon.setContextMenu(contextMenu);
       mainWindow.hide();
       e.returnValue = false;
     } else {
@@ -263,7 +262,6 @@ function createWindow () {
 
   /*
   mainWindow.onbeforeunload = function (e) {
-    console.log('onbeforeunload');
     var remote = require('remote');
     var dialog = remote.require('dialog');
     var choice = dialog.showMessageBox(
