@@ -55,7 +55,7 @@ var mainMenu = [{
     label: 'On Top',
     accelerator: 'CmdOrCtrl+T',
     type: 'checkbox',
-    checked: false,
+    checked: true,
     click: function (item, BrowserWindow) {
       mainWindow.setAlwaysOnTop(item.checked);
       contextMenu.items[1].checked = item.checked;
@@ -71,7 +71,7 @@ var mainMenu = [{
   }, {
     label: 'Close to Tray ',
     type: 'checkbox',
-    checked: true
+    checked: false
   }, {
     type: 'separator'
   }, {
@@ -99,7 +99,7 @@ var mainMenu = [{
     label: 'Home',
     accelerator: 'CmdOrCtrl+H',
     click: function (item, BrowserWindow) {
-      mainWindow.loadURL('file:///' + path.join(__dirname, 'index.html'), browserOptions);
+      mainWindow.loadURL('file:///' + path.join(__dirname, 'majin.html'), browserOptions);
     }
   }, {
     type: 'separator'
@@ -168,7 +168,7 @@ var syscontextMenu = [{
 }, {
   label: 'On Top',
   type: 'checkbox',
-  checked: false,
+  checked: true,
   click: function (item, BrowserWindow) {
     mainWindow.setAlwaysOnTop(item.checked);
     appMenu.items[0].submenu.items[0].checked = item.checked;

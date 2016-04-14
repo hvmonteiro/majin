@@ -1,6 +1,29 @@
 #!/bin/bash
 
-NODE_PATH="/usr/lib/node_modules"
+
+
+_check_requirements()   {
+   
+   echo "Checking requirements..." 
+   npm -g ls rcedit > /dev/null 2>&1
+   if [ $? -ne 0 ]; then # Not found globaly, let's check localy
+
+       npm ls rcedit > /dev/null 2>&1
+       if [ $? -ne 0 ]; then
+           # Not found, let's try to install it localy 
+           npm install rcedit 
+           if [ $? -ne 0 ]; then
+               echo "Error: Mandatory NodeJS module 'rcedit' was not found installed. Further more,"
+               echo "     an unknown error was found trying to install it. Check logs for further"
+               echo "      information."
+               echo "Exiting ..."
+               exit 1
+           fi
+       fi
+   fi
+}
+
+NODE_PATH="${NODE_PATH:=/usr/lib/node_modules}"
 
 APP_NAME="Majin"
 APP_PLATFORM=""
@@ -30,19 +53,19 @@ case "$1" in
             APP_ARCH="x64"
             APP_ICON="images/icon@3.png"
             ;;
-        macos)
+        osx)
             APP_PLATFORM="darwin"
             APP_ARCH="x64"
             APP_ICON=""
             ;;
         all)
-            for build in win32 win64 linux32 linux64 macos; do
+            for build in win32 win64 linux32 linux64 osx; do
                 $0 $build
             done
             ;;
         *)
             echo ""
-            echo " usage: ${0##*/} [win32|win64|all]"
+            echo " usage: ${0##*/} [win32|win64|linux32|linux64|osx|all]"
             echo ""
             exit 2
             ;;

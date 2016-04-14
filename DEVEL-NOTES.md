@@ -43,6 +43,9 @@ https://github.com/electron/asar
 ## Application Distribution
 http://electron.atom.io/docs/v0.37.4/tutorial/application-distribution/
 
+## Windows Installer
+http://www.jrsoftware.org/
+
 
 
 
