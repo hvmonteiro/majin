@@ -268,7 +268,7 @@ function createWindow () {
     }
   });
 
-  function onBeforeUnload (e) { // Working: but window is still always closed
+  function onBeforeUnload (e, BrowserWindow) { // Working: but window is still always closed
     if (appMenu.items[0].submenu.items[3].checked) { // appMenu Item 'Close To Tray'
       e.preventDefault();
       contextMenu.items[0].checked = false;
@@ -276,49 +276,54 @@ function createWindow () {
       mainWindow.hide();
       e.returnValue = false;
     } else {
-      mainWindow = null;
+      /*
+      let onTopOption = appMenu.items[0].submenu.items[0].checked;
+      if (mainWindow) mainWindow.setAlwaysOnTop(false);
+      let choice = dialog.showMessageBox({
+        type: 'question',
+        title: 'Confirm',
+        message: 'Are you sure you want to quit?',
+        buttons: ['Yes', 'No']
+      });
+      if (mainWindow) mainWindow.setAlwaysOnTop(onTopOption);
+      if (choice === 0) {   // Yes
+        console.log(choice);
+        e.returnValue = true;
+          app.quit();
+        return choice;
+      } else {              // No
+        e.preventDefault();
+        e.returnValue = false;
+        return choice;
+      }*/
+      mainWindow._events.close = null; // Unreference function show that App can close
+      e.returnValue = false;
     }
   }
   // Emitted when the window is going to be closed, but it's still opened.
   mainWindow.on('close', onBeforeUnload);
 
-  mainWindow.webContents.on('did-start-loading', function (e, cmd) {
-    // Navigate the window back when the user hits their mouse back button
-    if (cmd === 'browser-backward' && mainWindow.webContents.canGoBack()) {
+  mainWindow.webContents.on('did-start-loading', function (e) {
+    console.log(mainWindow.webContents.canGoBack());
+    // Enable/Disable Navigation subMenu item "Back"
+    if (mainWindow.webContents.canGoBack()) {
       appMenu.items[1].submenu.items[2].enabled = true;
     } else {
       appMenu.items[1].submenu.items[2].enabled = false;
     }
-    // Navigate the window forward when the user hits their mouse forward button
-    if (cmd === 'browser-forward' && mainWindow.webContents.canGoForward()) {
+    // Enable/Disable Navigation subMenu item "Forward"
+    if (mainWindow.webContents.canGoForward()) {
       appMenu.items[1].submenu.items[4].enabled = true;
     } else {
       appMenu.items[1].submenu.items[4].enabled = false;
     }
   });
   mainWindow.webContents.on('new-window', function (e, goToURL) {
-    // prevent a new window being created (ex: target='_blank', etc.)
+    // prevent a new window of being created (ex: target='_blank', etc.)
     e.preventDefault();
     mainWindow.loadURL(goToURL);
   });
-  /*
-  mainWindow.onbeforeunload = function (e) {
-    var remote = require('remote');
-    var dialog = remote.require('dialog');
-    var choice = dialog.showMessageBox(
-    remote.getCurrentWindow(),
-      {
-        type: 'question',
-        buttons: ['Yes', 'No'],
-        title: 'Confirm',
-        message: 'Are you sure you want to quit?'
-      });
-    e.returnValue = false;
 
-    return choice === 0;
-
-  };
-  */
   mainWindow.show();
 } // function createWindow
 
