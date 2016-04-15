@@ -34,7 +34,7 @@ IGNORE_LIST="(resources|(.*).zip|build.sh|devel-notes.md|README*|node_modules/de
 case "$1" in
 
         win32)
-            APP_PLATFORM="win62"
+            APP_PLATFORM="win32"
             APP_ARCH="ia32"
             APP_ICON="images/icon@3.png"
             ;;
@@ -72,7 +72,7 @@ case "$1" in
 esac
 
 [ -d "${APP_NAME}-${APP_PLATFORM}-${APP_ARCH}" ] && rm -rf "${APP_NAME}-${APP_PLATFORM}-${APP_ARCH}"
-rm -f ./*.zip
+rm -f ${APP_NAME}-${APP_PLATFORM}-${APP_ARCH}.zip
 
 echo "Creating package for application named '$APP_NAME'"
 electron-packager . "$APP_NAME" \
