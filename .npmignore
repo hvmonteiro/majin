@@ -1,0 +1,8 @@
+/.*
+/Gruntfile.js
+/Majin-*
+/*.zip
+/test/
+/majin.iss
+/DEVEL-NOTES.md
+/build.sh
