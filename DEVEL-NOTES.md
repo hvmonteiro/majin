@@ -1,3 +1,7 @@
+# Description
+This file lists all URLs references used to help developing this application.
+
+
 # Electron API
 
 ## Quick Start Tutorial:
@@ -73,5 +77,9 @@ http://www.gimp.org/
 ## Command line tool to edit resources of .exe files
 https://github.com/atom/rcedit
 
+## Google Custom Search Engine
+https://developers.google.com/custom-search/docs/element
+
 # Licensing
 http://choosealicense.com/licenses/
+
