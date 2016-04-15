@@ -2,12 +2,13 @@
 
 /* globals require: true, __dirname: true, process: true */
 
+// Copyright (c) 2016 Hugo V. Monteiro
+// // Use of this source code is governed by the GPL-2.0 license that can be
+// // found in the LICENSE file.
+
 // Debug Log
 // console.log(require('module').globalPaths);
 // console.log(require('electron'));
-
-const appName = 'Majin';
-const appVersion = '0.1';
 
 // Electron module
 const electron = require('electron');
@@ -23,6 +24,8 @@ const BrowserWindow = require('browser-window');
 // Module to display a dialog box
 const dialog = require('electron').dialog;
 
+const path = require('path');
+
 // Module to create window main menu
 const Menu = electron.Menu;
 
@@ -35,12 +38,14 @@ const browserOptions = {
   'userAgent': 'Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30'
 };
 
+const appName = 'Majin';
+const appVersion = '0.1';
+const homePageURL = 'file://' + path.join(__dirname, 'majin.html');
+
 var mainWindow = null;
 var trayIcon = null;
 var appMenu = null;
 var contextMenu = null;
-
-var path = require('path');
 
 var menuName = '';
 if (process.platform === 'darwin') {
@@ -99,12 +104,13 @@ var mainMenu = [{
     label: 'Home',
     accelerator: 'CmdOrCtrl+H',
     click: function (item, BrowserWindow) {
-      mainWindow.loadURL('file:///' + path.join(__dirname, 'majin.html'), browserOptions);
+      mainWindow.loadURL(homePageURL, browserOptions);
     }
   }, {
     type: 'separator'
   }, {
     label: 'Back',
+    enabled: false,
     accelerator: 'CmdOrCtrl+Left',
     click: function (item, BrowserWindow) {
       if (mainWindow) mainWindow.webContents.goBack();
@@ -117,6 +123,7 @@ var mainMenu = [{
     }
   }, {
     label: 'Forward',
+    enabled: false,
     accelerator: 'CmdOrCtrl+Right',
     click: function (item, BrowserWindow) {
       if (mainWindow) mainWindow.webContents.goForward();
@@ -141,13 +148,16 @@ var mainMenu = [{
     }
   }, {
     label: 'About',
-    click: function () {
+    click: function (item, BrowserWindow) {
+      let onTopOption = mainWindow.isAlwaysOnTop();
+      mainWindow.setAlwaysOnTop(false);
       dialog.showMessageBox({
         'type': 'info',
         'title': 'About',
         buttons: ['Close'],
         'message': 'Majin\nVersion ' + appVersion + '\nGPL 2.0 License'
       });
+      mainWindow.setAlwaysOnTop(onTopOption);
     }
   }]
 }];
@@ -236,9 +246,8 @@ function createWindow () {
     }
   });
 
-  // and load the index.html of the app.
   // mainWindow.loadURL('about:config', browserOptions);
-  mainWindow.loadURL('file:///' + path.join(__dirname, 'index.html'), browserOptions);
+  mainWindow.loadURL(homePageURL, browserOptions);
 
   mainWindow.on('show', function (BrowserWindow) {
     mainWindow.setAlwaysOnTop(contextMenu.items[1].checked); // contextMenu Item 'On Top'
@@ -273,6 +282,25 @@ function createWindow () {
   // Emitted when the window is going to be closed, but it's still opened.
   mainWindow.on('close', onBeforeUnload);
 
+  mainWindow.webContents.on('did-start-loading', function (e, cmd) {
+    // Navigate the window back when the user hits their mouse back button
+    if (cmd === 'browser-backward' && mainWindow.webContents.canGoBack()) {
+      appMenu.items[1].submenu.items[2].enabled = true;
+    } else {
+      appMenu.items[1].submenu.items[2].enabled = false;
+    }
+    // Navigate the window forward when the user hits their mouse forward button
+    if (cmd === 'browser-forward' && mainWindow.webContents.canGoForward()) {
+      appMenu.items[1].submenu.items[4].enabled = true;
+    } else {
+      appMenu.items[1].submenu.items[4].enabled = false;
+    }
+  });
+  mainWindow.webContents.on('new-window', function (e, goToURL) {
+    // prevent a new window being created (ex: target='_blank', etc.)
+    e.preventDefault();
+    mainWindow.loadURL(goToURL);
+  });
   /*
   mainWindow.onbeforeunload = function (e) {
     var remote = require('remote');
