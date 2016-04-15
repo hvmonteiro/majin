@@ -1,12 +1,12 @@
 {
-  "name": "Majin",
+  "name": "majin",
+  "productName": "Majin",
   "version": "0.0.1",
   "description": "Mobile Browser for the Desktop",
-  "desktopName": "*.desktop",
   "main": "majin.js",
   "scripts": {
     "start": "electron majin.js",
-    "build-packages": "./build all"
+    "build": "./build.sh all"
   },
   "repository": {
     "type": "git",
@@ -27,20 +27,34 @@
   },
   "homepage": "https://github.com/hvmonteiro/majin",
   "devDependencies": {
+    "electron-packager": "^6.0.0",
     "electron-prebuilt": "^0.36.0",
     "remote": "^0.2.6",
     "dialog": "^0.1.8",
     "path": ">=0.4.9",
     "menu": "0.2.5",
-    "grunt-rcedit": "0.2.5",
-    "electron-packager": "^6.0.0"
+    "grunt-rcedit": "0.2.5"
+  },
+  "dependencies": {
+    "electron": "^6.0.0",
+    "remote": "^0.2.6",
+    "dialog": "^0.1.8",
+    "path": ">=0.4.9",
+    "menu": "0.2.5"
   },
   "engines": {
     "node": "^4.4.1",
     "npm": "2.14.20",
     "electron-prebuilt": "0.37.2"
-},
-"os" : [ "darwin", "linux", "win32"],
-"cpu": [ "x64", "ia32"],
-"private": true
+  },
+  "os" : [ 
+      "darwin", 
+      "linux", 
+      "win32"
+  ],
+  "cpu": [ 
+      "x64", 
+      "ia32"
+  ],
+  "private": true
 }
