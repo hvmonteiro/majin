@@ -50,6 +50,8 @@ http://electron.atom.io/docs/v0.37.4/tutorial/application-distribution/
 ## Windows Installer
 http://www.jrsoftware.org/
 
+## Javascript implementation of zip for nodejs
+https://www.npmjs.com/package/adm-zip
 
 
 
@@ -82,4 +84,3 @@ https://developers.google.com/custom-search/docs/element
 
 # Licensing
 http://choosealicense.com/licenses/
-
