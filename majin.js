@@ -1,5 +1,6 @@
 // 'use strict'; // jshint ignore:line
 
+// jshint esversion: 6
 /* globals require: true, __dirname: true, process: true */
 
 // Copyright (c) 2016 Hugo V. Monteiro
