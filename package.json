@@ -6,7 +6,8 @@
   "main": "majin.js",
   "scripts": {
     "start": "electron majin.js",
-    "build": "./build.sh all"
+    "build": "./build.sh all",
+    "test": "jshint majin.js"
   },
   "repository": {
     "type": "git",
