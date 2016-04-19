@@ -2,4 +2,4 @@ anguage: node_js
 node_js:
   - "4.1"
   
-script: snpm test
+script: npm test
