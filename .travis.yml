@@ -1,5 +1,7 @@
 anguage: node_js
 node_js:
   - "4.1"
-  
+
+before_script:
+  - npm install --save_dev
 script: npm test
