@@ -7,7 +7,7 @@
   "scripts": {
     "start": "electron majin.js",
     "build": "./build.sh all",
-    "test": "jshint majin.js"
+    "test": "./node_modules/jshint/bin/jshint majin.js"
   },
   "repository": {
     "type": "git",
@@ -35,7 +35,8 @@
     "grunt-rcedit": "^0.4.0",
     "menu": "0.2.5",
     "path": ">=0.4.9",
-    "remote": "^0.2.6"
+    "remote": "^0.2.6",
+    "jshint": "^2.6.0"
   },
   "dependencies": {
     "electron": "^6.0.0",
