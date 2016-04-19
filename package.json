@@ -29,7 +29,7 @@
   "homepage": "https://github.com/hvmonteiro/majin",
   "devDependencies": {
     "dialog": "^0.1.8",
-    "electron-packager": "^6.0.0",
+    "electron-packager": ">6.0.0",
     "electron-prebuilt": "^0.36.0",
     "grunt": "^0.4.5",
     "grunt-rcedit": "^0.4.0",
