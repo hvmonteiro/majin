@@ -55,6 +55,22 @@ https://www.npmjs.com/package/adm-zip
 
 
 
+# Testing & Building
+
+## Travis CI
+https://travis-ci.org/
+
+## HTML Validator for NodeJS
+https://www.npmjs.com/package/html-validator
+
+## HTML Validator Command Line
+https://www.npmjs.com/package/html-validator-cli
+
+## JSHint validator for NodeJS
+https://www.npmjs.com/package/jshint
+
+
+
 # Misc References
 
 ## Electron System tray menu module:
@@ -62,7 +78,6 @@ https://github.com/maxogden/menubar
 
 ## System Tray menu module example Application:
 https://github.com/maxogden/monu
-
 
 ## Web Device Metrics
 http://www.useragentstring.com/pages/Mobile%20Browserlist
@@ -84,3 +99,4 @@ https://developers.google.com/custom-search/docs/element
 
 # Licensing
 http://choosealicense.com/licenses/
+
