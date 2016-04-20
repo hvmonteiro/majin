@@ -7,6 +7,7 @@
   "scripts": {
     "start": "electron majin.js",
     "build": "./build.sh all",
+    "pretest": "./node_modules/html-validator-cli/index.js --file=majin.html",
     "test": "./node_modules/jshint/bin/jshint majin.js"
   },
   "repository": {
@@ -34,7 +35,9 @@
     "remote": "^0.2.6",
     "dialog": "^0.1.8",
     "electron-packager": ">6.0.0",
-    "jshint": "^2.6.0"
+    "jshint": "^2.6.0",
+    "html-validator": "^1.0.0",
+    "html-validator-cli": "^2.0.0"
   },
   "dependencies": {
     "electron-prebuilt": "^0.36.0",
