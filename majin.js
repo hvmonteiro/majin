@@ -77,7 +77,7 @@ var mainMenu = [{
   }, {
     label: 'Close to Tray ',
     type: 'checkbox',
-    checked: false
+    checked: true
   }, {
     type: 'separator'
   }, {
