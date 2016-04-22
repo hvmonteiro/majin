@@ -29,4 +29,8 @@ npm start
 -or-
 electron .
 ```
+# License
+Majin, Copyright (C) 2016 Hugo V. Monteiro
+Majin comes with ABSOLUTELY NO WARRANTY.
+This is free software, and you are welcome to redistribute it under certain conditions, see LICENSE file.
 
