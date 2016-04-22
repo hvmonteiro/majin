@@ -15,9 +15,8 @@ APP_COPYRIGHT="Copyright (c) 2016, Hugo V. Monteiro"
 APP_PLATFORM=""
 APP_ARCH=""
 APP_ICON=""
-IGNORE_LIST="(resources|(.*).zip|build.sh|devel-notes.md|README*|node_modules/dev-dependency|build)"
-
-BUILD_DEPENDENCIES="electron-prebuilt"
+IGNORE_LIST="(resources|(.*).zip|build.sh|devel-notes.md|README*|node_modules/dev-dependency|$BUILD_DIR)"
+EXTRA_PARAMS=""
 
 _my_exit() {
 
@@ -84,19 +83,34 @@ case "$1" in
             APP_ARCH="x64"
             APP_ICON="images/icon@3.png"
             ;;
-        osx)
+        darwin)
             APP_PLATFORM="darwin"
             APP_ARCH="x64"
             APP_ICON="images/icon@3.hqx"
             ;;
+        mas)
+            APP_PLATFORM="mas"
+            APP_ARCH="x64"
+            APP_ICON="images/icon@3.hqx"
+            ;;
         all)
-            for build in win32 win64 linux32 linux64 osx; do
-                $0 $build
-            done
+            APP_PLATFORM="all"
+            APP_ARCH="all"
+            APP_ICON="images/icon@3.co"
+            EXTRA_PARAMS="--version-string.CompanyName='Hugo Monteiro' \
+--version-string.ProductName='$APP_NAME' \
+--version-string.OriginalFilename='${APP_NAME}.exe' \
+--version-string.ProductName='$APP_NAME' \
+--version-string.InternalName='$APP_NAME' \
+--app-FileDescription='$APP_DESCRIPTION' \
+--app-copyright='$APP_COPYRIGHT' \
+--app-version='$APP_VERSION' \
+--build-version='$APP_BUILD_VERSION' \
+"
             ;;
         *)
             echo ""
-            echo " usage: ${0##*/} [win32|win64|linux32|linux64|osx|all]"
+            echo " usage: ${0##*/} [win32|win64|linux32|linux64|darwin|mas|all]"
             echo ""
             _my_exit 2
             ;;
