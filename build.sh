@@ -108,7 +108,7 @@ echo "Building application $APP_NAME version $APP_VERSION ($APP_BUILD_VERSION)..
 _init
 
 echo "Installing build dependencies..."
-#npm install --save-dev
+npm install --save-dev
 
 echo ""
 electron-packager . "$APP_NAME" \
