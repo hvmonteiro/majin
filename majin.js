@@ -1,11 +1,11 @@
-// 'use strict'; // jshint ignore:line
+'use strict'; // jshint ignore:line
 
 // jshint esversion: 6
-/* globals require: true, __dirname: true, process: true */
+/* globals require: true, __dirname: true, process: true, console: true */
 
 // Copyright (c) 2016 Hugo V. Monteiro
-// // Use of this source code is governed by the GPL-2.0 license that can be
-// // found in the LICENSE file.
+// Use of this source code is governed by the GPL-2.0 license that can be
+// found in the LICENSE file.
 
 // Debug Log
 // console.log(require('module').globalPaths);
@@ -15,11 +15,9 @@
 const electron = require('electron');
 
 // Module to control application life.
-// const app = electron.app;
 const app = require('app');
 
 // Module to create native browser window.
-// const BrowserWindow = electron.BrowserWindow;
 const BrowserWindow = require('browser-window');
 
 // Module to display a dialog box
@@ -41,6 +39,11 @@ const browserOptions = {
 
 const appName = 'Majin';
 const appVersion = '0.1';
+const appCopyright = 'Copyright (c) 2016, Hugo V. Monteiro';
+const appLicense = 'Licensed under GPL 2.0';
+const appWebURL = 'https://github.com/hvmonteiro/majin';
+const appSupportURL = 'https://github.com/hvmonteiro/majin/issues';
+
 const homePageURL = 'file://' + path.join(__dirname, 'majin.html');
 
 var mainWindow = null;
@@ -98,8 +101,8 @@ var mainMenu = [{
         app.quit();
       }
     }
-  }]
-}, {
+  }
+]}, {
   label: 'Navigation',
   submenu: [{
     label: 'Home',
@@ -129,23 +132,18 @@ var mainMenu = [{
     click: function (item, BrowserWindow) {
       if (mainWindow) mainWindow.webContents.goForward();
     }
-  }]
-}, {
+  }
+]}, {
   label: 'About',
   submenu: [{
     label: 'Learn More',
     click: function () {
-      electron.shell.openExternal('https://github.com/hvmonteiro/majin');
+      electron.shell.openExternal(appWebURL);
     }
   }, {
-    label: 'License',
+    label: 'Support',
     click: function () {
-      dialog.showMessageBox({
-        'type': 'info',
-        'title': 'License',
-        buttons: ['Close'],
-        'message': ' '
-      });
+      electron.shell.openExternal(appSupportURL);
     }
   }, {
     label: 'About',
@@ -156,7 +154,7 @@ var mainMenu = [{
         'type': 'info',
         'title': 'About',
         buttons: ['Close'],
-        'message': 'Majin\nVersion ' + appVersion + '\nGPL 2.0 License'
+        'message': appName + '\nVersion ' + appVersion + '\n' + appCopyright +'\n' + appLicense
       });
       mainWindow.setAlwaysOnTop(onTopOption);
     }
