@@ -2,21 +2,23 @@
 
 
 SAVED_DIR="$PWD"
-BUILD_DIR="build"
-
-NODE_PATH="${NODE_PATH:=/usr/lib/node_modules}"
+BUILD_DIR="./build"
+BUILD_DIR_LIST="target packages"
 
 APP_NAME="Majin"
 APP_VERSION="0.1"
 APP_BUILD_VERSION="0000"
 APP_DESCRIPTION="Majin - Mobile Browser for the Desktop"
 APP_COPYRIGHT="Copyright (c) 2016, Hugo V. Monteiro"
+APP_AUTHOR="Hugo V. Monteiro"
 
 APP_PLATFORM=""
 APP_ARCH=""
 APP_ICON=""
 IGNORE_LIST="(resources|(.*).zip|build.sh|devel-notes.md|README*|node_modules/dev-dependency|$BUILD_DIR)"
 EXTRA_PARAMS=""
+
+NODE_PATH="${NODE_PATH:=/usr/lib/node_modules}"
 
 _my_exit() {
 
@@ -30,15 +32,30 @@ _my_exit() {
     exit "$EXIT_CODE"
 }
 
-_cleanup()  {
+_init()  {
 
-    [ -d "${BUILD_DIR}/${APP_NAME}-${APP_PLATFORM}-${APP_ARCH}" ] && rm -rf "${BUILD_DIR}/${APP_NAME}-${APP_PLATFORM}-${APP_ARCH}"
-    rm -f "${BUILD_DIR}/${APP_NAME}-${APP_PLATFORM}-${APP_ARCH}.zip"
+    echo ""
+    if [ -d "$BUILD_DIR" ]; then
+        echo "Removing existing build directory: $BUILD_DIR"
+        rm -rf "$BUILD_DIR"
+    fi
 
+    echo "Creating build directories: "
+    for TMP_DIR in $BUILD_DIR_LIST; do
+        mkdir -v -p "$BUILD_DIR/$TMP_DIR"
+        [ $? -ne 0 ] && _my_exit $?
+    done
+    echo ""
+
+    unalias which > /dev/null 2>&1
+
+    # Check if zip is installed
+    which zip > /dev/null 2>&1
+    if [ $? -ne 0 ]; then
+        echo "Error: 'zip' command not found. Exiting..."
+        _my_exit 1
+    fi
 }
-
-# Let's save currect directory.
-pushd . > /dev/null
 
 
 case "$1" in
@@ -47,31 +64,11 @@ case "$1" in
             APP_PLATFORM="win32"
             APP_ARCH="ia32"
             APP_ICON="images/icon@3.png"
-            EXTRA_PARAMS="--version-string.CompanyName='Hugo Monteiro' \
---version-string.ProductName='$APP_NAME' \
---version-string.OriginalFilename='${APP_NAME}.exe' \
---version-string.ProductName='$APP_NAME' \
---version-string.InternalName='$APP_NAME' \
---app-FileDescription='$APP_DESCRIPTION' \
---app-copyright='$APP_COPYRIGHT' \
---app-version='$APP_VERSION' \
---build-version='$APP_BUILD_VERSION' \
-"
             ;;
         win64)
             APP_PLATFORM="win32"
             APP_ARCH="x64"
             APP_ICON="images/icon@3.png"
-            EXTRA_PARAMS="--version-string.CompanyName='Hugo Monteiro' \
---version-string.ProductName='$APP_NAME' \
---version-string.OriginalFilename='${APP_NAME}.exe' \
---version-string.ProductName='$APP_NAME' \
---version-string.InternalName='$APP_NAME' \
---app-FileDescription='$APP_DESCRIPTION' \
---app-copyright='$APP_COPYRIGHT' \
---app-version='$APP_VERSION' \
---build-version='$APP_BUILD_VERSION' \
-"
             ;;
         linux32)
             APP_PLATFORM="linux"
@@ -97,16 +94,6 @@ case "$1" in
             APP_PLATFORM="all"
             APP_ARCH="all"
             APP_ICON="images/icon@3.co"
-            EXTRA_PARAMS="--version-string.CompanyName='Hugo Monteiro' \
---version-string.ProductName='$APP_NAME' \
---version-string.OriginalFilename='${APP_NAME}.exe' \
---version-string.ProductName='$APP_NAME' \
---version-string.InternalName='$APP_NAME' \
---app-FileDescription='$APP_DESCRIPTION' \
---app-copyright='$APP_COPYRIGHT' \
---app-version='$APP_VERSION' \
---build-version='$APP_BUILD_VERSION' \
-"
             ;;
         *)
             echo ""
@@ -116,36 +103,54 @@ case "$1" in
             ;;
 esac
 
-_cleanup
+echo "Building application $APP_NAME version $APP_VERSION ($APP_BUILD_VERSION)..."
 
-if [ ! -d "$BUILD_DIR" ]; then
-    echo "Creating build directory: $BUILD_DIR"
-    mkdir -p $BUILD_DIR 
-    [ $? -ne 0 ] && _my_exit $?
-fi
+_init
 
-echo "Installating build dependencies: "
-echo ""
+echo "Installing build dependencies..."
 npm install --save-dev
-echo ""
-echo "Creating package for application named '$APP_NAME'"
 echo ""
 electron-packager . "$APP_NAME" \
 --platform="$APP_PLATFORM" \
 --arch="$APP_ARCH" \
 --icon="$APP_ICON" \
+--version-string.CompanyName="$APP_AUTHOR" \
+--version-string.ProductName="$APP_NAME" \
+--version-string.OriginalFilename="${APP_NAME}.exe" \
+--version-string.ProductName="$APP_NAME" \
+--version-string.InternalName="$APP_NAME" \
+--app-FileDescription="$APP_DESCRIPTION" \
+--app-copyright="$APP_COPYRIGHT" \
+--app-version="$APP_VERSION" \
+--build-version="$APP_BUILD_VERSION" \
 --ignore="$IGNORE_LIST" \
 --asar \
 --overwrite \
---out="$BUILD_DIR" \
+--tmpdir=false \
+--out="$BUILD_DIR/target" \
 "$EXTRA_PARAMS"
-[ $? -ne 0 ] && _my_exit 1
+if [ $? -ne 0 ]; then
+    echo "Error: An unexpected error ocurred. Check output formore information. Exiting..."
+    _my_exit 1
+fi
 
-cd "$BUILD_DIR"
+cd "$BUILD_DIR/target"
+
 echo ""
-echo "Creating ZIP package '${APP_NAME}-${APP_PLATFORM}-${APP_ARCH}.zip'"
-zip -qo9r "${APP_NAME}-${APP_PLATFORM}-${APP_ARCH}.zip" "${APP_NAME}-${APP_PLATFORM}-${APP_ARCH}"
+echo "Creating Packages: "
+for DIR in $(ls --hide "*.zip" --color=never); do
+    echo "- Creating ZIP package '${DIR}.zip'"
+    zip -qo9r "../packages/${DIR}.zip" "$DIR"
+    if [ $? -ne 0 ]; then
+        echo "Error: An unexpected error ocurred. Check output formore information. Exiting..."
+        _my_exit 1
+    fi
+done
+echo ""
 
 cd "$SAVED_DIR"
 
+echo "Finished successfuly."
+
 exit 0
+
