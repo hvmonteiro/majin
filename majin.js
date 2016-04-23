@@ -38,7 +38,7 @@ const browserOptions = {
 };
 
 const appName = 'Majin';
-const appVersion = '0.1';
+const appVersion = '0.0.1';
 const appCopyright = 'Copyright (c) 2016, Hugo V. Monteiro';
 const appLicense = 'Licensed under GPL 2.0';
 const appWebURL = 'https://github.com/hvmonteiro/majin';
