@@ -3,5 +3,5 @@ node_js:
   - "4.1"
 sudo: false
 before_script:
-  - npm install --save_dev
+  - npm install --save-dev
 script: npm test
