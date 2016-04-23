@@ -1,6 +1,6 @@
 anguage: node_js
 node_js:
-  - "4.1"
+  - "5.10.1"
 sudo: false
 before_script:
   - npm install --save-dev
