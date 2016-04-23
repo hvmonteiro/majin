@@ -53,6 +53,9 @@ http://www.jrsoftware.org/
 ## Javascript implementation of zip for nodejs
 https://www.npmjs.com/package/adm-zip
 
+## Electron Installer Codesign (for signing Mac OS applications)
+https://www.npmjs.com/package/electron-installer-codesign
+
 
 
 # Testing & Building
