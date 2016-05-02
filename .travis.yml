@@ -1,7 +1,6 @@
-anguage: node_js
+language: node_js
 node_js:
   - "5.10.1"
 sudo: false
-before_script:
-  - npm install --save-dev
-script: npm test
+install: npm install --save-dev
+script: npm test && npm run build
