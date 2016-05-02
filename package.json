@@ -29,8 +29,7 @@
   },
   "homepage": "https://github.com/hvmonteiro/majin",
   "devDependencies": {
-    "node": "^5.10.1",
-    "electron-packager": ">7.0.1",
+    "electron-packager": ">=6.0.0",
     "jshint": "^2.6.0",
     "html-validator": "^1.0.0",
     "html-validator-cli": "^2.0.0"
