@@ -154,7 +154,7 @@ var mainMenu = [{
         'type': 'info',
         'title': 'About',
         buttons: ['Close'],
-        'message': appName + '\nVersion ' + appVersion + '\n' + appCopyright +'\n' + appLicense
+        'message': appName + '\nVersion ' + appVersion + '\n' + appCopyright + '\n' + appLicense
       });
       mainWindow.setAlwaysOnTop(onTopOption);
     }
@@ -215,6 +215,7 @@ function createWindow () {
     maximizable: false,
     skipTaskbar: false,
     // resizable: true,
+    closable: false,
     show: false,
     icon: path.join(__dirname, 'images', 'icon@2.png')
   });
@@ -236,12 +237,10 @@ function createWindow () {
       contextMenu.items[0].checked = false; // contextMenu Item 'Show Window'
       trayIcon.setContextMenu(contextMenu); // re-set contextMenu to reflect changes made above
       mainWindow.hide();
-      console.log('hide');
     } else {
       contextMenu.items[0].checked = true; // contextMenu Item 'Show Window'
       trayIcon.setContextMenu(contextMenu); // re-set contextMenu to reflect changes made above
       mainWindow.show();
-      console.log('show');
     }
   });
 
@@ -275,28 +274,37 @@ function createWindow () {
       mainWindow.hide();
       e.returnValue = false;
     } else {
-      /*
-      let onTopOption = appMenu.items[0].submenu.items[0].checked;
-      if (mainWindow) mainWindow.setAlwaysOnTop(false);
-      let choice = dialog.showMessageBox({
-        type: 'question',
-        title: 'Confirm',
-        message: 'Are you sure you want to quit?',
-        buttons: ['Yes', 'No']
-      });
-      if (mainWindow) mainWindow.setAlwaysOnTop(onTopOption);
-      if (choice === 0) {   // Yes
-        console.log(choice);
-        e.returnValue = true;
-          app.quit();
-        return choice;
-      } else {              // No
-        e.preventDefault();
-        e.returnValue = false;
-        return choice;
-      }*/
-      mainWindow._events.close = null; // Unreference function show that App can close
-      e.returnValue = false;
+      // If set, unset OnTop state so that the window doesn't hide the dialog
+      // and save existing OnTop state to re-set it later on
+      let onTopState = appMenu.items[0].submenu.items[0].checked;
+      if (mainWindow) {
+        mainWindow.setAlwaysOnTop(false);
+
+        mainWindow.blur(); // Hide window temporarely so that doesn't overlaps dialog window
+        let dialogChoice = dialog.showMessageBox({
+          type: 'question',
+          title: 'Confirm',
+          message: 'Are you sure you want to quit?',
+          buttons: ['Yes', 'No']
+        });
+        mainWindow.show(); // show blured window again
+
+        if (dialogChoice === 0) {   // Option: Yes
+          mainWindow._events.close = null; // Unreference function so that App can close
+          mainWindow.on('close', function () { app.quit(); }); // Re-set 'close' event so that App can close
+          e.returnValue = false;
+          mainWindow.close();
+          return 0;
+        } else {              // Option: No
+          // Re-set previously saved OnTop state
+          mainWindow.setAlwaysOnTop(onTopState);
+          e.preventDefault();
+          e.returnValue = true;
+          return 1;
+        }
+      } else {
+        app.quit();
+      }
     }
   }
   // Emitted when the window is going to be closed, but it's still opened.
