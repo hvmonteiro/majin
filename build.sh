@@ -4,21 +4,8 @@
 SAVED_DIR="$PWD"
 BUILD_DIR="./build"
 BUILD_DIR_LIST="target packages"
+JSON_FILE="package.json"
 
-APP_NAME="Majin"
-APP_VERSION="0.1"
-APP_BUILD_VERSION="0000"
-APP_DESCRIPTION="Majin - Mobile Browser for the Desktop"
-APP_COPYRIGHT="Copyright (c) 2016, Hugo V. Monteiro"
-APP_AUTHOR="Hugo V. Monteiro"
-
-APP_PLATFORM=""
-APP_ARCH=""
-APP_ICON=""
-IGNORE_LIST="(resources|(.*).zip|build.sh|devel-notes.md|README*|node_modules/dev-dependency|$BUILD_DIR)"
-EXTRA_PARAMS=""
-
-NODE_PATH="${NODE_PATH:=/usr/lib/node_modules}"
 
 _my_exit() {
 
@@ -33,6 +20,28 @@ _my_exit() {
 }
 
 _init()  {
+
+    if [ ! -f "$JSON_FILE" ]; then
+            echo "Error: Mandatory file package.json not found in local directory. Exiting..."
+            exit 2
+    fi
+
+    APP_NAME="$(sed '/name/!d;s/\(.*\)\("name": "\([^"]*\)"\)\(.*\)/\3/' < "$JSON_FILE")"
+    APP_VERSION="$(sed '/version/!d;s/\(.*\)\("version": "\([^"]*\)"\)\(.*\)/\3/' < "$JSON_FILE")"
+    APP_BUILD_VERSION="${TRAVIS_BUILD_NUMBER:=0000}"
+    APP_DESCRIPTION="$(sed '/description/!d;s/\(.*\)\("description": "\([^"]*\)"\)\(.*\)/\3/' < "$JSON_FILE")"
+    APP_AUTHOR="$(sed '/author/!d;s/\(.*\)\("author": "\([^"]*\)"\)\(.*\)/\3/' < "$JSON_FILE")"
+    APP_COPYRIGHT="Copyright (c) $(date +%Y), $APP_AUTHOR"
+
+    IGNORE_LIST="(resources|(.*).zip|build.sh|devel-notes.md|README*|node_modules/dev-dependency|$BUILD_DIR)"
+    EXTRA_PARAMS=""
+
+    NODE_PATH="${NODE_PATH:=/usr/lib/node_modules}"
+
+    set | grep '^APP_'
+    echo "IGNORE_LIST=$IGNORE_LIST"
+    echo "EXTRA_PARAMS=$EXTRA_PARAMS"
+    echo "NODE_PATH=$NODE_PATH"
 
     echo ""
     if [ -d "$BUILD_DIR" ]; then
@@ -55,6 +64,7 @@ _init()  {
         echo "Error: 'zip' command not found. Exiting..."
         _my_exit 1
     fi
+
 }
 
 
@@ -104,6 +114,7 @@ case "$1" in
 esac
 
 echo "Building application $APP_NAME version $APP_VERSION ($APP_BUILD_VERSION)..."
+echo ""
 
 _init
 
@@ -139,7 +150,7 @@ cd "$BUILD_DIR/target"
 
 echo ""
 echo "Creating Packages: "
-for DIR in $(ls --hide "*.zip" --color=never); do
+for DIR in *; do
     echo "- Creating ZIP package '${DIR}.zip'"
     zip -qo9r "../packages/${DIR}.zip" "$DIR"
     if [ $? -ne 0 ]; then

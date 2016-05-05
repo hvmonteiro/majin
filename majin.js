@@ -37,12 +37,18 @@ const browserOptions = {
   'userAgent': 'Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30'
 };
 
-const appName = 'Majin';
-const appVersion = '0.0.1';
-const appCopyright = 'Copyright (c) 2016, Hugo V. Monteiro';
-const appLicense = 'Licensed under GPL 2.0';
-const appWebURL = 'https://github.com/hvmonteiro/majin';
-const appSupportURL = 'https://github.com/hvmonteiro/majin/issues';
+var pjson = require(path.join(__dirname, 'package.json'));
+
+var date = new Date();
+var currentYear = date.getFullYear();
+
+const appName = pjson.productName;
+const appVersion = pjson.version;
+const appCopyright = 'Copyright (c) ' + currentYear + ', ' + pjson.copyright;
+const appLicense = pjson.license;
+const appWebURL = pjson.url;
+const appSupportURL = pjson.bugs.url;
+console.log(appSupportURL);
 
 const homePageURL = 'file://' + path.join(__dirname, 'majin.html');
 
@@ -215,12 +221,12 @@ function createWindow () {
     maximizable: false,
     skipTaskbar: false,
     // resizable: true,
-    closable: false,
+    // closable: false,
     show: false,
-    icon: path.join(__dirname, 'images', 'icon@2.png')
+    icon: path.join(__dirname, 'images/icon@2.png')
   });
 
-  trayIcon = new Tray(path.join(__dirname, 'images', 'icon@2.png'));
+  trayIcon = new Tray(path.join(__dirname, 'images/icon@2.png'));
 
   trayIcon.setToolTip(appName + ' - Mobile Browser for the Desktop');
   trayIcon.setContextMenu(contextMenu);
