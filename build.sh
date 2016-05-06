@@ -4,7 +4,13 @@
 SAVED_DIR="$PWD"
 BUILD_DIR="./build"
 BUILD_DIR_LIST="target packages"
-JSON_FILE="package.json"
+PACKAGE_JSON="package.json"
+VERSION_JSON="version.json"
+
+IGNORE_LIST="(resources|(.*).zip|build.sh|devel-notes.md|README*|node_modules/dev-dependency|$BUILD_DIR)"
+EXTRA_PARAMS=""
+
+NODE_PATH="${NODE_PATH:=/usr/lib/node_modules}"
 
 
 _my_exit() {
@@ -19,24 +25,7 @@ _my_exit() {
     exit "$EXIT_CODE"
 }
 
-_init()  {
-
-    if [ ! -f "$JSON_FILE" ]; then
-            echo "Error: Mandatory file package.json not found in local directory. Exiting..."
-            exit 2
-    fi
-
-    APP_NAME="$(sed '/name/!d;s/\(.*\)\("name": "\([^"]*\)"\)\(.*\)/\3/' < "$JSON_FILE")"
-    APP_VERSION="$(sed '/version/!d;s/\(.*\)\("version": "\([^"]*\)"\)\(.*\)/\3/' < "$JSON_FILE")"
-    APP_BUILD_VERSION="${TRAVIS_BUILD_NUMBER:=0000}"
-    APP_DESCRIPTION="$(sed '/description/!d;s/\(.*\)\("description": "\([^"]*\)"\)\(.*\)/\3/' < "$JSON_FILE")"
-    APP_AUTHOR="$(sed '/author/!d;s/\(.*\)\("author": "\([^"]*\)"\)\(.*\)/\3/' < "$JSON_FILE")"
-    APP_COPYRIGHT="Copyright (c) $(date +%Y), $APP_AUTHOR"
-
-    IGNORE_LIST="(resources|(.*).zip|build.sh|devel-notes.md|README*|node_modules/dev-dependency|$BUILD_DIR)"
-    EXTRA_PARAMS=""
-
-    NODE_PATH="${NODE_PATH:=/usr/lib/node_modules}"
+_init_build()  {
 
     set | grep '^APP_'
     echo "IGNORE_LIST=$IGNORE_LIST"
@@ -58,12 +47,46 @@ _init()  {
 
     unalias which > /dev/null 2>&1
 
-    # Check if zip is installed
+    # Check if zip command is installed
     which zip > /dev/null 2>&1
     if [ $? -ne 0 ]; then
         echo "Error: 'zip' command not found. Exiting..."
         _my_exit 1
     fi
+
+}
+
+
+_create_version_json()  {
+
+    if [ ! -f "$PACKAGE_JSON" ]; then
+            echo "Error: Mandatory file package.json not found in local directory. Exiting..."
+            exit 2
+    fi
+
+    APP_NAME="$(sed '/name/!d;s/\(.*\)\("name": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
+    APP_VERSION="$(sed '/version/!d;s/\(.*\)\("version": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
+    APP_DESCRIPTION="$(sed '/description/!d;s/\(.*\)\("description": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
+    APP_AUTHOR="$(sed '/author/!d;s/\(.*\)\("author": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
+    APP_LICENSE="$(sed '/license/!d;s/\(.*\)\("license": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
+    APP_HOMEPAGE_URL="$(sed '/homepage/!d;s/\(.*\)\("homepage": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
+    APP_SUPPORT_URL="$(sed '/\(.*\)"bugs": {/,/},/!d;/url/!d;s/\(.*\)\("url": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
+    APP_COPYRIGHT="Copyright (c) $(date +%Y), $APP_AUTHOR"
+
+    [ "$TRAVIS_BUILD_NUMBER" != "" ] && APP_VERSION_BUILD="$APP_VERSION ($TRAVIS_BUILD_NUMBER)" || APP_VERSION_BUILD="$APP_VERSION"
+
+    cat > "$VERSION_JSON" <<EOF
+{
+    "name": "$APP_NAME",
+    "version": "$APP_VERSION_BUILD",
+    "description": "$APP_DESCRIPTION",
+    "author": "$APP_AUTHOR",
+    "copyright": "$APP_COPYRIGHT",
+    "license": "$APP_LICENSE",
+    "homepageURL": "$APP_HOMEPAGE_URL",
+    "supportURL": "$APP_SUPPORT_URL"
+}
+EOF
 
 }
 
@@ -116,7 +139,10 @@ esac
 echo "Building application $APP_NAME version $APP_VERSION ($APP_BUILD_VERSION)..."
 echo ""
 
-_init
+_create_version_json
+
+_init_build
+
 
 echo "Installing build dependencies..."
 npm install --save-dev
@@ -135,6 +161,7 @@ electron-packager . "$APP_NAME" \
 --app-copyright="$APP_COPYRIGHT" \
 --app-version="$APP_VERSION" \
 --build-version="$APP_BUILD_VERSION" \
+--download.strictSSL \
 --ignore="$IGNORE_LIST" \
 --asar \
 --overwrite \
@@ -151,7 +178,14 @@ cd "$BUILD_DIR/target"
 echo ""
 echo "Creating Packages: "
 for DIR in *; do
+
     echo "- Creating ZIP package '${DIR}.zip'"
+
+    cp -f ../../majin.ico "$DIR/"
+    if [ $? -ne 0 ]; then
+        echo "Error: file not found (majin.ico). Exiting..."
+        _my_exit 1
+    fi
     zip -qo9r "../packages/${DIR}.zip" "$DIR"
     if [ $? -ne 0 ]; then
         echo "Error: An unexpected error ocurred. Check output formore information. Exiting..."
