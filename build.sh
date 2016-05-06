@@ -136,7 +136,7 @@ case "$1" in
             ;;
 esac
 
-echo "Building application $APP_NAME version $APP_VERSION ($APP_BUILD_VERSION)..."
+echo "Building application..."
 echo ""
 
 _create_version_json

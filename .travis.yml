@@ -2,11 +2,14 @@ language: node_js
 node_js:
   - "5.10.1"
 sudo: true
-install: npm install --save-dev
-before_script: 
+before_install: 
     - sudo apt-get -y install wine
+install: 
+    - npm install --save-dev
+before_script: 
+    - npm test
 script: 
-    - npm test && npm run build
+    - npm run build
 after_script:
     - echo "Finished"
             
