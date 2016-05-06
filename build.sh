@@ -2,13 +2,14 @@
 
 
 SAVED_DIR="$PWD"
-BUILD_DIR="./build"
-BUILD_DIR_LIST="target packages"
+BUILD_DIR="$SAVED_DIR/build"
+BUILD_DIR_LIST="target packages setup"
 PACKAGE_JSON="package.json"
 VERSION_JSON="version.json"
 
-IGNORE_LIST="(resources|(.*).zip|build.sh|devel-notes.md|README*|node_modules/dev-dependency|$BUILD_DIR)"
+IGNORE_LIST="(resources|(.*).zip|build.sh|devel-notes.md|README*|NEWS*|node_modules/dev-dependency|build)"
 EXTRA_PARAMS=""
+DEPS="zip wine"
 
 NODE_PATH="${NODE_PATH:=/usr/lib/node_modules}"
 
@@ -47,12 +48,14 @@ _init_build()  {
 
     unalias which > /dev/null 2>&1
 
-    # Check if zip command is installed
-    which zip > /dev/null 2>&1
-    if [ $? -ne 0 ]; then
-        echo "Error: 'zip' command not found. Exiting..."
-        _my_exit 1
-    fi
+    for DEP in $DEPS; do
+        # Check if dependency is installed
+        which $DEP > /dev/null 2>&1
+        if [ $? -ne 0 ]; then
+            echo "Error: '$DEP' command not found. Exiting..."
+            _my_exit 1
+        fi
+    done
 
 }
 
@@ -177,22 +180,29 @@ cd "$BUILD_DIR/target"
 
 echo ""
 echo "Creating Packages: "
-for DIR in *; do
+for PKG_NAME in *; do
 
-    echo "- Creating ZIP package '${DIR}.zip'"
+    echo "- Creating ZIP package '${PKG_NAME}.zip'"
 
-    cp -f ../../majin.ico "$DIR/"
+    cp -f ../../majin.ico "$PKG_NAME/"
     if [ $? -ne 0 ]; then
         echo "Error: file not found (majin.ico). Exiting..."
         _my_exit 1
     fi
-    zip -qo9r "../packages/${DIR}.zip" "$DIR"
+    zip -qo9r "../packages/${PKG_NAME}.zip" "$PKG_NAME"
     if [ $? -ne 0 ]; then
         echo "Error: An unexpected error ocurred. Check output formore information. Exiting..."
         _my_exit 1
     fi
+
+    echo ""
+
+    echo "$PKG_NAME" | grep -q 'win32'
+    if [ $? -eq 0 ]; then
+        [ ! -d "$BUILD_DIR/ispack" ] && git clone https://github.com/jrsoftware/ispack "$BUILD_DIR/ispack"
+        wine "$BUILD_DIR/ispack/isfiles-unicode/ISCC.exe" /Qp /DAppBuildDir="../target/${PKG_NAME}" /O"../setup" /F"${PKG_NAME}-setup" "../../setup-wine.iss"
+    fi
 done
-echo ""
 
 cd "$SAVED_DIR"
 

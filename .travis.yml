@@ -2,8 +2,10 @@ language: node_js
 node_js:
   - "5.10.1"
 sudo: true
-before_install: 
-    - sudo apt-get -y install wine
+addons:
+    apt:
+        packages:
+                - wine
 install: 
     - npm install --save-dev
 before_script: 

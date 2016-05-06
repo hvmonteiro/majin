@@ -13,8 +13,8 @@
 #define MyAppURL "https://root.hugovmonteiro.net/majin"
 #define MyAppDevURL "https://github.com/hvmonteiro/majin"
 #define MyAppExeName "Majin.exe"
-#define WorkspaceDir "D:\Workspace"
-#define AppBuildDir "D:\Workspace\Majin-win32-x64"
+#define WorkspaceDir "build\setup"
+#define AppBuildDir "build\target\majin-win32-x64"
 
 [Setup]
 AppId={{853AD67A-8C9E-40DB-878A-B7F015B329BB}
@@ -31,7 +31,7 @@ DisableDirPage=yes
 DisableProgramGroupPage=yes
 LicenseFile={#AppBuildDir}\LICENSE
 OutputDir={#WorkspaceDir}
-OutputBaseFilename=majin-0.1-install
+OutputBaseFilename=majin-install
 SetupIconFile={#AppBuildDir}\majin.ico
 Compression=lzma
 SolidCompression=yes
