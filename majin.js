@@ -209,12 +209,12 @@ Menu.setApplicationMenu(appMenu);
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 380,
-    height: 380,
-    minWidth: 380,
-    minHeight: 380,
-    maxWidth: 380,
-    // maxHeight: 380,
+    width: 400,
+    height: 400,
+    minWidth: 400,
+    minHeight: 400,
+    maxWidth: 400,
+    // maxHeight: 400,
     autoHideMenuBar: true,
     maximizable: false,
     skipTaskbar: false,
