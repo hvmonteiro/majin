@@ -200,7 +200,7 @@ for PKG_NAME in *; do
     echo "$PKG_NAME" | grep -q 'win32'
     if [ $? -eq 0 ]; then
         [ ! -d "$BUILD_DIR/ispack" ] && git clone https://github.com/jrsoftware/ispack "$BUILD_DIR/ispack"
-        wine "$BUILD_DIR/ispack/isfiles-unicode/ISCC.exe" /DAppBuildDir="../target/${PKG_NAME}" /O"../setup" /F"${PKG_NAME}-setup" "../../setup-wine.iss"
+        wine "./ispack/isfiles-unicode/ISCC.exe" /DAppBuildDir="..\target\${PKG_NAME}" /O"..\setup" /F"${PKG_NAME}-setup" "..\..\setup-wine.iss"
     fi
 done
 
