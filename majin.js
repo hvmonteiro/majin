@@ -215,7 +215,6 @@ function createWindow () {
     minHeight: 380,
     maxWidth: 380,
     // maxHeight: 380,
-    title: appName,
     autoHideMenuBar: true,
     maximizable: false,
     skipTaskbar: false,
@@ -260,8 +259,13 @@ function createWindow () {
 
   mainWindow.on('page-title-updated', function (e) {
     e.preventDefault();
+    mainWindow.setTitle(appName + ' - ' +  mainWindow.webContents.getTitle());
   });
-
+/*
+  mainWindow.webContents.on('did-finish-load', function (e) {
+    mainWindow.setTitle(appName + ' - ' +  mainWindow.webContents.getTitle());
+  });
+*/
   //
   mainWindow.on('minimize', function () {
     if (appMenu.items[0].submenu.items[2].checked) { // appMenu Item 'Minimize To Tray'
@@ -316,7 +320,7 @@ function createWindow () {
   mainWindow.on('close', onBeforeUnload);
 
   mainWindow.webContents.on('did-start-loading', function (e) {
-    console.log(mainWindow.webContents.canGoBack());
+    //console.log(mainWindow.webContents.canGoBack());
     // Enable/Disable Navigation subMenu item "Back"
     if (mainWindow.webContents.canGoBack()) {
       appMenu.items[1].submenu.items[2].enabled = true;
