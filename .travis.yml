@@ -3,15 +3,17 @@ node_js:
   - "5.10.1"
 sudo: true
 addons:
-    apt:
-        packages:
-                - wine
+  apt:
+    packages:
+      - wine
 install: 
-    - npm install --save-dev
+  - npm install --save-dev
 before_script: 
-    - npm test
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
+  - npm test
 script: 
-    - npm run build
+  - npm run build
 after_script:
-    - echo "Finished"
-            
+  - echo "Finished"
