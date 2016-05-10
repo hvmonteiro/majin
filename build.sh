@@ -162,7 +162,7 @@ electron-packager . "$APP_NAME" \
 --app-FileDescription="$APP_DESCRIPTION" \
 --app-copyright="$APP_COPYRIGHT" \
 --app-version="$APP_VERSION" \
---build-version="$APP_BUILD_VERSION" \
+--build-version="$APP_VERSION" \
 --download.strictSSL \
 --ignore="$IGNORE_LIST" \
 --asar \
