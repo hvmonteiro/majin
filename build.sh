@@ -7,7 +7,7 @@ BUILD_DIR_LIST="target packages setup"
 PACKAGE_JSON="package.json"
 VERSION_JSON="version.json"
 
-IGNORE_LIST="(resources|(.*).zip|build.sh|devel-notes.md|README*|NEWS*|node_modules/dev-dependency|build)"
+IGNORE_LIST="(resources|(.*).zip|build.sh|devel-notes.md|README*|NEWS*|node_modules/*|build)"
 EXTRA_PARAMS=""
 DEPS="zip wine"
 
@@ -152,7 +152,7 @@ echo "Installing build dependencies..."
 npm install --save-dev
 
 echo ""
-timeout 180 electron-packager . "$APP_NAME" \
+electron-packager . "$APP_NAME" \
 --platform="$APP_PLATFORM" \
 --arch="$APP_ARCH" \
 --icon="$APP_ICON" \
@@ -166,8 +166,8 @@ timeout 180 electron-packager . "$APP_NAME" \
 --build-version="$APP_VERSION" \
 --download.strictSSL \
 --ignore="$IGNORE_LIST" \
---asar \
 --overwrite \
+--asar \
 --out="$BUILD_DIR/target" \
 "$EXTRA_PARAMS"
 if [ $? -ne 0 ]; then
