@@ -76,12 +76,12 @@ _create_version_json()  {
     APP_SUPPORT_URL="$(sed '/\(.*\)"bugs": {/,/},/!d;/url/!d;s/\(.*\)\("url": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
     APP_COPYRIGHT="Copyright (c) $(date +%Y), $APP_AUTHOR"
 
-    [ "$TRAVIS_BUILD_NUMBER" != "" ] && APP_VERSION_BUILD="$APP_VERSION ($TRAVIS_BUILD_NUMBER)" || APP_VERSION_BUILD="$APP_VERSION"
+    [ "$TRAVIS_BUILD_NUMBER" != "" ] && APP_BUILD_VERSION="$TRAVIS_BUILD_NUMBER" || APP_BUILD_VERSION="0000"
 
     cat > "$VERSION_JSON" <<EOF
 {
     "name": "$APP_NAME",
-    "version": "$APP_VERSION_BUILD",
+    "version": "$APP_VERSION ($APP_BUILD_VERSION)",
     "description": "$APP_DESCRIPTION",
     "author": "$APP_AUTHOR",
     "copyright": "$APP_COPYRIGHT",
