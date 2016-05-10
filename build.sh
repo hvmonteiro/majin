@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x 
 
 
 SAVED_DIR="$PWD"
