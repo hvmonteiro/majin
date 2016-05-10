@@ -6,7 +6,7 @@
   "main": "majin.js",
   "scripts": {
     "start": "electron majin.js",
-    "build": "./build.sh all",
+    "build": "./build.sh win64",
     "pretest": "./node_modules/html-validator-cli/index.js --file=majin.html",
     "test": "./node_modules/jshint/bin/jshint majin.js"
   },
