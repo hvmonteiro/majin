@@ -67,7 +67,7 @@ _create_version_json()  {
             exit 2
     fi
 
-    APP_NAME="$(sed '/name/!d;s/\(.*\)\("name": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
+    APP_NAME="$(sed '/productName/!d;s/\(.*\)\("productName": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
     APP_VERSION="$(sed '/version/!d;s/\(.*\)\("version": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
     APP_DESCRIPTION="$(sed '/description/!d;s/\(.*\)\("description": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
     APP_AUTHOR="$(sed '/author/!d;s/\(.*\)\("author": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
@@ -158,7 +158,6 @@ electron-packager . "$APP_NAME" \
 --version-string.CompanyName="$APP_AUTHOR" \
 --version-string.ProductName="$APP_NAME" \
 --version-string.OriginalFilename="${APP_NAME}.exe" \
---version-string.ProductName="$APP_NAME" \
 --version-string.InternalName="$APP_NAME" \
 --app-FileDescription="$APP_DESCRIPTION" \
 --app-copyright="$APP_COPYRIGHT" \
@@ -168,7 +167,6 @@ electron-packager . "$APP_NAME" \
 --ignore="$IGNORE_LIST" \
 --asar \
 --overwrite \
---tmpdir=false \
 --out="$BUILD_DIR/target" \
 "$EXTRA_PARAMS"
 if [ $? -ne 0 ]; then
@@ -197,11 +195,11 @@ for PKG_NAME in *; do
 
     echo ""
 
-    echo "$PKG_NAME" | grep -q 'win32'
-    if [ $? -eq 0 ]; then
-        [ ! -d "$BUILD_DIR/ispack" ] && git clone https://github.com/jrsoftware/ispack "$BUILD_DIR/ispack"
-        wine "./ispack/isfiles-unicode/ISCC.exe" /DAppBuildDir="..\target\${PKG_NAME}" /O"..\setup" /F"${PKG_NAME}-setup" "..\..\setup-wine.iss"
-    fi
+    #echo "$PKG_NAME" | grep -q 'win32'
+    #if [ $? -eq 0 ]; then
+    #    [ ! -d "$BUILD_DIR/ispack" ] && git clone https://github.com/jrsoftware/ispack "$BUILD_DIR/ispack"
+    #    wine "./ispack/isfiles-unicode/ISCC.exe" /DAppBuildDir="..\target\${PKG_NAME}" /O"..\setup" /F"${PKG_NAME}-setup" "..\..\setup-wine.iss"
+    #fi
 done
 
 cd "$SAVED_DIR"
