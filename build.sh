@@ -50,7 +50,7 @@ _init_build()  {
 
     for DEP in $DEPS; do
         # Check if dependency is installed
-        which $DEP > /dev/null 2>&1
+        which "$DEP" > /dev/null 2>&1
         if [ $? -ne 0 ]; then
             echo "Error: '$DEP' command not found. Exiting..."
             _my_exit 1
@@ -67,6 +67,7 @@ _create_version_json()  {
             exit 2
     fi
 
+    APP_FILENAME="$(sed '/name/!d;s/\(.*\)\("name": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
     APP_NAME="$(sed '/productName/!d;s/\(.*\)\("productName": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
     APP_VERSION="$(sed '/version/!d;s/\(.*\)\("version": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
     APP_DESCRIPTION="$(sed '/description/!d;s/\(.*\)\("description": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
@@ -151,13 +152,13 @@ echo "Installing build dependencies..."
 npm install --save-dev
 
 echo ""
-electron-packager . "$APP_NAME" \
+timeout 180 electron-packager . "$APP_NAME" \
 --platform="$APP_PLATFORM" \
 --arch="$APP_ARCH" \
 --icon="$APP_ICON" \
 --version-string.CompanyName="$APP_AUTHOR" \
 --version-string.ProductName="$APP_NAME" \
---version-string.OriginalFilename="${APP_NAME}.exe" \
+--version-string.OriginalFilename="${APP_FILENAME}.exe" \
 --version-string.InternalName="$APP_NAME" \
 --app-FileDescription="$APP_DESCRIPTION" \
 --app-copyright="$APP_COPYRIGHT" \
