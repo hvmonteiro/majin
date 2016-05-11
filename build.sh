@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 
 SAVED_DIR="$PWD"
@@ -7,7 +7,7 @@ BUILD_DIR_LIST="target packages setup"
 PACKAGE_JSON="package.json"
 VERSION_JSON="version.json"
 
-IGNORE_LIST="(resources|(.*).zip|build.sh|devel-notes.md|README*|NEWS*|node_modules/*|build)"
+IGNORE_LIST="(resources|(.*).zip|build.sh|devel-notes.md|README*|NEWS*|node_modules/dev-dependency|build)"
 EXTRA_PARAMS=""
 DEPS="zip wine"
 
@@ -50,7 +50,7 @@ _init_build()  {
 
     for DEP in $DEPS; do
         # Check if dependency is installed
-        which "$DEP" > /dev/null 2>&1
+        which $DEP > /dev/null 2>&1
         if [ $? -ne 0 ]; then
             echo "Error: '$DEP' command not found. Exiting..."
             _my_exit 1
@@ -67,8 +67,7 @@ _create_version_json()  {
             exit 2
     fi
 
-    APP_FILENAME="$(sed '/name/!d;s/\(.*\)\("name": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
-    APP_NAME="$(sed '/productName/!d;s/\(.*\)\("productName": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
+    APP_NAME="$(sed '/name/!d;s/\(.*\)\("name": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
     APP_VERSION="$(sed '/version/!d;s/\(.*\)\("version": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
     APP_DESCRIPTION="$(sed '/description/!d;s/\(.*\)\("description": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
     APP_AUTHOR="$(sed '/author/!d;s/\(.*\)\("author": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
@@ -77,12 +76,12 @@ _create_version_json()  {
     APP_SUPPORT_URL="$(sed '/\(.*\)"bugs": {/,/},/!d;/url/!d;s/\(.*\)\("url": "\([^"]*\)"\)\(.*\)/\3/' < "$PACKAGE_JSON")"
     APP_COPYRIGHT="Copyright (c) $(date +%Y), $APP_AUTHOR"
 
-    [ "$TRAVIS_BUILD_NUMBER" != "" ] && APP_BUILD_VERSION="$TRAVIS_BUILD_NUMBER" || APP_BUILD_VERSION="0000"
+    [ "$TRAVIS_BUILD_NUMBER" != "" ] && APP_VERSION_BUILD="$APP_VERSION ($TRAVIS_BUILD_NUMBER)" || APP_VERSION_BUILD="$APP_VERSION"
 
     cat > "$VERSION_JSON" <<EOF
 {
     "name": "$APP_NAME",
-    "version": "$APP_VERSION ($APP_BUILD_VERSION)",
+    "version": "$APP_VERSION_BUILD",
     "description": "$APP_DESCRIPTION",
     "author": "$APP_AUTHOR",
     "copyright": "$APP_COPYRIGHT",
@@ -158,16 +157,18 @@ electron-packager . "$APP_NAME" \
 --icon="$APP_ICON" \
 --version-string.CompanyName="$APP_AUTHOR" \
 --version-string.ProductName="$APP_NAME" \
---version-string.OriginalFilename="${APP_FILENAME}.exe" \
+--version-string.OriginalFilename="${APP_NAME}.exe" \
+--version-string.ProductName="$APP_NAME" \
 --version-string.InternalName="$APP_NAME" \
 --app-FileDescription="$APP_DESCRIPTION" \
 --app-copyright="$APP_COPYRIGHT" \
 --app-version="$APP_VERSION" \
---build-version="$APP_VERSION" \
+--build-version="$APP_BUILD_VERSION" \
 --download.strictSSL \
 --ignore="$IGNORE_LIST" \
---overwrite \
 --asar \
+--overwrite \
+--tmpdir=false \
 --out="$BUILD_DIR/target" \
 "$EXTRA_PARAMS"
 if [ $? -ne 0 ]; then
@@ -183,7 +184,7 @@ for PKG_NAME in *; do
 
     echo "- Creating ZIP package '${PKG_NAME}.zip'"
 
-    cp -f "$SAVED_DIR/majin.ico" "$BUILD_DIR/target/$PKG_NAME/"
+    cp -f ../../majin.ico "$PKG_NAME/"
     if [ $? -ne 0 ]; then
         echo "Error: file not found (majin.ico). Exiting..."
         _my_exit 1
@@ -196,11 +197,11 @@ for PKG_NAME in *; do
 
     echo ""
 
-    #echo "$PKG_NAME" | grep -q 'win32'
-    #if [ $? -eq 0 ]; then
-    #    [ ! -d "$BUILD_DIR/ispack" ] && git clone https://github.com/jrsoftware/ispack "$BUILD_DIR/ispack"
-    #    wine "./ispack/isfiles-unicode/ISCC.exe" /DAppBuildDir="..\target\${PKG_NAME}" /O"..\setup" /F"${PKG_NAME}-setup" "..\..\setup-wine.iss"
-    #fi
+    echo "$PKG_NAME" | grep -q 'win32'
+    if [ $? -eq 0 ]; then
+        [ ! -d "$BUILD_DIR/ispack" ] && git clone https://github.com/jrsoftware/ispack "$BUILD_DIR/ispack"
+        wine "$BUILD_DIR/ispack/isfiles-unicode/ISCC.exe" /Qp /DAppBuildDir="../target/${PKG_NAME}" /O"../setup" /F"${PKG_NAME}-setup" "../../setup-wine.iss"
+    fi
 done
 
 cd "$SAVED_DIR"
@@ -208,4 +209,3 @@ cd "$SAVED_DIR"
 echo "Finished successfuly."
 
 exit 0
-
