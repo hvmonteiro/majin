@@ -131,7 +131,7 @@ case "$1" in
         all)
             APP_PLATFORM="all"
             APP_ARCH="all"
-            APP_ICON="images/icon@3.co"
+            APP_ICON="majin.ico"
             ;;
         *)
             echo ""
@@ -152,7 +152,7 @@ _init_build
 echo "Installing build dependencies..."
 npm install --save-dev
 
-electron-packager . Majin --platform=all --arch=all --icon=images/icon@3.co '--version-string.CompanyName=Hugo V. Monteiro' --version-string.ProductName=Majin --version-string.OriginalFilename=majin.exe --version-string.InternalName=Majin '--app-FileDescription=Mobile Browser for the Desktop' '--app-copyright=Copyright (c) 2016, Hugo V. Monteiro' --app-version=0.1.1 --build-version=0.1.1 --download.strictSSL '--ignore=(resources|(.*).zip|build.sh|devel-notes.md|README*|NEWS*|node_modules/*|build)' --overwrite --asar --out=/home/travis/build/hvmonteiro/majin/build/target
+electron-packager . Majin --platform=linux --arch=x64 --icon=majin.ico '--version-string.CompanyName=Hugo V. Monteiro' --version-string.ProductName=Majin --version-string.OriginalFilename=majin.exe --version-string.InternalName=Majin '--app-FileDescription=Mobile Browser for the Desktop' '--app-copyright=Copyright (c) 2016, Hugo V. Monteiro' --app-version=0.1.1 --build-version=0.1.1 --download.strictSSL '--ignore=(resources|(.*).zip|build.sh|devel-notes.md|README*|NEWS*|node_modules/*|build)' --overwrite --asar --out=/home/travis/build/hvmonteiro/majin/build/target
 exit $?
 
 echo ""
