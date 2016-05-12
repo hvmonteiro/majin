@@ -92,6 +92,9 @@ _create_version_json()  {
     "supportURL": "$APP_SUPPORT_URL"
 }
 EOF
+    # Save and unset DISPLAY to workaround a bug (?) with electron-packager for windows, where it hangs with any console message
+    export SAVED_DISPLAY="$DISPLAY"
+    unset DISPLAY
 
 }
 
@@ -198,6 +201,7 @@ for PKG_NAME in *; do
 
     #echo "$PKG_NAME" | grep -q 'win32'
     #if [ $? -eq 0 ]; then
+        export DISPLAY=$SAVED_DISPLAY
     #    [ ! -d "$BUILD_DIR/ispack" ] && git clone https://github.com/jrsoftware/ispack "$BUILD_DIR/ispack"
     #    wine "./ispack/isfiles-unicode/ISCC.exe" /DAppBuildDir="..\target\${PKG_NAME}" /O"..\setup" /F"${PKG_NAME}-setup" "..\..\setup-wine.iss"
     #fi
