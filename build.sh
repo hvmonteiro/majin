@@ -152,7 +152,7 @@ _init_build
 echo "Installing build dependencies..."
 npm install --save-dev
 
-electron-packager . Majin --platform=linux --arch=x64 --icon=majin.ico '--version-string.CompanyName=Hugo V. Monteiro' --version-string.ProductName=Majin --version-string.OriginalFilename=majin.exe --version-string.InternalName=Majin '--app-FileDescription=Mobile Browser for the Desktop' '--app-copyright=Copyright (c) 2016, Hugo V. Monteiro' --app-version=0.1.1 --build-version=0.1.1 --download.strictSSL '--ignore=(resources|(.*).zip|build.sh|devel-notes.md|README*|NEWS*|node_modules/*|build)' --overwrite --asar --out=/home/travis/build/hvmonteiro/majin/build/target
+electron-packager . Majin --platform=win32 --arch=x64 --icon=images/icon@3.png '--version-string.CompanyName=Hugo V. Monteiro' --version-string.ProductName=Majin --version-string.OriginalFilename=majin.exe --version-string.InternalName=Majin '--app-FileDescription=Mobile Browser for the Desktop' '--app-copyright=Copyright (c) 2016, Hugo V. Monteiro' --app-version=0.1.1 --build-version=0.1.1 --download.strictSSL '--ignore=(resources|(.*).zip|build.sh|devel-notes.md|README*|NEWS*|node_modules/*|build)' --overwrite --asar --out=/home/travis/build/hvmonteiro/majin/build/target
 exit $?
 
 echo ""
