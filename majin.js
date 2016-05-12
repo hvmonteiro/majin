@@ -260,6 +260,8 @@ function createWindow () {
   mainWindow.on('page-title-updated', function (e) {
     e.preventDefault();
     mainWindow.setTitle(appName + ' - ' +  mainWindow.webContents.getTitle());
+    trayIcon.setToolTip(appName + ' - ' +  mainWindow.webContents.getTitle());
+    trayIcon.setContextMenu(contextMenu);
   });
 /*
   mainWindow.webContents.on('did-finish-load', function (e) {
