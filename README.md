@@ -26,8 +26,6 @@ npm install
 
 # Run the app 
 npm start
--or-
-electron .
 ```
 # License
 Majin, Copyright (C) 2016 Hugo V. Monteiro
