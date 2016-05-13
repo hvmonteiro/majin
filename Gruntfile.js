@@ -2,7 +2,7 @@ module.exports = function (grunt) {
   grunt.initConfig({
     // Before generating any new files, remove any previously-created files.
     clean: {
-      tests: ['tmp']
+      build: ['build']
     },
     jshint: {
       all: ['Gruntfile.js', 'src/majin.js']
