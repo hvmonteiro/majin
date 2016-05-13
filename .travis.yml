@@ -2,18 +2,46 @@ language: node_js
 node_js:
   - "4.4.1"
 sudo: true
+notifications:
+  email: true
+env:
+  global:
+    - NPM_CONFIG_PROGRESS="true"
+branches:
+  only:
+    - master
+    - stable
 addons:
   apt:
     packages:
       - wine
-install: 
+      - zip
+before_install: 
   - npm install --save-dev
+install: true
 before_script: 
-      - "sh -e /etc/init.d/xvfb start"
-      - sleep 3 # give xvfb some time to start
-      - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
+  - "export DISPLAY=:99.0"
   - npm test
 script: 
   - npm run build
+after_success:
+  - echo "Build Successful"
+after_failure:
+  - echo "Build unsuccessful"
+before_deploy: echo "Starting Deploy..."
+deploy:
+  provider: releases
+  api_key: "GITHUB OAUTH TOKEN"
+  file:
+    - "file1"
+    - "file2"
+  skip_cleanup: true
+  on:
+    tags: true
+after_deploy: 
+  - echo "Deployed finished."
 after_script:
   - echo "Finished"
+

@@ -3,7 +3,7 @@
 
 SAVED_DIR="$PWD"
 BUILD_DIR="$SAVED_DIR/build"
-BUILD_DIR_LIST="target packages setup"
+BUILD_DIR_LIST="target packages install"
 PACKAGE_JSON="package.json"
 VERSION_JSON="version.json"
 
@@ -80,7 +80,7 @@ _create_version_json()  {
 
     [ "$TRAVIS_BUILD_NUMBER" != "" ] && APP_BUILD_VERSION="$TRAVIS_BUILD_NUMBER" || APP_BUILD_VERSION="0000"
 
-    cat > "$VERSION_JSON" <<EOF
+    cat > "src/$VERSION_JSON" <<EOF
 {
     "name": "$APP_NAME",
     "version": "$APP_VERSION ($APP_BUILD_VERSION)",
@@ -104,37 +104,37 @@ case "$1" in
         win32)
             APP_PLATFORM="win32"
             APP_ARCH="ia32"
-            APP_ICON="images/icon@3.png"
+            APP_ICON="src/images/icon@3.png"
             ;;
         win64)
             APP_PLATFORM="win32"
             APP_ARCH="x64"
-            APP_ICON="images/icon@3.png"
+            APP_ICON="src/images/icon@3.png"
             ;;
         linux32)
             APP_PLATFORM="linux"
             APP_ARCH="ia32"
-            APP_ICON="images/icon@3.png"
+            APP_ICON="src/images/icon@3.png"
             ;;
         linux64)
             APP_PLATFORM="linux"
             APP_ARCH="x64"
-            APP_ICON="images/icon@3.png"
+            APP_ICON="src/images/icon@3.png"
             ;;
         darwin)
             APP_PLATFORM="darwin"
             APP_ARCH="x64"
-            APP_ICON="images/icon@3.hqx"
+            APP_ICON="src/images/icon@3.hqx"
             ;;
         mas)
             APP_PLATFORM="mas"
             APP_ARCH="x64"
-            APP_ICON="images/icon@3.hqx"
+            APP_ICON="src/images/icon@3.hqx"
             ;;
         all)
             APP_PLATFORM="all"
             APP_ARCH="all"
-            APP_ICON="majin.ico"
+            APP_ICON="src/majin.ico"
             ;;
         *)
             echo ""
@@ -155,7 +155,7 @@ echo "Installing build dependencies..."
 npm install --save-dev
 
 echo ""
-electron-packager . "$APP_NAME" \
+electron-packager ./src "$APP_NAME" \
 --platform="$APP_PLATFORM" \
 --arch="$APP_ARCH" \
 --icon="$APP_ICON" \
@@ -186,7 +186,7 @@ for PKG_NAME in *; do
 
     echo "- Creating ZIP package '${PKG_NAME}.zip'"
 
-    cp -f "$SAVED_DIR/majin.ico" "$BUILD_DIR/target/$PKG_NAME/"
+    cp -f "$SAVED_DIR/src/majin.ico" "$BUILD_DIR/target/$PKG_NAME/"
     if [ $? -ne 0 ]; then
         echo "Error: file not found (majin.ico). Exiting..."
         _my_exit 1
@@ -203,7 +203,7 @@ for PKG_NAME in *; do
     #if [ $? -eq 0 ]; then
         export DISPLAY=$SAVED_DISPLAY
     #    [ ! -d "$BUILD_DIR/ispack" ] && git clone https://github.com/jrsoftware/ispack "$BUILD_DIR/ispack"
-    #    wine "./ispack/isfiles-unicode/ISCC.exe" /DAppBuildDir="..\target\${PKG_NAME}" /O"..\setup" /F"${PKG_NAME}-setup" "..\..\setup-wine.iss"
+    #    wine "./ispack/isfiles-unicode/ISCC.exe" /DAppBuildDir="..\target\${PKG_NAME}" /O"..\install" /F"${PKG_NAME}-setup" "..\..\setup-wine.iss"
     #fi
 done
 
