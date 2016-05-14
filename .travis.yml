@@ -2,6 +2,8 @@ language: node_js
 node_js:
   - "4.4.1"
 sudo: true
+sudo: required
+dist: trusty
 notifications:
   email: true
 env:
