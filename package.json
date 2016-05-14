@@ -32,10 +32,7 @@
     "grunt": ">1.0.0",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-jshint": "^1.0.0",
-    "grunt-html": "^7.0.0",
-    "html-validator": "^1.0.0",
-    "html-validator-cli": "^2.0.0",
-    "jshint": ">2.6.0"
+    "grunt-html-validation": "^0.1.18",
   },
   "dependencies": {
     "electron-prebuilt": "^0.36.0",
