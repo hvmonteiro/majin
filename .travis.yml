@@ -2,8 +2,6 @@ language: node_js
 node_js:
   - "4.4.1"
 sudo: true
-sudo: required
-dist: trusty
 notifications:
   email: true
 env:
@@ -37,8 +35,8 @@ deploy:
   provider: releases
   api_key: "GITHUB OAUTH TOKEN"
   file:
-    - "file1"
-    - "file2"
+    - "build/packages/*"
+    - "build/install/*"
   skip_cleanup: true
   on:
     tags: true
