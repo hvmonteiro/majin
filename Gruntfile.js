@@ -26,5 +26,5 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-htmlhtml-validation');
 
   // Register tasks
-  grunt.registerTask('default', ['clean', 'jshint', 'htmllint']);
+  grunt.registerTask('default', ['clean', 'jshint']);
 };
