@@ -17,7 +17,6 @@ module.exports = function (grunt) {
     files: {
         src: ['src/*.html']
     }
-}
   });
 
   // These plugins provide necessary tasks.
