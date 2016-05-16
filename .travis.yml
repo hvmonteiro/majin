@@ -1,47 +1,46 @@
 language: node_js
 node_js:
-  - "4.4.1"
+- 4.4.1
 sudo: true
 notifications:
   email: true
 env:
   global:
-    - NPM_CONFIG_PROGRESS="true"
+  - NPM_CONFIG_PROGRESS="true"
 branches:
   only:
-    - master
-    - stable
+  - master
+  - stable
 addons:
   apt:
     packages:
-      - wine
-      - zip
-before_install: 
-  - npm install --save-dev
+    - wine
+    - zip
+before_install:
+- npm install --save-dev
 install: true
-before_script: 
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3 # give xvfb some time to start
-  - "export DISPLAY=:99.0"
-  - npm test
-script: 
-  - npm run build
+before_script:
+- sh -e /etc/init.d/xvfb start
+- sleep 3
+- export DISPLAY=:99.0
+- npm test
+script:
+- npm run build
 after_success:
-  - echo "Build Successful"
+- echo "Build Successful"
 after_failure:
-  - echo "Build unsuccessful"
+- echo "Build unsuccessful"
 before_deploy: echo "Starting Deploy..."
 deploy:
   provider: releases
-  api_key: "GITHUB OAUTH TOKEN"
+  api_key:
+    secure: Fe/PGI1j4e/goipNJ5BoBDKo+04UHUU4mZ0lnmYQASd0aMn4PAlS+En7aE+jPTkIhsdC20bMqN9om+k9B7DbiVCawlk6MggF5lzTH+z+ulbR9MsjpHMinhN10fj+BMsvyxjtBcfc7yc56Elxbk8vkCrznS9nzN9hY63+FVlBji4nhcp5kmKvTYlsNwFBlbaEr6vkAYExjbxXO6569RV0jWowCeRAcZTz6hDJDWihsaN5dYL6oMFPS8H2jTMx/DVVVMl4iFYsv6vf9WwFeaQPmaIAWpwzsyqvSwIrF5w73hqp4ztKFdWGATv2o6TQoGIEtf6U/rRmtUI5qQG70BodUmMOaNP5zT40W5w/WjScAIuYwZaGdH4BsoNd7z3/5dfurZIRrprTScMczE8iYx6o4CpTRMyqIFUOcVPzUSe/6b8p0eGXZ5nYbhhrQDK3tv3KrZO+jdSaoKRHZu7SO/ZKNsAc4F/K7oaF8WcIFxsb7Bfwf+ESNStm5ZXfF43OoCRfb6z7q4473JLd+d0v0Ao9MG+Eifg9EyjcCm4whfyjJYmIxpu9zx43lJhlrv60y8qVZfjGjiBCHxhq+ux8g8sGI4TIwQQod7r3J7cfENzxnRcOx0zhee7rn5tJQn5w0lzgLTDyoWPgguu6s1vqTG5SmjI0nAdxUlAUU7iHjdwFZkY=
   file:
-    - "build/packages/*"
-    - "build/install/*"
-  skip_cleanup: true
+    - build/packages/*
+    - build/install/*
   on:
-    tags: true
-after_deploy: 
-  - echo "Deployed finished."
+    repo: hvmonteiro/majin
+after_deploy:
+- echo "Deployed finished."
 after_script:
-  - echo "Finished"
-
+- echo "Finished"
