@@ -42,7 +42,7 @@ deploy:
   file_glob: true
   on:
     tag: true
-#    tag = v1.0-alpha
+    tag = v1.0-alpha
 #    branch: release
 #    condition: $RELEASE = true
     repo: hvmonteiro/majin
