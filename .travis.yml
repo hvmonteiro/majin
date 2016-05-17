@@ -43,7 +43,6 @@ deploy:
   on:
     tags: true
     tag = v1.0-alpha
-#    branch: release
 #    condition: $RELEASE = true
     repo: hvmonteiro/majin
 after_deploy:
