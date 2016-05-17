@@ -43,7 +43,6 @@ deploy:
   on:
     tags: true
     tag = v1.0-alpha
-#    condition: $RELEASE = true
     repo: hvmonteiro/majin
 after_deploy:
 - echo "Deployed finished."
