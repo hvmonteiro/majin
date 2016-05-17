@@ -105,5 +105,3 @@ http://choosealicense.com/licenses/
 
 # CSS Tooltip Generator
 http://www.cssportal.com/css-tooltip-generator/
-
-
