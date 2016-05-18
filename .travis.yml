@@ -42,7 +42,6 @@ deploy:
   file_glob: true
   on:
     tags: true
-    tag = v1.0-alpha
     repo: hvmonteiro/majin
 after_deploy:
 - echo "Deployed finished."
