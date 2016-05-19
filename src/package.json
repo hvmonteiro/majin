@@ -29,13 +29,6 @@
     "url": "https://github.com/hvmonteiro/majin/issues"
   },
   "homepage": "https://github.com/hvmonteiro/majin",
-  "devDependencies": {
-    "electron-packager": "~7.0.1",
-    "grunt": ">=0.4.1",
-    "grunt-contrib-clean": "^1.0.0",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-jshint": "^1.0.0"
-  },
   "dependencies": {
     "electron-prebuilt": "^0.36.0",
     "menu": "0.2.5",

@@ -23,7 +23,7 @@ before_script:
 - sh -e /etc/init.d/xvfb start
 - sleep 3
 - export DISPLAY=:99.0
-- npm test
+- npm lint
 script:
 - npm run build
 after_success:
@@ -40,8 +40,9 @@ deploy:
   skip_cleanup: true
   file: build/packages/*.zip
   file_glob: true
+  overwrite: true
   on:
-    tag: true
+    tags: true
     repo: hvmonteiro/majin
 after_deploy:
 - echo "Deployed finished."

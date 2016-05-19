@@ -6,8 +6,7 @@ BUILD_DIR="$SAVED_DIR/build"
 BUILD_DIR_LIST="target packages install"
 PACKAGE_JSON="package.json"
 VERSION_JSON="version.json"
-
-IGNORE_LIST="(resources|(.*).zip|build.sh|devel-notes.md|README*|NEWS*|node_modules/*|build)"
+IGNORE_LIST="node_modules/*"
 EXTRA_PARAMS=""
 #DEPS="zip wine"
 DEPS="zip"
@@ -155,7 +154,7 @@ echo "Installing build dependencies..."
 npm install --save-dev
 
 echo ""
-electron-packager ./src "$APP_NAME" \
+electron-packager "src" "$APP_NAME" \
 --platform="$APP_PLATFORM" \
 --arch="$APP_ARCH" \
 --icon="$APP_ICON" \
@@ -186,11 +185,11 @@ for PKG_NAME in *; do
 
     echo "- Creating ZIP package '${PKG_NAME}.zip'"
 
-    cp -f "$SAVED_DIR/src/majin.ico" "$BUILD_DIR/target/$PKG_NAME/"
-    if [ $? -ne 0 ]; then
-        echo "Error: file not found (majin.ico). Exiting..."
-        _my_exit 1
-    fi
+    #cp -f "src/majin.ico" "$BUILD_DIR/target/$PKG_NAME/"
+    #if [ $? -ne 0 ]; then
+    #    echo "Error: file not found (majin.ico). Exiting..."
+    #    _my_exit 1
+    #fi
     zip -qo9r "../packages/${PKG_NAME}.zip" "$PKG_NAME"
     if [ $? -ne 0 ]; then
         echo "Error: An unexpected error ocurred. Check output formore information. Exiting..."

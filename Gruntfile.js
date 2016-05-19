@@ -16,14 +16,23 @@ module.exports = function (grunt) {
     },
     files: {
         src: ['src/*.html']
-    }
+    },
+    copy: {
+      main: {
+          files: [
+            // includes files within path
+            { expand: true, src: ['src/images/majin.ico'], dest: 'src/', filter: 'isFile'},
+          ]
+      },
+    },
   });
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   // grunt.loadNpmTasks('grunt-htmlhtml-validation');
 
   // Register tasks
-  grunt.registerTask('default', ['clean', 'jshint']);
+  grunt.registerTask('default', ['clean', 'copy', 'jshint']);
 };
