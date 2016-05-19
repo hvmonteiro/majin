@@ -10,12 +10,6 @@ env:
   global:
   - NPM_CONFIG_PROGRESS="true"
 
-branches:
-  only:
-  - master
-  - stable
-  - /v\d+\.\d+[a-z]/
-
 sudo: true
 
 addons:
