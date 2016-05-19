@@ -44,6 +44,7 @@ deploy:
   on:
     tags: true
     repo: hvmonteiro/majin
+    all_branches: true
 after_deploy:
 - echo "Deployed finished."
 after_script:
