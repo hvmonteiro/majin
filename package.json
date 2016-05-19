@@ -7,9 +7,9 @@
   "scripts": {
     "start": "electron src/majin.js",
     "clean": "grunt clean --verbose",
-    "lint": "grunt --verbose",
+    "test": "grunt --verbose",
     "build": "./bin/build.sh all",
-    "test": "grunt test --verbose"
+    "testbuild": "electron src/majin.js --buildtest"
   },
   "repository": {
     "type": "git",

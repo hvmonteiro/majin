@@ -342,7 +342,16 @@ function createWindow () {
     mainWindow.loadURL(goToURL);
   });
 
-  mainWindow.show();
+  // This is only used to test if the application start without any problem,
+  // the application immediatly exits after this if everything is ok
+  if (process.argv[2] === '--buildtest') {
+    console.log('Application Execution Test: Ok');
+    mainWindow._events.close = null; // Unreference function so that App can close
+    mainWindow.close();
+    app.quit();
+  } else {
+    mainWindow.show();
+  }
 } // function createWindow
 
 // This method will be called when Electron has finished
