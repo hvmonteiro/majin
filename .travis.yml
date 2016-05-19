@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- 4.4.1
+  - 4.4.1
 sudo: true
 notifications:
   email: true
@@ -17,21 +17,21 @@ addons:
     - wine
     - zip
 before_install:
-- npm install --save-dev
+  - npm install --save-dev
 install: true
 before_script:
-- sh -e /etc/init.d/xvfb start
-- sleep 3
-- export DISPLAY=:99.0
-- npm test
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3
+  - export DISPLAY=:99.0
 script:
-- npm run build
+  - npm test
 after_success:
-- echo "Build Successful"
+  - echo "Build Successful"
 after_failure:
-- echo "Build unsuccessful"
+  - echo "WARNING: Build unsuccessful!!!"
 before_deploy: 
-  - echo "Deploy built package files to GitHub releases..."
+  - echo "Building packages for GitHub releases..."
+  - npm run build
   - git add src/version.json
 deploy:
   provider: releases
@@ -46,6 +46,6 @@ deploy:
     repo: hvmonteiro/majin
     all_branches: true
 after_deploy:
-- echo "Deployed finished."
+  - echo "GitHub packages deploy finished."
 after_script:
-- echo "Finished"
+  - echo "Finished"

@@ -23,16 +23,22 @@ module.exports = function (grunt) {
             // includes files within path
             { expand: true, src: ['src/images/majin.ico'], dest: 'src/', filter: 'isFile'},
           ]
-      },
+      }
     },
+    exec: {
+      list_files: {
+        cmd: 'electron src/majin.js --test'
+      }
+    }
   });
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-copy');
-  // grunt.loadNpmTasks('grunt-htmlhtml-validation');
+  grunt.loadNpmTasks('grunt-exec');
+  // grunt.loadNpmTasks('grunt-html-validation');
 
   // Register tasks
-  grunt.registerTask('default', ['clean', 'copy', 'jshint']);
+  grunt.registerTask('default', ['clean', 'copy', 'jshint', 'exec']);
 };

@@ -344,7 +344,7 @@ function createWindow () {
 
   // This is only used to test if the application start without any problem,
   // the application immediatly exits after this if everything is ok
-  if (process.argv[2] === '--buildtest') {
+  if (process.argv[2] === '--test') {
     console.log('Application Execution Test: Ok');
     mainWindow._events.close = null; // Unreference function so that App can close
     mainWindow.close();
