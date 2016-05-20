@@ -1,15 +1,12 @@
 {
   "name": "majin",
   "productName": "Majin",
-  "version": "0.1.1",
+  "version": "0.1.2-0",
   "description": "Mobile Browser for the Desktop",
   "main": "majin.js",
   "scripts": {
-    "start": "electron src/majin.js",
-    "clean": "grunt clean --verbose",
-    "test": "grunt --verbose",
-    "exec-test": "electron src/majin.js --test",
-    "build": "./bin/build.sh all"
+    "start": "electron majin.js",
+    "exec-test": "electron majin.js --test"
   },
   "repository": {
     "type": "git",
@@ -24,19 +21,11 @@
   ],
   "author": "Hugo V. Monteiro",
   "license": "GPL-2.0",
-  "url": "https://root.hugovmonteiro.net/majin",
+  "url": "https://github.com/hvmonteiro/majin",
   "bugs": {
     "url": "https://github.com/hvmonteiro/majin/issues"
   },
-  "homepage": "https://github.com/hvmonteiro/majin",
-  "devDependencies": {
-    "electron-packager": "~7.0.1",
-    "grunt": ">=0.4.1",
-    "grunt-contrib-clean": "^1.0.0",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-jshint": "^1.0.0",
-    "grunt-exec": "^0.4.7"
-  },
+  "homepage": "https://root.hugovmonteiro.net/majin",
   "dependencies": {
     "electron-prebuilt": "^0.36.0",
     "menu": "0.2.5",
