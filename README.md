@@ -2,8 +2,6 @@
 
 [![Build Status](https://travis-ci.org/hvmonteiro/majin.svg?branch=master)](https://travis-ci.org/hvmonteiro/majin)
 
-**Clone and run for a quick way to see Majin in action.**
-
 Majin is a small lightweight desktop browser that renders/requests mobile webpages from websites (when these are available).
 
 It was developed to avoid the hassle of using a full-blown browser just to keep music/videos playing in the background while you work. It also packs a few features like minimizing to desktop's tray and stay on top of other windows.
@@ -16,6 +14,8 @@ Just download the version you want, extract to a directory and execute it.
 
 
 ## Try directly from source
+
+**Clone and run for a quick way to see Majin in action.**
 
 You must be familiar with [Git](https://git-scm.com) version control system, [NPM](http://npmjs.com)) and [Node.js](https://nodejs.org/en/download/).
 Just clone this repository, install NodeJS dependency modules and start Majin with npm as showed in the following example:
