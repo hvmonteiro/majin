@@ -82,7 +82,8 @@ _create_version_json()  {
     cat > "src/$VERSION_JSON" <<EOF
 {
     "name": "$APP_NAME",
-    "version": "$APP_VERSION ($APP_BUILD_VERSION)",
+    "version": "$APP_VERSION",
+    "build": "$APP_BUILD_VERSION",
     "description": "$APP_DESCRIPTION",
     "author": "$APP_AUTHOR",
     "copyright": "$APP_COPYRIGHT",
