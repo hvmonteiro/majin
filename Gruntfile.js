@@ -2,7 +2,7 @@ module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     // Before generating any new files, remove any previously-created files.
-    clean: { 
+    clean: {
       build: ['build']
     },
     jshint: {
@@ -29,7 +29,7 @@ module.exports = function (grunt) {
     version: {
       majin: {
         src: ['package.json', 'src/package.json', 'src/version.json']
-      },
+      }
     },
 
     exec: {
@@ -90,6 +90,9 @@ module.exports = function (grunt) {
           out: 'build/target'
         }
       }
+    },
+    zip: {
+      'build/packages/majin-linux-x64.zip': ['build/target/majin-linux-x64']
     }
   });
 
@@ -100,12 +103,13 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-mkdir');
   grunt.loadNpmTasks('grunt-version');
+  grunt.loadNpmTasks('grunt-zip');
   require('load-grunt-tasks')(grunt); // npm install --save-dev load-grunt-tasks
   // grunt.loadNpmTasks('grunt-html-validation');
 
   // Register tasks
   grunt.registerTask('delete', ['clean']);
   grunt.registerTask('default', ['clean', 'copy', 'jshint', 'version', 'exec']);
-  grunt.registerTask('packages', ['clean', 'copy', 'jshint', 'exec', 'mkdir', 'electron']);
-  grunt.registerTask('release', ['clean', 'copy', 'jshint', 'version', 'exec', 'mkdir', 'electron']);
+  grunt.registerTask('packages', ['clean', 'copy', 'jshint', 'exec', 'mkdir', 'electron', 'zip']);
+  grunt.registerTask('release', ['clean', 'copy', 'jshint', 'version', 'exec', 'mkdir', 'electron', 'zip']);
 };
