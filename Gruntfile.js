@@ -109,7 +109,7 @@ module.exports = function (grunt) {
 
   // Register tasks
   grunt.registerTask('delete', ['clean']);
-  grunt.registerTask('default', ['clean', 'copy', 'jshint', 'version', 'exec']);
+  grunt.registerTask('default', ['clean', 'copy', 'version', 'jshint', 'exec']);
   grunt.registerTask('packages', ['clean', 'copy', 'jshint', 'exec', 'mkdir', 'electron', 'zip']);
-  grunt.registerTask('release', ['clean', 'copy', 'jshint', 'version', 'exec', 'mkdir', 'electron', 'zip']);
+  grunt.registerTask('release', ['clean', 'copy', 'version', 'jshint', 'exec', 'mkdir', 'electron', 'zip']);
 };
