@@ -93,8 +93,8 @@ var mainMenu = [{
     type: 'checkbox',
     checked: false,
     click: function (item, BrowserWindow) {
-      BrowserWindow.setAutoHideMenuBar(item.checked);
-      BrowserWindow.setMenuBarVisibility(!item.checked);
+      mainWindow.setAutoHideMenuBar(item.checked);
+      mainWindow.setMenuBarVisibility(!item.checked);
       contextMenu.items[3].checked = item.checked;
       trayIcon.setContextMenu(contextMenu);
     }
@@ -197,8 +197,8 @@ var syscontextMenu = [{
     type: 'checkbox',
     checked: false,
     click: function (item, BrowserWindow) {
-      BrowserWindow.setAutoHideMenuBar(item.checked);
-      BrowserWindow.setMenuBarVisibility(!item.checked);
+      mainWindow.setAutoHideMenuBar(item.checked);
+      mainWindow.setMenuBarVisibility(!item.checked);
       appMenu.items[0].submenu.items[5].checked = item.checked;
     }
 }, {
