@@ -170,7 +170,6 @@ electron-packager "src" "$APP_NAME" \
 --download.strictSSL \
 --ignore="$IGNORE_LIST" \
 --overwrite \
---asar \
 --out="$BUILD_DIR/target" \
 "$EXTRA_PARAMS"
 if [ $? -ne 0 ]; then
