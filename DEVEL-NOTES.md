@@ -15,6 +15,7 @@ https://github.com/atom/electron/blob/master/docs/api/menu.md
 
 ## BrowserWindow API reference:
 https://github.com/atom/electron/blob/master/docs/api/browser-window.md
+https://www.npmjs.com/package/electron-browser-window-options
 
 ## BrowserWindow API:
 http://electron.atom.io/docs/v0.30.0/api/browser-window/
