@@ -39,6 +39,7 @@
     "grunt-exec": "^0.4.7",
     "grunt-mkdir": "^1.0.0",
     "grunt-version": "^1.1.1",
+    "grunt-zip": "^0.17.1",
     "load-grunt-tasks": "^3.5.0"
   },
   "dependencies": {
