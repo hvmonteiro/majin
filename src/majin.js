@@ -91,9 +91,12 @@ var mainMenu = [{
   }, {
     label: 'Auto-Hide Menu Bar',
     type: 'checkbox',
-    checked: true,
+    checked: false,
     click: function (item, BrowserWindow) {
-      mainWindow.setAutoHideMenuBar(item.checked);
+      BrowserWindow.setAutoHideMenuBar(item.checked);
+      BrowserWindow.setMenuBarVisibility(!item.checked);
+      contextMenu.items[3].checked = item.checked;
+      trayIcon.setContextMenu(contextMenu);
     }
   }, {
     type: 'separator'
@@ -190,6 +193,15 @@ var syscontextMenu = [{
 }, {
   type: 'separator'
 }, {
+    label: 'Auto-Hide Menu Bar',
+    type: 'checkbox',
+    checked: false,
+    click: function (item, BrowserWindow) {
+      BrowserWindow.setAutoHideMenuBar(item.checked);
+      BrowserWindow.setMenuBarVisibility(!item.checked);
+      appMenu.items[0].submenu.items[5].checked = item.checked;
+    }
+}, {
   label: 'Quit',
   accelerator: 'CmdOrCtrl+Q',
   click: function (item, BrowserWindow) {
@@ -215,7 +227,7 @@ function createWindow () {
     minHeight: 400,
     maxWidth: 400,
     // maxHeight: 400,
-    autoHideMenuBar: true,
+    autoHideMenuBar: false,
     maximizable: false,
     skipTaskbar: false,
     // resizable: true,
