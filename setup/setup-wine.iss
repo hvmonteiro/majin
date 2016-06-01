@@ -14,7 +14,7 @@
 #define MyAppDevURL "https://github.com/hvmonteiro/majin"
 #define MyAppExeName "Majin.exe"
 #define WorkspaceDir "build\setup"
-#define AppBuildDir "build\target\majin-win32-x64"
+#define AppBuildDir "..\build\target\majin-win32-x64"
 
 [Setup]
 AppId={{853AD67A-8C9E-40DB-878A-B7F015B329BB}

@@ -4,7 +4,7 @@
 SAVED_DIR="$PWD"
 BUILD_DIR="$SAVED_DIR/build"
 BUILD_DIR_LIST="target packages install"
-PACKAGE_JSON="package.json"
+PACKAGE_JSON="src/package.json"
 VERSION_JSON="version.json"
 IGNORE_LIST="node_modules/*"
 EXTRA_PARAMS=""
@@ -104,37 +104,37 @@ case "$1" in
         win32)
             APP_PLATFORM="win32"
             APP_ARCH="ia32"
-            APP_ICON="src/images/icon@3.png"
+            APP_ICON="$SAVED_DIR/src/images/icon@3.png"
             ;;
         win64)
             APP_PLATFORM="win32"
             APP_ARCH="x64"
-            APP_ICON="src/images/icon@3.png"
+            APP_ICON="$SAVED_DIR/src/images/icon@3.png"
             ;;
         linux32)
             APP_PLATFORM="linux"
             APP_ARCH="ia32"
-            APP_ICON="src/images/icon@3.png"
+            APP_ICON="$SAVED_DIR/src/images/icon@3.png"
             ;;
         linux64)
             APP_PLATFORM="linux"
             APP_ARCH="x64"
-            APP_ICON="src/images/icon@3.png"
+            APP_ICON="$SAVED_DIR/src/images/icon@3.png"
             ;;
         darwin)
             APP_PLATFORM="darwin"
             APP_ARCH="x64"
-            APP_ICON="src/images/icon@3.hqx"
+            APP_ICON="$SAVED_DIR/src/images/icon@3.hqx"
             ;;
         mas)
             APP_PLATFORM="mas"
             APP_ARCH="x64"
-            APP_ICON="src/images/icon@3.hqx"
+            APP_ICON="$SAVED_DIR/src/images/icon@3.hqx"
             ;;
         all)
             APP_PLATFORM="all"
             APP_ARCH="all"
-            APP_ICON="src/majin.ico"
+            APP_ICON="$SAVED_DIR/src/majin.ico"
             ;;
         *)
             echo ""
@@ -170,7 +170,6 @@ electron-packager "src" "$APP_NAME" \
 --download.strictSSL \
 --ignore="$IGNORE_LIST" \
 --overwrite \
---asar \
 --out="$BUILD_DIR/target" \
 "$EXTRA_PARAMS"
 if [ $? -ne 0 ]; then
@@ -186,11 +185,13 @@ for PKG_NAME in *; do
 
     echo "- Creating ZIP package '${PKG_NAME}.zip'"
 
-    #cp -f "src/majin.ico" "$BUILD_DIR/target/$PKG_NAME/"
-    #if [ $? -ne 0 ]; then
-    #    echo "Error: file not found (majin.ico). Exiting..."
-    #    _my_exit 1
-    #fi
+    cp -f "$SAVED_DIR/src/majin.ico" "$BUILD_DIR/target/$PKG_NAME/"
+    if [ $? -ne 0 ]; then
+        echo "Error: file not found (majin.ico). Exiting..."
+        _my_exit 1
+    fi
+
+
     zip -qo9r "../packages/${PKG_NAME}.zip" "$PKG_NAME"
     if [ $? -ne 0 ]; then
         echo "Error: An unexpected error ocurred. Check output formore information. Exiting..."
@@ -199,12 +200,14 @@ for PKG_NAME in *; do
 
     echo ""
 
-    #echo "$PKG_NAME" | grep -q 'win32'
-    #if [ $? -eq 0 ]; then
+    echo "$PKG_NAME" | grep -q 'win32'
+    if [ $? -eq 0 ]; then
         export DISPLAY=$SAVED_DISPLAY
-    #    [ ! -d "$BUILD_DIR/ispack" ] && git clone https://github.com/jrsoftware/ispack "$BUILD_DIR/ispack"
-    #    wine "./ispack/isfiles-unicode/ISCC.exe" /DAppBuildDir="..\target\${PKG_NAME}" /O"..\install" /F"${PKG_NAME}-setup" "..\..\setup-wine.iss"
-    #fi
+        [ ! -d "$BUILD_DIR/ispack" ] && git clone https://github.com/jrsoftware/ispack "$BUILD_DIR/ispack"
+        set -x 
+        #wine "$BUILD_DIR/ispack/isfiles-unicode/ISCC.exe" /DAppBuildDir="$BUILD_DIR/target/${PKG_NAME}" /O"$BUILD_DIR/install" /F"${PKG_NAME}-setup" "..\\setup\\setup-wine.iss"
+        #[ $? -ne 0 ] && echo "WARNING: Installation Setup exited with errors. Check output for further information."
+    fi
 done
 
 cd "$SAVED_DIR"
