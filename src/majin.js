@@ -50,7 +50,7 @@ const appWebURL = vjson.homepageURL;
 const appSupportURL = vjson.supportURL;
 
 //const homePageURL = 'file://' + path.join(__dirname, 'majin.html');
-const homePageURL = 'http://majin.info/start');
+const homePageURL = 'http://majin.info/start';
 
 var mainWindow = null;
 var trayIcon = null;
