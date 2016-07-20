@@ -94,7 +94,7 @@ _create_version_json()  {
 EOF
     # Save and unset DISPLAY to workaround a bug (?) with electron-packager for windows, where it hangs with any console message
     export SAVED_DISPLAY="$DISPLAY"
-    unset DISPLAY
+    #unset DISPLAY
 
 }
 
