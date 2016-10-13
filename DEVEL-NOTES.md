@@ -86,8 +86,11 @@ https://github.com/maxogden/monu
 ## Web Device Metrics
 http://www.useragentstring.com/pages/Mobile%20Browserlist
 
-## List of all Browsers Agent string:
+## List of all Browsers Agent Strings:
 http://www.useragentstring.com/pages/Browserlist/
+
+## List of most relevant devices Agent Strings:
+https://deviceatlas.com/blog/list-of-user-agent-strings
 
 ## Icon Convert Web Tool
 https://iconverticons.com/online/
