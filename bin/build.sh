@@ -57,6 +57,7 @@ _init_build()  {
         fi
     done
     # Save and unset DISPLAY to workaround a bug (?) with electron-packager for windows, where it hangs with any console message
+    echo "Display: $DISPLAY"
     export SAVED_DISPLAY="$DISPLAY"
     unset DISPLAY
 
