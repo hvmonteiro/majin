@@ -56,6 +56,9 @@ _init_build()  {
             _my_exit 1
         fi
     done
+    # Save and unset DISPLAY to workaround a bug (?) with electron-packager for windows, where it hangs with any console message
+    export SAVED_DISPLAY="$DISPLAY"
+    unset DISPLAY
 
 }
 
@@ -92,10 +95,6 @@ _create_version_json()  {
     "supportURL": "$APP_SUPPORT_URL"
 }
 EOF
-    # Save and unset DISPLAY to workaround a bug (?) with electron-packager for windows, where it hangs with any console message
-    export SAVED_DISPLAY="$DISPLAY"
-    unset DISPLAY
-
 }
 
 
@@ -105,11 +104,13 @@ case "$1" in
             APP_PLATFORM="win32"
             APP_ARCH="ia32"
             APP_ICON="$SAVED_DIR/src/images/icon@3.png"
+            export DISPLAY=$SAVED_DISPLAY
             ;;
         win64)
             APP_PLATFORM="win32"
             APP_ARCH="x64"
             APP_ICON="$SAVED_DIR/src/images/icon@3.png"
+            export DISPLAY=$SAVED_DISPLAY
             ;;
         linux32)
             APP_PLATFORM="linux"

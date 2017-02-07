@@ -34,7 +34,7 @@ const Tray = electron.Tray;
 const browserOptions = {
   'extraHeaders': 'pragma: no-cache\n',
   // could also be used using webContents.setUserAgent(userAgent)
-  'userAgent': 'Mozilla/5.0 (Linux; Android 4.4; Nexus 5 Build/_BuildID_) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36'
+  'userAgent': 'Mozilla/5.0 (Linux; Android 7.0; Pixel C Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/52.0.2743.98 Safari/537.36'
 };
 
 var vjson = require(path.join(__dirname, 'version.json'));
@@ -49,7 +49,7 @@ const appLicense = vjson.license;
 const appWebURL = vjson.homepageURL;
 const appSupportURL = vjson.supportURL;
 
-//const homePageURL = 'file://' + path.join(__dirname, 'majin.html');
+// const homePageURL = 'file://' + path.join(__dirname, 'majin.html');
 const homePageURL = 'http://majin.info/start';
 
 var mainWindow = null;
@@ -122,6 +122,14 @@ var mainMenu = [{
   }, {
     type: 'separator'
   }, {
+    label: 'Open',
+    accelerator: 'CmdOrCtrl+O',
+    click: function (item, BrowserWindow) {
+      mainWindow.loadURL(homePageURL, browserOptions);
+    }
+  }, {
+    type: 'separator'
+  }, {
     label: 'Back',
     enabled: false,
     accelerator: 'CmdOrCtrl+Left',
@@ -140,6 +148,14 @@ var mainMenu = [{
     accelerator: 'CmdOrCtrl+Right',
     click: function (item, BrowserWindow) {
       if (mainWindow) mainWindow.webContents.goForward();
+    }
+  }, {
+    type: 'separator'
+  }, {
+    label: 'Open',
+    accelerator: 'CmdOrCtrl+O',
+    click: function (item, BrowserWindow) {
+      mainWindow.loadURL(homePageURL, browserOptions);
     }
   }
 ]}, {
@@ -194,14 +210,14 @@ var syscontextMenu = [{
 }, {
   type: 'separator'
 }, {
-    label: 'Auto-Hide Menu Bar',
-    type: 'checkbox',
-    checked: false,
-    click: function (item, BrowserWindow) {
-      mainWindow.setAutoHideMenuBar(item.checked);
-      mainWindow.setMenuBarVisibility(!item.checked);
-      appMenu.items[0].submenu.items[5].checked = item.checked;
-    }
+  label: 'Auto-Hide Menu Bar',
+  type: 'checkbox',
+  checked: false,
+  click: function (item, BrowserWindow) {
+    mainWindow.setAutoHideMenuBar(item.checked);
+    mainWindow.setMenuBarVisibility(!item.checked);
+    appMenu.items[0].submenu.items[5].checked = item.checked;
+  }
 }, {
   label: 'Quit',
   accelerator: 'CmdOrCtrl+Q',
@@ -272,8 +288,8 @@ function createWindow () {
 
   mainWindow.on('page-title-updated', function (e) {
     e.preventDefault();
-    mainWindow.setTitle(appName + ' - ' +  mainWindow.webContents.getTitle());
-    trayIcon.setToolTip(appName + ' - ' +  mainWindow.webContents.getTitle());
+    mainWindow.setTitle(appName + ' - ' + mainWindow.webContents.getTitle());
+    trayIcon.setToolTip(appName + ' - ' + mainWindow.webContents.getTitle());
     trayIcon.setContextMenu(contextMenu);
   });
 /*
@@ -335,7 +351,7 @@ function createWindow () {
   mainWindow.on('close', onBeforeUnload);
 
   mainWindow.webContents.on('did-start-loading', function (e) {
-    //console.log(mainWindow.webContents.canGoBack());
+    // console.log(mainWindow.webContents.canGoBack());
     // Enable/Disable Navigation subMenu item "Back"
     if (mainWindow.webContents.canGoBack()) {
       appMenu.items[1].submenu.items[2].enabled = true;
