@@ -121,6 +121,7 @@ var mainMenu = [{
     }
   }, {
     type: 'separator'
+/*
   }, {
     label: 'Open',
     accelerator: 'CmdOrCtrl+O',
@@ -129,34 +130,36 @@ var mainMenu = [{
     }
   }, {
     type: 'separator'
+*/
   }, {
     label: 'Back',
     enabled: false,
-    accelerator: 'CmdOrCtrl+Left',
+    accelerator: 'Alt+Left',
     click: function (item, BrowserWindow) {
       if (mainWindow) mainWindow.webContents.goBack();
     }
   }, {
     label: 'Reload',
-    accelerator: 'CmdOrCtrl+R',
+    accelerator: 'F5',
     click: function (item, BrowserWindow) {
       if (mainWindow) mainWindow.reload();
     }
   }, {
     label: 'Forward',
     enabled: false,
-    accelerator: 'CmdOrCtrl+Right',
+    accelerator: 'Alt+Right',
     click: function (item, BrowserWindow) {
       if (mainWindow) mainWindow.webContents.goForward();
     }
+/* Create a developer menu which is enabled using a command line argument --devel(?)
   }, {
     type: 'separator'
   }, {
-    label: 'Open',
-    accelerator: 'CmdOrCtrl+O',
+    label: 'Clear Web Cache',
     click: function (item, BrowserWindow) {
-      mainWindow.loadURL(homePageURL, browserOptions);
+      if (mainWindow) mainWindow.webContents.session.clearStorageData(['storages: localstorage'], function() {});
     }
+*/
   }
 ]}, {
   label: 'About',
@@ -238,6 +241,7 @@ Menu.setApplicationMenu(appMenu);
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
+    title: appName,
     width: 400,
     height: 400,
     minWidth: 400,

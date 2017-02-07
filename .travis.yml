@@ -16,17 +16,21 @@ addons:
   apt:
     packages:
     - wine
+    - xvfb
     - zip
 
 before_install:
   - npm install --save-dev
 
-install: true
+install: 
+  - export DISPLAY=':99.0'
+  - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
 
-before_script:
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3
-  - export DISPLAY=:99.0
+#before_script:
+#  - sh -e /etc/init.d/xvfb start
+#  - sleep 3
+#  - export DISPLAY=:99.0
+#
 script:
   - grunt --verbose
 

@@ -28,7 +28,7 @@
   "bugs": {
     "url": "https://github.com/hvmonteiro/majin/issues"
   },
-  "homepage": "https://root.hugovmonteiro.net/majin",
+  "homepage": "http://majin.info/",
   "devDependencies": {
     "electron-packager": "~7.0.1",
     "grunt": ">=0.4.1",

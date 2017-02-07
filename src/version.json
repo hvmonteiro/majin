@@ -4,8 +4,8 @@
     "build": "0000",
     "description": "Mobile Browser for the Desktop",
     "author": "Hugo V. Monteiro",
-    "copyright": "Copyright (c) 2016, Hugo V. Monteiro",
+    "copyright": "Copyright (c) 2017, Hugo V. Monteiro",
     "license": "GPL-2.0",
-    "homepageURL": "https://root.hugovmonteiro.net/majin",
+    "homepageURL": "http://majin.info/",
     "supportURL": "https://github.com/hvmonteiro/majin/issues"
 }
