@@ -58,8 +58,8 @@ _init_build()  {
     done
     # Save and unset DISPLAY to workaround a bug (?) with electron-packager for windows, where it hangs with any console message
     echo "Display: $DISPLAY"
-    #export SAVED_DISPLAY="$DISPLAY"
-    #unset DISPLAY
+    export SAVED_DISPLAY="$DISPLAY"
+    unset DISPLAY
 
 }
 
@@ -205,7 +205,7 @@ for PKG_NAME in *; do
 
     echo "$PKG_NAME" | grep -q 'win32'
     if [ $? -eq 0 ]; then
-        #export DISPLAY=$SAVED_DISPLAY
+        export DISPLAY=$SAVED_DISPLAY
         [ ! -d "$BUILD_DIR/ispack" ] && git clone https://github.com/jrsoftware/ispack "$BUILD_DIR/ispack"
         set -x 
         #wine "$BUILD_DIR/ispack/isfiles-unicode/ISCC.exe" /DAppBuildDir="$BUILD_DIR/target/${PKG_NAME}" /O"$BUILD_DIR/install" /F"${PKG_NAME}-setup" "..\\setup\\setup-wine.iss"
