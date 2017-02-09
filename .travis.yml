@@ -46,6 +46,7 @@ before_deploy:
 
 deploy:
   provider: releases
+#  prerelease: true
   strategy: git
   skip_cleanup: true
   app: Majin

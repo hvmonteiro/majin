@@ -33,6 +33,9 @@ https://github.com/atom/electron/blob/master/docs/api/native-image.md
 
 # Packaging & Distribution
 
+## Electron Builder
+https://github.com/electron-userland/electron-builder
+
 ## package.json (NPM Documentation)
 https://docs.npmjs.com/files/package.json
 
