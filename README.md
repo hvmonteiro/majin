@@ -8,10 +8,12 @@ It was developed to avoid the hassle of using a full-blown browser just to keep 
 
 ![Majin Screenshot for Linux](https://github.com/hvmonteiro/majin/raw/master/src/images/majin-screenshot-linux.png)
 ![Majin Screenshot for Windows](https://github.com/hvmonteiro/majin/raw/master/src/images/majin-screenshot-windows.png)
+![Majin Screenshot with Youtube](https://github.com/hvmonteiro/majin/raw/master/src/images/majin-screenshot-youtube.png)
+![Majin Screenshot with Spotify](https://github.com/hvmonteiro/majin/raw/master/src/images/majin-screenshot-spotify.png)
 
 # Releases & Usage
 
-It's made available for Linux, OSX and Windows desktop platforms. No configuration and no administration privileges are needed.
+It's made available for **Linux**, **OSX** and **Windows** desktop platforms. No configuration and no administration privileges are needed.
 You can download it from the [releases](https://github.com/hvmonteiro/majin/releases) pages.
 Just download the version you want, extract to a directory and execute it. 
 
