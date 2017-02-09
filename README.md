@@ -6,7 +6,8 @@ Majin is a small lightweight desktop browser that renders/requests mobile webpag
 
 It was developed to avoid the hassle of using a full-blown browser just to keep music/videos playing in the background while you work. It also packs a few features like minimizing to desktop's tray and stay on top of other windows.
 
-![Majin Screenshot](https://github.com/hvmonteiro/majin/raw/master/src/images/majin-screenshot.png)
+![Majin Screenshot for Linux](https://github.com/hvmonteiro/majin/raw/master/src/images/majin-screenshot-linux.png)
+![Majin Screenshot for Windows](https://github.com/hvmonteiro/majin/raw/master/src/images/majin-screenshot-windows.png)
 
 # Releases & Usage
 
