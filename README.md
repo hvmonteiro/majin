@@ -4,7 +4,7 @@ Latest Release: [![Latest Release Status](https://travis-ci.org/hvmonteiro/majin
 
 Source Code Testing: [![Development Build](https://travis-ci.org/hvmonteiro/majin.svg?branch=master)](https://travis-ci.org/hvmonteiro/majin)
 
-Development Test Release: [![Latest Devel Test Release](https://travis-ci.org/hvmonteiro/majin.svg?branch=latest-devel)](https://travis-ci.org/hvmonteiro/majin/branches)
+Development Test Release: [![Latest Devel Test Release](https://travis-ci.org/hvmonteiro/majin.svg?branch=latest-devel)](https://github.com/hvmonteiro/majin/releases/tag/latest-devel)
 
 # About
 Majin is a small lightweight desktop browser that renders/requests mobile webpages from websites (when these are available).
