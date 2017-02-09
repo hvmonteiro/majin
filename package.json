@@ -30,8 +30,8 @@
   },
   "homepage": "http://majin.info/",
   "devDependencies": {
-    "rcedit" : "^0.5.0",
-    "electron-packager": "~7.0.1",
+    "rcedit" : "0.5.0",
+    "electron-packager": "~7.1.0",
     "grunt": ">=0.4.1",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-copy": "^1.0.0",
