@@ -1,0 +1,26 @@
+
+image: node:latest
+
+# This folder is cached between builds
+cache:
+  paths:
+  - node_modules/
+  
+stages:
+  - test
+  
+before_script:
+  - npm install
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3 # give xvfb some time to start
+
+
+
+run1:
+  stage: test
+  script:
+   - npm install
+   - npm run build
+
+    
