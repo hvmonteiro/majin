@@ -13,6 +13,7 @@ variables:
   
 before_script:
   - npm install
+  - Xvfb $DISPLAY
   - sleep 3 # give xvfb some time to start
 
 
@@ -21,6 +22,6 @@ run1:
   stage: test
   script:
    - npm install
-   - xvfb-run npm run build
+   - npm run build
 
     
