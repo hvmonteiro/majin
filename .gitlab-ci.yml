@@ -13,6 +13,8 @@ variables:
   
 before_script:
   - npm install
+  - apt-get update -y
+  - apt-get install -y xfvb
   - /etc/init.d/xvfb start
   - sleep 3 # give xvfb some time to start
 
@@ -22,6 +24,6 @@ run1:
   stage: test
   script:
    - npm install
-   - npm run build
+   - Xvfb-run npm run build
 
     
