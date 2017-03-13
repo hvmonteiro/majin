@@ -15,8 +15,8 @@ before_script:
   - npm install
   - apt-get update -y
   - apt-get install -y xvfb
-  - /etc/init.d/xvfb start
-  - sleep 3 # give xvfb some time to start
+  - /usr/bin/Xvfb $DISPLAY &
+  - sleep 7 # give xvfb some time to start
 
 
 
