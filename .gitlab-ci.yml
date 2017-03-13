@@ -10,7 +10,7 @@ stages:
   
 variables:
   DISPLAY: ':99.0'
-  GOARCH="amd64 go build -ldflags -H=windowsgui"
+  GOARCH: 'amd64 go build -ldflags -H=windowsgui'
   
 before_script:
   - npm install
