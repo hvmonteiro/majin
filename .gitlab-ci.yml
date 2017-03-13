@@ -24,6 +24,6 @@ run1:
   stage: test
   script:
    - npm install
-   - Xvfb-run npm run build
+   - xvfb-run npm run build
 
     
