@@ -10,11 +10,12 @@ stages:
   
 variables:
   DISPLAY: ':99.0'
+  GOARCH="amd64 go build -ldflags -H=windowsgui"
   
 before_script:
   - npm install
   - apt-get update -y
-  - apt-get install -y xvfb zip wine32
+  - apt-get install -y xvfb zip wine
   - sudo nohup Xvfb $DISPLAY -ac &
   - sleep 7 # give xvfb some time to start
 
