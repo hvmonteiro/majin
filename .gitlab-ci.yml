@@ -14,7 +14,7 @@ variables:
 before_script:
   - npm install
   - apt-get update -y
-  - apt-get install -y xvfb
+  - apt-get install -y xvfb zip
   - sudo nohup Xvfb $DISPLAY -ac &
   - sleep 7 # give xvfb some time to start
 
