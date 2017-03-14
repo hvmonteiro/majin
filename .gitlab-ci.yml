@@ -14,6 +14,7 @@ variables:
   
 before_script:
   - npm install
+  - dpkg --add-architecture i386
   - apt-get update -y
   - apt-get install -y xvfb zip wine
   - sudo nohup Xvfb $DISPLAY -ac &
