@@ -22,13 +22,17 @@ before_script:
 
 
 
-test:
+syntax:
   stage: test
   script:
    - npm test
+
+execution:
+  stage: test
+  script:
    - npm exec-test
 
-build1:
+build:
   stage: build
   script:
    - echo "Creating platform Zip packages..."
@@ -36,7 +40,7 @@ build1:
    - xvfb-run npm run build
 
 setup:
-  stage: setup
+  stage: build
   script:
    - echo "Creating platform setup installation packages..."
 
