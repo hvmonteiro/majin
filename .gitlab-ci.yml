@@ -33,7 +33,7 @@ execution:
    - npm exec-test
 
 build:
-  stage: build
+  stage: test
   script:
    - echo "Creating platform Zip packages..."
    - npm install
