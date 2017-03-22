@@ -17,7 +17,8 @@ before_script:
   - dpkg --add-architecture i386
   - apt-get update -y
   - apt-get install -y xvfb zip wine
-  - sudo nohup Xvfb $DISPLAY -ac &
+  - apt-get install libgtk2.0-0:i386
+  - nohup Xvfb $DISPLAY -ac &
   - sleep 7 # give xvfb some time to start
 
 
