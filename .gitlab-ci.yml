@@ -40,7 +40,7 @@ build:
    - xvfb-run npm run build
 
 setup:
-  stage: build
+  stage: test
   script:
    - echo "Creating platform setup installation packages..."
 
