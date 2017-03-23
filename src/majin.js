@@ -11,14 +11,13 @@
 // console.log(require('module').globalPaths);
 // console.log(require('electron'));
 
+
 // Electron module
 const electron = require('electron');
 
-// Module to control application life.
-const app = require('app');
+// Module to control application life and create native browser window.
+const {app, BrowserWindow} = electron;
 
-// Module to create native browser window.
-const BrowserWindow = require('browser-window');
 
 // Module to display a dialog box
 const dialog = require('electron').dialog;
