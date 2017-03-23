@@ -16,8 +16,8 @@ before_script:
   - npm install
   - dpkg --add-architecture i386
   - apt-get update -y
-  - apt-get install -y xvfb zip wine
-  - sudo nohup Xvfb $DISPLAY -ac &
+  - apt-get install -y xvfb zip wine libgtk2.0-0:i386 libnotify4 libgconf-2-4
+  - nohup Xvfb $DISPLAY -ac &
   - sleep 7 # give xvfb some time to start
 
 
@@ -33,14 +33,14 @@ execution:
    - npm exec-test
 
 build:
-  stage: build
+  stage: test
   script:
    - echo "Creating platform Zip packages..."
    - npm install
    - xvfb-run npm run build
 
 setup:
-  stage: build
+  stage: test
   script:
    - echo "Creating platform setup installation packages..."
 
