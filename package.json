@@ -30,29 +30,30 @@
   },
   "homepage": "http://majin.info/",
   "devDependencies": {
-    "rcedit" : "0.5.0",
-    "electron-packager": "~7.1.0",
-    "grunt": ">=0.4.1",
-    "grunt-contrib-clean": "^1.0.0",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-jshint": "^1.0.0",
-    "grunt-electron": "^4.0.0",
-    "grunt-exec": "^0.4.7",
-    "grunt-mkdir": "^1.0.0",
-    "grunt-version": "^1.1.1",
-    "grunt-zip": "^0.17.1",
-    "load-grunt-tasks": "^3.5.0"
+    "rcedit" : "0.5.x",
+    "electron" : "1.4.x",
+    "electron-packager": "7.x.x",
+    "grunt": "0.4.x",
+    "grunt-contrib-clean": "1.x.x",
+    "grunt-contrib-copy": "1.x.x",
+    "grunt-contrib-jshint": "1.x.x",
+    "grunt-electron": "4.x.x",
+    "grunt-exec": "0.4.x",
+    "grunt-mkdir": "1.x.x",
+    "grunt-version": "1.x.x",
+    "grunt-zip": "0.17.x",
+    "load-grunt-tasks": "3.5.x"
   },
   "dependencies": {
-    "electron-prebuilt": "^0.36.12",
-    "menu": "0.2.5",
-    "remote": "^0.2.6",
-    "dialog": "^0.1.8"
+    "electron": "1.4.x",
+    "menu": "0.2.x",
+    "remote": "0.2.x",
+    "dialog": "0.1.x"
   },
   "engines": {
-    "node": "^5.10.1",
-    "npm": "2.14.20",
-    "electron-prebuilt": "^0.36.0"
+    "node": "5.10.x",
+    "npm": "2.14.x",
+    "electron": "1.4.x"
   },
   "os": [
     "darwin",

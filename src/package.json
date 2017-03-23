@@ -27,15 +27,15 @@
   },
   "homepage": "http://majin.info/",
   "dependencies": {
-    "electron-prebuilt": "^0.36.0",
-    "menu": "0.2.5",
-    "remote": "^0.2.6",
-    "dialog": "^0.1.8"
+    "electron": "1.4.x",
+    "menu": "0.2.x",
+    "remote": "0.2.x",
+    "dialog": "0.1.x"
   },
   "engines": {
-    "node": "^5.10.1",
-    "npm": "2.14.20",
-    "electron-prebuilt": "^0.36.0"
+    "node": "5.10.x",
+    "npm": "2.14.x",
+    "electron": "1.4.x"
   },
   "os": [
     "darwin",
