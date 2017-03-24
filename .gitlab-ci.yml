@@ -24,8 +24,8 @@ prepare:
   script:
   - npm install --save-dev --quiet
   - dpkg --add-architecture i386
-  - apt-get update -y --quiet
-  - apt-get install -y zip --quiet
+  - apt-get --quiet update -y
+  - apt-get --quiet install -y zip grunt
 
 
 test:
