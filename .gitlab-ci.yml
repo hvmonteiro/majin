@@ -32,6 +32,7 @@ test:
   stage: test
   script:
    - echo "Testing syntax, module dependencies and application execution ..." 
+   - npm install grunt-cli --quiet
    - npm test --quiet
   
 build:
