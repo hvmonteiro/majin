@@ -47,3 +47,13 @@ setup:
   script:
    - echo "Creating platform setup installation packages..."
 
+
+
+release-job:
+  script:
+    - echo "Releasing files..."
+  artifacts:
+    paths:
+    - build/packages/*
+  only:
+    - tags
