@@ -17,7 +17,8 @@ variables:
 before_script:
   - npm install --save-dev --quiet
   - dpkg --add-architecture i386
-  - apt-get update -y zip
+  - apt-get update -y
+  - apt-get install -y zip
   - nohup Xvfb $DISPLAY -ac &
   - sleep 7 # give xvfb some time to start
 
