@@ -6,8 +6,8 @@
   "main": "majin.js",
   "scripts": {
     "start": "electron src/majin.js",
-    "clean": "./node_modules/grunt-cli/bin/grunt clean --verbose",
-    "test": "./node_modules/grunt-cli/bin/grunt --verbose",
+    "clean": "grunt clean --verbose",
+    "test": "grunt --verbose",
     "exec-test": "electron src/majin.js --test",
     "build": "./bin/build.sh all"
   },
