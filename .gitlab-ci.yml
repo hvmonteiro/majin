@@ -26,7 +26,7 @@ prepare:
   - dpkg --add-architecture i386
   - apt-get --quiet update -y
   - apt-get --quiet install -y zip
-  - npm install grunt grunt-cli grunt-contrib-clean grunt-contrib-jshint grunt-contrib-copy grunt-exec grunt-mkdir grunt-version grunt-zip --save-dev --quiet
+  - npm install grunt grunt-cli grunt-contrib-clean grunt-contrib-jshint grunt-contrib-copy grunt-exec grunt-mkdir grunt-version grunt-zip --quiet
 
 
 test:
