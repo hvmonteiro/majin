@@ -2,13 +2,16 @@ image: electronuserland/electron-builder:wine
 
 # This folder is cached between builds
 cache:
+  untracked: true
+  key: "$CI_BUILD_REF_NAME"
   paths:
   - node_modules/
 
 stages:
+  - setup
   - test
   - build
-  - setup
+  - generate
 
 variables:
   DISPLAY: ':99.0'
@@ -19,8 +22,8 @@ before_script:
   - sleep 7 # give xvfb some time to start
 
 
-prepare:
-  stage: test
+setup:
+  stage: setup
   script:
   - npm install --quiet
   - dpkg --add-architecture i386
@@ -45,8 +48,8 @@ build:
    - echo "Creating platform Zip packages..."
    - npm run build
 
-setup:
-  stage: setup
+generate:
+  stage: generate
   artifacts:
     paths:
       - build/install/
