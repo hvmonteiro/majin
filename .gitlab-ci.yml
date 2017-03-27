@@ -9,11 +9,11 @@ stages:
   - test
   - build
   - setup
-  
+
 variables:
   DISPLAY: ':99.0'
   GOARCH: 'amd64 go build -ldflags -H=windowsgui'
-  
+
 before_script:
   - nohup Xvfb $DISPLAY -ac &
   - sleep 7 # give xvfb some time to start
@@ -26,13 +26,13 @@ prepare:
   - dpkg --add-architecture i386
   - apt-get --quiet update -y
   - apt-get --quiet install -y zip
+  - npm install grunt grunt-cli grunt-contrib-clean grunt-contrib-jshint grunt-contrib-copy grunt-exec grunt-mkdir grunt-version grunt-zip --save-dev --quiet
 
 
 test:
   stage: test
   script:
    - echo "Testing syntax, module dependencies and application execution ..." 
-   - npm install grunt grunt-cli --save-dev --quiet
    - npm test --quiet
   
 build:
