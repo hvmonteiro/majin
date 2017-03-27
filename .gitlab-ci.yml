@@ -22,7 +22,7 @@ before_script:
 prepare:
   stage: test
   script:
-  - npm install --save-dev --quiet
+  - npm install --quiet
   - dpkg --add-architecture i386
   - apt-get --quiet update -y
   - apt-get --quiet install -y zip
