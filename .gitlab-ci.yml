@@ -36,7 +36,7 @@ build:
   stage: build
   artifacts:
     paths:
-      - build/packages/
+      - build/packages/*.zip
   script:
    - echo "Creating platform Zip packages..."
    - apt-get -y install zip
@@ -57,7 +57,7 @@ deploy:
     - echo "Releasing files..."
   artifacts:
     paths:
-    - build/packages/
+    - build/packages/*.zip
     - build/install/
   only:
     - tags
