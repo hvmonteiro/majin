@@ -29,13 +29,13 @@ setup:
   - dpkg --add-architecture i386
   - apt-get --quiet update -y
   - apt-get --quiet install -y zip
-  - npm install grunt grunt-cli grunt-contrib-clean grunt-contrib-jshint grunt-contrib-copy grunt-exec grunt-mkdir grunt-version grunt-zip --quiet
 
 
 test:
   stage: test
   script:
    - echo "Testing syntax, module dependencies and application execution ..." 
+   - npm install grunt grunt-cli grunt-contrib-clean grunt-contrib-jshint grunt-contrib-copy grunt-exec grunt-mkdir grunt-version grunt-zip --quiet
    - npm test --quiet
   
 build:
@@ -57,7 +57,7 @@ generate:
    - echo "Creating platform setup installation packages..."
 
 
-release-job:
+deploy:
   script:
     - echo "Releasing files..."
   artifacts:
