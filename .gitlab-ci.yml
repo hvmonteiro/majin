@@ -18,7 +18,6 @@ variables:
   GOARCH: 'amd64 go build -ldflags -H=windowsgui'
 
 before_script:
-  - apt-get -y install zip
   - nohup Xvfb $DISPLAY -ac &
   - sleep 7 # give xvfb some time to start
 
@@ -47,6 +46,7 @@ build:
       - build/packages/
   script:
    - echo "Creating platform Zip packages..."
+   - apt-get -y install zip
    - npm run build
 
 generate:
