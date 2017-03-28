@@ -10,7 +10,7 @@ cache:
 stages:
   - test
   - build
-  - generate
+  - deploy
 
 variables:
   DISPLAY: ':99.0'
@@ -37,19 +37,19 @@ build:
   artifacts:
     paths:
       - build/target/
-      - build/packages/
   script:
    - echo "Creating platform Zip packages..."
    - apt-get -y install zip
    - npm run build
 
-generate:
-  stage: generate
+install:
+  stage: build
   artifacts:
     paths:
-      - build/install/
+      - build/packages/
   script:
    - echo "Creating platform setup installation packages..."
+   - npm install electron-builder --quiet
 
 
 deploy:
@@ -57,7 +57,7 @@ deploy:
     - echo "Releasing files..."
   artifacts:
     paths:
+    - build/target/
     - build/packages/
-    - build/install/
   only:
     - tags
