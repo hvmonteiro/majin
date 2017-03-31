@@ -3,14 +3,13 @@
   "productName": "Majin",
   "version": "0.1.2-0",
   "description": "Mobile Browser for the Desktop",
-  "main": "majin.js",
-  "scripts": {
-    "start": "electron src/majin.js",
-    "clean": "grunt clean --verbose",
-    "test": "grunt --verbose",
-    "exec-test": "electron src/majin.js --test",
-    "build": "./bin/build.sh all"
+  "author": "Hugo V. Monteiro",
+  "license": "GPL-2.0",
+  "url": "https://github.com/hvmonteiro/majin",
+  "bugs": {
+    "url": "https://github.com/hvmonteiro/majin/issues"
   },
+  "homepage": "http://majin.info/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hvmonteiro/majin.git"
@@ -20,19 +19,26 @@
     "browser",
     "mobile",
     "desktop",
-    "tray"
+    "systray",
+    "tray",
+    "ontop"
   ],
-  "author": "Hugo V. Monteiro",
-  "license": "GPL-2.0",
-  "url": "https://github.com/hvmonteiro/majin",
-  "bugs": {
-    "url": "https://github.com/hvmonteiro/majin/issues"
+  "main": "majin.js",
+  "scripts": {
+    "start": "electron src/majin.js --enable-logging",
+    "clean": "grunt clean --verbose",
+    "test": "grunt --verbose",
+    "exec-test": "electron src/majin.js --test",
+    "build": "./bin/build.sh all",
+    "package": "build --projectDir ./src",
+    "postinstall": "install-app-deps",
+    "dev": "NODE_ENV='development' npm run start",
+    "dist": "electron-builder --mac --win --linux --x64 --ia32 --projectDir ./src --em.build.win.icon=majin.ico --em.build.linux.icon=./images"
   },
-  "homepage": "http://majin.info/",
   "devDependencies": {
-    "rcedit" : "0.5.x",
-    "electron" : "1.4.x",
+    "electron-builder" : "16.6.x",
     "electron-packager": "7.x.x",
+    "rcedit" : "0.5.x",
     "grunt": "0.4.x",
     "grunt-cli": "1.2.x",
     "grunt-contrib-clean": "1.x.x",
@@ -43,18 +49,41 @@
     "grunt-mkdir": "1.x.x",
     "grunt-version": "1.x.x",
     "grunt-zip": "0.17.x",
-    "load-grunt-tasks": "3.5.x"
-  },
-  "dependencies": {
-    "electron": "1.4.x",
+    "load-grunt-tasks": "3.5.x",
+    "electron" : ">1.6.4",
     "menu": "0.2.x",
     "remote": "0.2.x",
     "dialog": "0.1.x"
   },
+  "build": {
+     "appId": "net.hugovmonteiro.app.majin",
+     "macOS": {
+         "icon": "./images/icon.icn"
+     },
+     "win": {
+        "icon": "majin.ico"
+     },
+     "linux": {
+        "category": "Network",
+        "target": [ "rpm", "tar.gz" ],
+        "executableName": "majin",
+        "icon": "images"
+     },
+     "asar": true,
+     "files": [
+        "./src/!**",
+        "./src/majin.js",
+        "./src/package.json"
+        ],
+     "extraResources": [{
+        "from": "./src",
+        "to": "linux-unpacked/resources"
+        }]
+  },
   "engines": {
-    "node": "5.10.x",
-    "npm": "2.14.x",
-    "electron": "1.4.x"
+    "node": "6.10.x",
+    "npm": "4.5.x",
+    "electron": "1.6.4"
   },
   "os": [
     "darwin",

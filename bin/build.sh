@@ -7,7 +7,7 @@ BUILD_DIR_LIST="target packages install"
 PACKAGE_JSON="src/package.json"
 VERSION_JSON="version.json"
 IGNORE_LIST="node_modules/*"
-EXTRA_PARAMS=""
+EXTRA_PARAMS="--quiet"
 #DEPS="zip wine"
 DEPS="zip"
 
@@ -195,7 +195,7 @@ for PKG_NAME in *; do
     fi
 
 
-    zip -qo9r "../packages/${PKG_NAME}.zip" "$PKG_NAME"
+    zip --quiet --out -9 --recurse-paths "../packages/${PKG_NAME}.zip" "$PKG_NAME"
     if [ $? -ne 0 ]; then
         echo "Error: An unexpected error ocurred. Check output formore information. Exiting..."
         _my_exit 1
@@ -206,8 +206,7 @@ for PKG_NAME in *; do
     echo "$PKG_NAME" | grep -q 'win32'
     if [ $? -eq 0 ]; then
         export DISPLAY=$SAVED_DISPLAY
-        [ ! -d "$BUILD_DIR/ispack" ] && git clone https://github.com/jrsoftware/ispack "$BUILD_DIR/ispack"
-        set -x 
+        #[ ! -d "$BUILD_DIR/ispack" ] && git clone https://github.com/jrsoftware/ispack "$BUILD_DIR/ispack"
         #wine "$BUILD_DIR/ispack/isfiles-unicode/ISCC.exe" /DAppBuildDir="$BUILD_DIR/target/${PKG_NAME}" /O"$BUILD_DIR/install" /F"${PKG_NAME}-setup" "..\\setup\\setup-wine.iss"
         #[ $? -ne 0 ] && echo "WARNING: Installation Setup exited with errors. Check output for further information."
     fi

@@ -3,39 +3,41 @@
   "productName": "Majin",
   "version": "0.1.2-0",
   "description": "Mobile Browser for the Desktop",
-  "main": "majin.js",
-  "scripts": {
-    "start": "electron majin.js",
-    "exec-test": "electron majin.js --test"
+  "author": "Hugo V. Monteiro <hugo@hugovmonteiro.net>",
+  "license": "GPL-2.0",
+  "url": "https://gitlab.com/hvmonteiro/majin",
+  "bugs": {
+    "url": "https://gitlab.com/hvmonteiro/majin/issues"
   },
+  "homepage": "http://majin.info/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hvmonteiro/majin.git"
+    "url": "git+https://gitlab.com/hvmonteiro/majin.git"
   },
   "keywords": [
     "majin",
     "browser",
     "mobile",
     "desktop",
-    "tray"
+    "tray",
+    "systray",
+    "ontop"
   ],
-  "author": "Hugo V. Monteiro",
-  "license": "GPL-2.0",
-  "url": "https://github.com/hvmonteiro/majin",
-  "bugs": {
-    "url": "https://github.com/hvmonteiro/majin/issues"
+  "main": "majin.js",
+  "scripts": {
+    "start": "electron majin.js",
+    "exec-test": "electron majin.js --test"
   },
-  "homepage": "http://majin.info/",
-  "dependencies": {
-    "electron": "1.4.x",
+  "devDependencies": {
+    "electron": "1.6.4",
     "menu": "0.2.x",
     "remote": "0.2.x",
     "dialog": "0.1.x"
   },
   "engines": {
-    "node": "5.10.x",
-    "npm": "2.14.x",
-    "electron": "1.4.x"
+    "node": "6.10.x",
+    "npm": "4.5.x",
+    "electron": "1.6.x"
   },
   "os": [
     "darwin",
