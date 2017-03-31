@@ -3,11 +3,21 @@
   "productName": "Majin",
   "version": "0.1.2-0",
   "description": "Mobile Browser for the Desktop",
+<<<<<<< HEAD
   "author": "Hugo V. Monteiro",
   "license": "GPL-2.0",
   "url": "https://github.com/hvmonteiro/majin",
   "bugs": {
     "url": "https://github.com/hvmonteiro/majin/issues"
+=======
+  "main": "majin.js",
+  "scripts": {
+    "start": "electron src/majin.js",
+    "clean": "./node_modules/grunt-cli/bin/grunt clean --verbose",
+    "test": "./node_modules/grunt-cli/bin/grunt --verbose",
+    "exec-test": "electron src/majin.js --test",
+    "build": "./bin/build.sh all"
+>>>>>>> refs/remotes/origin/master
   },
   "homepage": "http://majin.info/",
   "repository": {

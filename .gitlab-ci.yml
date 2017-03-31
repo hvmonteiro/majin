@@ -2,63 +2,62 @@ image: electronuserland/electron-builder:wine
 
 # This folder is cached between builds
 cache:
+  untracked: true
+  key: "$CI_BUILD_REF_NAME"
   paths:
   - node_modules/
 
 stages:
   - test
   - build
-  - setup
-  
+  - deploy
+
 variables:
   DISPLAY: ':99.0'
   GOARCH: 'amd64 go build -ldflags -H=windowsgui'
-  
+
 before_script:
+  - dpkg --add-architecture i386
+  - apt-get --quiet update -y
+  - apt-get --quiet install -y zip
+  - npm install --quiet
   - nohup Xvfb $DISPLAY -ac &
   - sleep 7 # give xvfb some time to start
-
-
-prepare:
-  stage: test
-  script:
-  - npm install --save-dev --quiet
-  - dpkg --add-architecture i386
-  - apt-get update -y --quiet
-  - apt-get install -y zip --quiet
 
 
 test:
   stage: test
   script:
    - echo "Testing syntax, module dependencies and application execution ..." 
+   - npm install electron grunt grunt-cli grunt-contrib-clean grunt-contrib-jshint grunt-contrib-copy grunt-exec grunt-mkdir grunt-version grunt-zip load-grunt-tasks --quiet
    - npm test --quiet
-  
+
 build:
   stage: build
   artifacts:
     paths:
-      - build/target/
-      - build/packages/
+      - build/packages/*.zip
   script:
    - echo "Creating platform Zip packages..."
+   - apt-get -y install zip
    - npm run build
 
-setup:
-  stage: setup
+install:
+  stage: build
   artifacts:
     paths:
       - build/install/
   script:
    - echo "Creating platform setup installation packages..."
+   - npm install electron-builder --quiet
 
 
-release-job:
+deploy:
   script:
     - echo "Releasing files..."
   artifacts:
     paths:
-    - build/packages/
+    - build/packages/*.zip
     - build/install/
   only:
     - tags
