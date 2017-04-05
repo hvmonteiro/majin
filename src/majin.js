@@ -253,10 +253,10 @@ function createWindow () {
     resizable: true,
     // closable: false,
     show: false,
-    icon: path.join(__dirname, 'images/icon@2.png')
+    icon: path.join(__dirname, 'assets/icons/png/32x32.png')
   });
 
-  trayIcon = new Tray(path.join(__dirname, 'images/icon@2.png'));
+  trayIcon = new Tray(path.join(__dirname, 'assets/icons/png/32x32.png'));
 
   trayIcon.setToolTip(appName + ' - Mobile Browser for the Desktop');
   trayIcon.setContextMenu(contextMenu);

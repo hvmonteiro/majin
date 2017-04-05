@@ -38,10 +38,11 @@
     "test": "grunt --verbose",
     "exec-test": "electron src/majin.js --test",
     "build": "./bin/build.sh all",
-    "package": "build --projectDir ./src",
     "postinstall": "install-app-deps",
     "dev": "NODE_ENV='development' npm run start",
-    "dist": "electron-builder --win --linux --x64 --ia32 --projectDir ./src --em.build.win.icon=majin.ico --em.build.linux.icon=./images"
+    "dist-mac": "electron-builder --projectDir ./src -c ./src/electron-builder.yml --mac --x64 -ia32",
+    "dist-linux": "electron-builder --projectDir ./src -c ./src/electron-builder.yml --linux --x64 --ia32 --armv7l",
+    "dist-windows": "electron-builder --projectDir ./src -c ./src/electron-builder.yml --win --x64 --ia32"
   },
   "devDependencies": {
     "electron-builder" : "16.6.x",
@@ -62,31 +63,6 @@
     "menu": "0.2.x",
     "remote": "0.2.x",
     "dialog": "0.1.x"
-  },
-  "build": {
-     "appId": "net.hugovmonteiro.app.majin",
-     "macOS": {
-         "icon": "./images/icon.icn"
-     },
-     "win": {
-        "icon": "majin.ico"
-     },
-     "linux": {
-        "category": "Network",
-        "target": [ "rpm", "tar.gz" ],
-        "executableName": "majin",
-        "icon": "images"
-     },
-     "asar": true,
-     "files": [
-        "./src/!**",
-        "./src/majin.js",
-        "./src/package.json"
-        ],
-     "extraResources": [{
-        "from": "./src",
-        "to": "linux-unpacked/resources"
-        }]
   },
   "engines": {
     "node": "6.10.x",

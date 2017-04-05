@@ -1,0 +1,29 @@
+---
+appId: "net.hugovmonteiro.app.majin"
+asar: true
+files:
+  - "./!**"
+  - "./majin.js"
+  - "./package.json"
+linux:
+  icon: "./assets/icons/png"
+  category: Network
+  packageCategory: Network
+  target:
+    - deb
+    - rpm
+    - tar.gz
+    - AppImage
+  executableName: majin
+mac:
+  icon: "./assets/icons/mac/icon.icns"
+win:
+  icon: "./assets/icons/win/icon.ico"
+  target:
+    - zip
+    - portable
+    - nsis
+nsis:
+  installerIcon: "./assets/icons/win/icon.ico"
+  deleteAppDataOnUninstall: true
+  artifactName: "${productName}-setup-${version}.${ext}"

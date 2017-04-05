@@ -3,7 +3,7 @@ module.exports = function (grunt) {
     pkg: grunt.file.readJSON('package.json'),
     // Before generating any new files, remove any previously-created files.
     clean: {
-      build: ['build']
+      build: ['build', 'src/packages', 'src/dist', 'src/node_modules']
     },
     jshint: {
       all: ['Gruntfile.js', 'src/majin.js']
@@ -22,7 +22,7 @@ module.exports = function (grunt) {
       main: {
         files: [
           // includes files within path
-          { expand: true, src: ['src/images/majin.ico'], dest: 'src/', filter: 'isFile' }
+          { expand: true, src: ['src/assets/icons/win/icon.ico'], dest: 'src/', filter: 'isFile' }
         ]
       }
     },
@@ -52,7 +52,7 @@ module.exports = function (grunt) {
           name: 'Majin',
           platform: 'darwin',
           arch: 'x64',
-          icon: 'src/images/icon@3.hqx',
+          icon: 'src/assets/icons/mac/icon@3.hqx',
           CompanyName: '',
           ProductName: 'Majin',
           OriginalFilename: 'Majin',
@@ -74,7 +74,7 @@ module.exports = function (grunt) {
           name: 'Majin',
           platform: 'linux',
           arch: 'x64',
-          icon: 'src/images/icon@3.png',
+          icon: 'src/assets/icons/png/48x48.png',
           CompanyName: 'Hugo V. Monteiro',
           ProductName: 'Majin',
           OriginalFilename: 'Majin',
