@@ -28,36 +28,61 @@ before_script:
 test:
   stage: test
   script:
-   - echo "Testing syntax, module dependencies and application execution ..." 
+   - echo "Testing for syntax, module dependencies and application execution errors ..." 
    - npm install electron grunt grunt-cli grunt-contrib-clean grunt-contrib-jshint grunt-contrib-copy grunt-exec grunt-mkdir grunt-version grunt-zip load-grunt-tasks --quiet
+   - npm run clean
    - npm test --quiet
 
-build:
+
+packages:
   stage: build
   artifacts:
     paths:
       - build/packages/*.zip
   script:
-   - echo "Creating platform Zip packages..."
+   - echo "Creating platform zip packages..."
    - apt-get -y install zip
    - npm run build
 
-install:
+
+dist-linux:
   stage: build
   artifacts:
     paths:
-      - build/install/
+      - src/dist/*.rpm
+      - src/dist/*.tar.gz
+      - src/dist/*.deb
+      - src/dist/*.AppImage
   script:
-   - echo "Creating platform setup installation packages..."
-   - npm install electron-builder --quiet
+   - echo "Creating Linux AppImage..."
+   - npm run dist-linux
 
 
-deploy:
-  script:
-    - echo "Releasing files..."
+dist-windows:
+  stage: build
   artifacts:
     paths:
-    - build/packages/*.zip
-    - build/install/
+      - src/dist/*.exe
+  script:
+   - echo "Creating Windows installation packages..."
+   - npm run dist-windows
+
+dist-mac:
+  stage: build
+  artifacts:
+    paths:
+      - src/dist/*.pkg
+  script:
+   - echo "Creating MacOS installation packagese..."
+   - npm run dist-mac
+
+
+release:
+  script:
+    - echo "Releasing platform installation packages..."
+  artifacts:
+    paths:
+    - src/dist/*
   only:
     - tags
+
