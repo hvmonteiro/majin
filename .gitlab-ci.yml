@@ -34,24 +34,13 @@ test:
    - npm test --quiet
 
 
-packages:
-  stage: build
-  artifacts:
-    paths:
-      - build/packages/*.zip
-  script:
-   - echo "Creating platform zip packages..."
-   - apt-get -y install zip
-   - npm run build
-
-
 dist-linux:
   stage: build
   artifacts:
     paths:
+      - src/dist/*.deb
       - src/dist/*.rpm
       - src/dist/*.tar.gz
-      - src/dist/*.deb
       - src/dist/*.AppImage
   script:
    - echo "Creating Linux AppImage..."
@@ -63,6 +52,7 @@ dist-windows:
   artifacts:
     paths:
       - src/dist/*.exe
+      - src/dist/*.zip
   script:
    - echo "Creating Windows installation packages..."
    - npm run dist-windows
