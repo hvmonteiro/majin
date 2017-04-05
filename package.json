@@ -41,7 +41,7 @@
     "package": "build --projectDir ./src",
     "postinstall": "install-app-deps",
     "dev": "NODE_ENV='development' npm run start",
-    "dist": "electron-builder --mac --win --linux --x64 --ia32 --projectDir ./src --em.build.win.icon=majin.ico --em.build.linux.icon=./images"
+    "dist": "electron-builder --win --linux --x64 --ia32 --projectDir ./src --em.build.win.icon=majin.ico --em.build.linux.icon=./images"
   },
   "devDependencies": {
     "electron-builder" : "16.6.x",
