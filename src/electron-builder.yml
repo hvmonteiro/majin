@@ -21,8 +21,8 @@ win:
   icon: "./assets/icons/win/icon.ico"
   target:
     - zip
-    - portable
     - nsis
+    - portable
 nsis:
   installerIcon: "./assets/icons/win/icon.ico"
   deleteAppDataOnUninstall: true
