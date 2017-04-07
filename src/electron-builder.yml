@@ -29,6 +29,8 @@ nsis:
   installerIcon: "./assets/icons/win/icon.ico"
   deleteAppDataOnUninstall: true
   artifactName: "${productName}-${version}-setup.${ext}"
+  oneClick: false
+  runAfterFinish: true
 #  publish:
 #    provider: "generic"
 #    url: "file:///tmp"
