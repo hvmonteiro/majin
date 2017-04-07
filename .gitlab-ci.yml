@@ -62,7 +62,7 @@ dist-mac:
   stage: build
   artifacts:
     paths:
-      - src/dist/*.pkg
+      - src/dist/*
   script:
    - echo "Creating MacOS installation packagese..."
    - npm run dist-mac
