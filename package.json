@@ -36,6 +36,19 @@
     "tray",
     "ontop"
   ],
+  "main": "majin.js",
+  "scripts": {
+    "start": "electron src/majin.js --enable-logging",
+    "clean": "grunt clean --verbose",
+    "test": "grunt --verbose",
+    "exec-test": "electron src/majin.js --test",
+    "build": "./bin/build.sh all",
+    "postinstall": "install-app-deps",
+    "dev": "NODE_ENV='development' npm run start",
+    "dist-mac": "build --projectDir ./src -c electron-builder.yml --mac --x64 --ia32",
+    "dist-linux": "build --projectDir ./src -c electron-builder.yml --linux --x64 --ia32 --armv7l",
+    "dist-windows": "build --projectDir ./src -c electron-builder.yml --win --x64 --ia32"
+  },
   "devDependencies": {
     "dialog": "0.1.x",
     "electron": ">1.6.4",
