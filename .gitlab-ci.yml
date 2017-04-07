@@ -45,6 +45,7 @@ dist-linux:
   script:
    - echo "Creating Linux AppImage..."
    - npm run dist-linux
+   - ls -la src/dist/
 
 
 dist-windows:
@@ -62,7 +63,9 @@ dist-mac:
   stage: build
   artifacts:
     paths:
-      - src/dist/*
+      - src/dist/*.zip
+      - src/dist/*.dmg
+      - src/dist/*.pkg
   script:
    - echo "Creating MacOS installation packagese..."
    - npm run dist-mac
