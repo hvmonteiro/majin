@@ -40,7 +40,7 @@
     "build": "./bin/build.sh all",
     "postinstall": "install-app-deps",
     "dev": "NODE_ENV='development' npm run start",
-    "dist-mac": "build --projectDir ./src -c electron-builder.yml --mac --x64 -ia32",
+    "dist-mac": "build --projectDir ./src -c electron-builder.yml --mac --x64 --ia32",
     "dist-linux": "build --projectDir ./src -c electron-builder.yml --linux --x64 --ia32 --armv7l",
     "dist-windows": "build --projectDir ./src -c electron-builder.yml --win --x64 --ia32"
   },
