@@ -16,14 +16,23 @@ linux:
     - AppImage
   executableName: majin
 mac:
+  category: "net.hugovmonteiro.app.majin"
   icon: "./assets/icons/mac/icon.icns"
+  target: 
+    - zip
+#    - dmg
 win:
   icon: "./assets/icons/win/icon.ico"
   target:
-    - zip
     - nsis
-    - portable
 nsis:
   installerIcon: "./assets/icons/win/icon.ico"
   deleteAppDataOnUninstall: true
-  artifactName: "${productName}-setup-${version}.${ext}"
+  artifactName: "${productName}-${version}-setup.${ext}"
+#  publish:
+#    provider: "generic"
+#    url: "file:///tmp"
+#    owner: "hvmonteiro"
+#    token: ""
+#    repo: "majin"
+
