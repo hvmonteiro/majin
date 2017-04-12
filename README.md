@@ -1,8 +1,8 @@
 # Majin
 
-Latest Release: [![Latest Release Status](https://gitlab.com/hvmonteiro/majin/tags/latest)](https://gitlab.com/hvmonteiro/majin/badges/master/build.svg)
+Latest Release: [![Latest Release Status](https://gitlab.com/hvmonteiro/majin/badges/master/build.svg)](https://gitlab.com/hvmonteiro/majin/tags/latest)
 
-Development Test Release: [![Latest Devel Test Release](https://gitlab.com/hvmonteiro/majin/tags/latest-devel)](https://gitlab.com/hvmonteiro/majin/badges/latest-devel/build.svg)
+Development Test Release: [![Latest Devel Test Release](https://gitlab.com/hvmonteiro/majin/badges/latest-devel/build.svg)](https://gitlab.com/hvmonteiro/majin/tags/latest-devel)
 
 # About
 Majin is a small lightweight desktop browser that renders/requests mobile webpages from websites (when these are available).
