@@ -71,12 +71,13 @@ dist-mac:
    - ls -la src/dist/
 
 release:
-  script:
-    - echo "Releasing platform installation packages..."
   artifacts:
     paths:
     - src/dist/*
+  script:
+    - echo "Releasing platform installation packages..."
     - ls -la src/dist/
-
+    - npm version minor
+    - cd src && npm version minor
   only:
     - tags

@@ -20,7 +20,10 @@
     "dist-mac": "build --projectDir ./src -c electron-builder.yml --mac --x64 --ia32",
     "dist-linux": "build --projectDir ./src -c electron-builder.yml --linux --x64 --ia32 --armv7l",
     "dist-windows": "build --projectDir ./src -c electron-builder.yml --win --x64 --ia32",
-    "postversion": "git push && git push --tags"
+    "preversion": "npm test && npm exec-test",
+    "version": "npm run build",
+    "postversion": "git push && git push --tags && npm clean"
+
   },
   "homepage": "http://majin.info/",
   "repository": {
