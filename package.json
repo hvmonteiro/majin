@@ -54,9 +54,7 @@
     "load-grunt-tasks": "3.5.x",
     "menu": "0.2.x",
     "rcedit": "0.5.x",
-    "remote": "0.2.x",
-    "minimatch": "3.0.x",
-    "graceful-fs": "4.x.x"
+    "remote": "0.2.x"
   },
   "engines": {
     "node": "6.10.x",

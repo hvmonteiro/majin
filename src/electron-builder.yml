@@ -5,10 +5,13 @@ files:
   - "./!**"
   - "./majin.js"
   - "./package.json"
+<<<<<<< HEAD
   - "./version.json"
   - "./assets/**"
   - "./images/**"
   - "./LICENSE"
+=======
+>>>>>>> 08a659fbc4c19c88ec994f76efe18edd04502431
 linux:
   icon: "./assets/icons/png"
   category: Network
