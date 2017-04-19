@@ -6,7 +6,7 @@ module.exports = function (grunt) {
       build: ['build', 'src/packages', 'src/dist', 'src/node_modules']
     },
     jshint: {
-      all: ['Gruntfile.js', 'src/majin.js']
+      all: ['Gruntfile.js', 'src/majin.js', 'src/version.json']
     },
     htmllint: {
       options: {
@@ -23,6 +23,23 @@ module.exports = function (grunt) {
         files: [
           // includes files within path
           { expand: true, src: ['src/assets/icons/win/icon.ico'], dest: 'src/', filter: 'isFile' }
+        ]
+      }
+    },
+    replace: {
+      dist: {
+        options: {
+          patterns: [{
+              match: 'homepageURL',
+              replacement: "value"
+              ,
+              json: {
+                "homepageURL": "value"
+              }
+          }]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['src/version.json'], dest: './'}
         ]
       }
     },
@@ -100,6 +117,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-replace');
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-mkdir');
   grunt.loadNpmTasks('grunt-version');
@@ -109,6 +127,7 @@ module.exports = function (grunt) {
 
   // Register tasks
   grunt.registerTask('delete', ['clean']);
+  grunt.registerTask('fix', ['replace']);
   grunt.registerTask('default', ['clean', 'copy', 'version', 'jshint', 'exec']);
   grunt.registerTask('packages', ['clean', 'copy', 'jshint', 'exec', 'mkdir', 'electron', 'zip']);
   grunt.registerTask('release', ['clean', 'copy', 'version', 'jshint', 'exec', 'mkdir', 'electron', 'zip']);

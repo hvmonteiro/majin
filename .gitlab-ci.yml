@@ -21,8 +21,7 @@ before_script:
   - apt-get --quiet update -y
   - apt-get --quiet install -y zip
   - npm install --quiet
-  - nohup Xvfb $DISPLAY -ac &
-  - sleep 7 # give xvfb some time to start
+  - cp -f LICENSE ./src/
 
 
 test:

@@ -8,7 +8,7 @@ files:
   - "./version.json"
   - "./assets/**"
   - "./images/**"
-  - "../LICENSE"
+  - "./LICENSE"
 linux:
   icon: "./assets/icons/png"
   category: Network

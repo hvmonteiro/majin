@@ -1,13 +1,13 @@
 {
   "name": "majin",
   "productName": "Majin",
-  "version": "0.1.2-0",
+  "version": "1.3.2",
   "description": "Mobile Browser for the Desktop",
   "author": "Hugo V. Monteiro",
   "license": "GPL-2.0",
-  "url": "https://github.com/hvmonteiro/majin",
+  "url": "https://gitlab.com/hvmonteiro/majin",
   "bugs": {
-    "url": "https://github.com/hvmonteiro/majin/issues"
+    "url": "https://gitlab.com/hvmonteiro/majin/issues"
   },
   "main": "majin.js",
   "scripts": {
@@ -16,7 +16,6 @@
     "test": "grunt --verbose",
     "exec-test": "electron src/majin.js --test",
     "build": "./bin/build.sh all",
-    "postinstall": "install-app-deps",
     "dev": "NODE_ENV='development' npm run start",
     "dist-mac": "build --projectDir ./src -c electron-builder.yml --mac --x64 --ia32",
     "dist-linux": "build --projectDir ./src -c electron-builder.yml --linux --x64 --ia32 --armv7l",
@@ -25,7 +24,7 @@
   "homepage": "http://majin.info/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hvmonteiro/majin.git"
+    "url": "git+https://gitlab.com/hvmonteiro/majin.git"
   },
   "keywords": [
     "majin",
@@ -43,7 +42,6 @@
     "test": "grunt --verbose",
     "exec-test": "electron src/majin.js --test",
     "build": "./bin/build.sh all",
-    "postinstall": "install-app-deps",
     "dev": "NODE_ENV='development' npm run start",
     "dist-mac": "build --projectDir ./src -c electron-builder.yml --mac --x64 --ia32",
     "dist-linux": "build --projectDir ./src -c electron-builder.yml --linux --x64 --ia32 --armv7l",

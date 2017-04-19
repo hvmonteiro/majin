@@ -12,7 +12,7 @@ EXTRA_PARAMS="--quiet"
 DEPS="zip"
 
 NODE_PATH="${NODE_PATH:=/usr/lib/node_modules}"
-DYLD_FALLBACK_LIBRARY_PATH="/usr/local/lib:/lib:/usr/lib"
+export DYLD_FALLBACK_LIBRARY_PATH="/usr/local/lib:/lib:/usr/lib"
 
 _my_exit() {
 

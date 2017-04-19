@@ -43,6 +43,7 @@ var currentYear = date.getFullYear();
 
 const appName = vjson.name;
 const appVersion = vjson.version;
+const appBuildID = vjson.buildID;
 const appCopyright = vjson.copyright;
 const appLicense = vjson.license;
 const appWebURL = vjson.homepageURL;
@@ -181,7 +182,7 @@ var mainMenu = [{
         'type': 'info',
         'title': 'About',
         buttons: ['Close'],
-        'message': appName + '\nVersion ' + appVersion + '\n' + appCopyright + '\n' + appLicense
+        'message': appName + '\nVersion ' + appVersion + ' (' + appBuildID + ')' + '\n' + appCopyright + '\n' + appLicense
       });
       mainWindow.setAlwaysOnTop(onTopOption);
     }
