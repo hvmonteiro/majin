@@ -1,7 +1,7 @@
 {
   "name": "majin",
   "productName": "Majin",
-  "version": "2.0.2-1",
+  "version": "1.2.0",
   "description": "Mobile Browser for the Desktop",
   "author": "Hugo V. Monteiro",
   "license": "GPL-2.0",
@@ -19,7 +19,8 @@
     "dev": "NODE_ENV='development' npm run start",
     "dist-mac": "build --projectDir ./src -c electron-builder.yml --mac --x64 --ia32",
     "dist-linux": "build --projectDir ./src -c electron-builder.yml --linux --x64 --ia32 --armv7l",
-    "dist-windows": "build --projectDir ./src -c electron-builder.yml --win --x64 --ia32"
+    "dist-windows": "build --projectDir ./src -c electron-builder.yml --win --x64 --ia32",
+    "postversion": "git push && git push --tags"
   },
   "homepage": "http://majin.info/",
   "repository": {
