@@ -1,7 +1,7 @@
 {
     "name": "Majin",
     "version": "1.2.0",
-    "buildID": "0000",
+    "build": "0000",
     "description": "Mobile Browser for the Desktop",
     "author": "Hugo V. Monteiro <hugo@hugovmonteiro.net>",
     "copyright": "Copyright (c) 2017, Hugo V. Monteiro <hugo@hugovmonteiro.net>",

@@ -15,15 +15,15 @@
     "clean": "grunt clean --verbose",
     "test": "grunt --verbose",
     "exec-test": "electron src/majin.js --test",
-    "build": "./bin/build.sh all",
+    "build": "npm run dist-linux && npm run dist-windows && npm run dist-mac",
     "dev": "NODE_ENV='development' npm run start",
     "dist-mac": "build --projectDir ./src -c electron-builder.yml --mac --x64 --ia32",
     "dist-linux": "build --projectDir ./src -c electron-builder.yml --linux --x64 --ia32 --armv7l",
     "dist-windows": "build --projectDir ./src -c electron-builder.yml --win --x64 --ia32",
-    "preversion": "npm test && npm exec-test",
-    "version": "npm run build",
-    "postversion": "git push && git push --tags && npm clean"
-
+    "preversion": "npm run test && npm run exec-test",
+    "version": "",
+    "postversion": "#git push && git push --tags && npm clean",
+    "release": "npm version minor && npm run build"
   },
   "homepage": "http://majin.info/",
   "repository": {

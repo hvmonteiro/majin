@@ -30,12 +30,8 @@ module.exports = function (grunt) {
       dist: {
         options: {
           patterns: [{
-              match: 'homepageURL',
-              replacement: "value"
-              ,
-              json: {
-                "homepageURL": "value"
-              }
+            match: 'homepageURL',
+            replacement: "value"
           }]
         },
         files: [
