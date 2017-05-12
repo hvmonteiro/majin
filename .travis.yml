@@ -21,22 +21,24 @@ addons:
     - rpm
 
 before_install:
-  - npm install --save-dev
+  - npm install --save-dev --quiet
 
-install: true
+install:
+  - sudo add-apt-repository ppa:ubuntu-wine/ppa -y
+  - sudo apt-get update
+  - sudo apt-get install --no-install-recommends -y wine1.8 rpm icnsutils graphicsmagick xz-utils gcc-multilib g++-multilib libstdc++6-4.7-dev
 
-before_script:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3 # give xvfb some time to start
+before_script: true
 
 script:
   - grunt --verbose
 
 after_script:
   - echo "Finished Testing."
+
 after_success:
   - echo "Build Successful"
+
 after_failure:
   - echo "WARNING: Build unsuccessful!!!"
 
@@ -52,6 +54,14 @@ deploy:
   skip_cleanup: true
   app: Majin
   file: build/packages/*.zip
+    - src/dist/*.zip
+    - src/dist/*.dmg
+    - src/dist/*.pkg
+    - src/dist/*.exe
+    - src/dist/*.deb
+    - src/dist/*.rpm
+    - src/dist/*.tar.gz
+    - src/dist/*.AppImage
   file_glob: true
   overwrite: true
   on:
