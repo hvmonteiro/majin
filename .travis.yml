@@ -18,6 +18,7 @@ addons:
     - wine
     - xvfb
     - zip
+    - rpm
 
 before_install:
   - npm install --save-dev
