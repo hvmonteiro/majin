@@ -3,7 +3,7 @@
 // jshint esversion: 6
 /* globals require: true, __dirname: true, process: true, console: true */
 
-// Copyright (c) 2016 Hugo V. Monteiro
+// Copyright (c) 2017 Hugo V. Monteiro
 // Use of this source code is governed by the GPL-2.0 license that can be
 // found in the LICENSE file.
 
@@ -49,8 +49,13 @@ const appLicense = vjson.license;
 const appWebURL = vjson.homepageURL;
 const appSupportURL = vjson.supportURL;
 
-// const homePageURL = 'file://' + path.join(__dirname, 'majin.html');
-const homePageURL = 'http://majin.info/start';
+// Solving a bug where in windows, files inside a asar packagesi,
+// cannot be directly opened because of incorrect handling of '/' instead of '\'.
+if ( /^win/.test(process.platform) ) {
+    var homePageURL = 'https://www.google.com/';
+} else {
+    var homePageURL = 'file://' + path.join(__dirname, 'majin.html');
+}
 
 var mainWindow = null;
 var trayIcon = null;

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
- Copyright (c) 2016, Hugo V. Monteiro
+ Copyright (c) 2017, Hugo V. Monteiro
  Use of this source code is governed by the GPL-2.0 license that can be
  found in the LICENSE file.
 -->
@@ -8,7 +8,7 @@
 
 <head>
     <!-- HTML Codes by Quackit.com -->
-    <title>Mobile Browser for the Desktop</title>
+    <title>Majin : Mobile Browser for the Desktop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="Majin  Mobile Browser Desktop Tray">
     <meta name="description" content="Mobile Browser for the Desktop that hides in Desktop's Tray.">
@@ -46,25 +46,58 @@
         ul#menu li a:hover {
             background-color: orange;
         }
+     	#tfheader{
+		background-color:#ff6d02;
+	}
+	#tfnewsearch{
+		float:right;
+		padding:3px;
+	}
+	.tftextinput{
+		margin: 0;
+		padding: 5px 15px;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size:14px;
+		border:1px solid #a37600; border-right:0px;
+		border-top-left-radius: 5px 5px;
+		border-bottom-left-radius: 5px 5px;
+	}
+	.tfbutton {
+		margin: 0;
+		padding: 5px 15px;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size:14px;
+		outline: none;
+		cursor: pointer;
+		text-align: center;
+		text-decoration: none;
+		color: #ffffff;
+		border: solid 1px #a37600; border-right:0px;
+		background: #cd9500;
+		background: -webkit-gradient(linear, left top, left bottom, from(#eead00), to(#a57800));
+		background: -moz-linear-gradient(top,  #eead00,  #a57800);
+		border-top-right-radius: 5px 5px;
+		border-bottom-right-radius: 5px 5px;
+	}
+	.tfbutton:hover {
+		text-decoration: none;
+		background: #ad700d;
+		background: -webkit-gradient(linear, left top, left bottom, from(#cc9500), to(#8e6700));
+		background: -moz-linear-gradient(top,  #cc9500,  #8e6700);
+	}
+	/* Fixes submit button height problem in Firefox */
+	.tfbutton::-moz-focus-inner {
+	  border: 0;
+	}
+	.tfclear{
+		clear:both;
+	}
     </style>
-    <script>
-        // Make sure in jsFiddle you have selected option onLoad
-        (function() {
-            var cx = '017643444788069204610:4gvhea_mvga'; // Insert your own Custom Search engine ID here
-            var gcse = document.createElement('script');
-            gcse.type = 'text/javascript';
-            gcse.async = true;
-            gcse.src = (document.location.protocol == 'https' ? 'https:' : 'http:') +
-                '//www.google.com/cse/cse.js?cx=' + cx;
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(gcse, s);
-        })();
-    </script>
 </head>
 
 <body>
     <h1>Majin</h1>
-    <div style="text-align: center"><img src="images/main-icon.png" alt="Majin Logo"></div>
+    <div style="text-align: center"><a href="http://majin.info/"><img src="images/main-icon.png" alt="Majin Logo"></a></div>
     <br>
     <div style="text-align: center">Mobile Browser for the Desktop</div>
     <ul id="menu">
@@ -80,11 +113,20 @@
         <li>
             <a href="https://www.spotify.com"><img src="images/spotify-icon.png" alt="Spotify"></a>
         </li>
+        <li>
+            <a href="https://m.imdb.com"><img src="https://www.imdb.com/favicon.ico" alt="IMDB"></a>
+        </li>
     </ul>
-    <div class="gcse-searchbox-only"></div>
+    <!-- HTML for SEARCH BAR -->
+    <div id="tfheader">
+        <form id="tfnewsearch" method="get" action="http://www.google.com/search">
+            <input name="q" type="text" class="tftextinput" size="21" maxlength="120"><input type="submit" value="Search" class="tfbutton">
+        </form>
+        <div class="tfclear"></div>
+    </div>
     <br>
     <div style="text-align: center">
-        <i><small>Copyright 2016 - Hugo Monteiro</small></i>
+        <i><small>Copyright 2017 - Hugo Monteiro</small></i>
     </div>
 </body>
 
