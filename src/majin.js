@@ -50,7 +50,8 @@ const appWebURL = vjson.homepageURL;
 const appSupportURL = vjson.supportURL;
 
 // const homePageURL = 'file://' + path.join(__dirname, 'majin.html');
-const homePageURL = 'http://majin.info/start';
+// const homePageURL = 'file://' + path.join(__dirname, 'majin.html');
+const homePageURL = 'https://www.google.com/';
 
 var mainWindow = null;
 var trayIcon = null;
