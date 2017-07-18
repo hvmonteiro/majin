@@ -42,7 +42,7 @@ npm start
 ```
 
 # License
-Majin, Copyright (C) 2016 Hugo V. Monteiro
+Majin, Copyright (C) 2017 Hugo V. Monteiro
     
 This is free software, and you are welcome to redistribute it under certain conditions, see LICENSE file.
     
