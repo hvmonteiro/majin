@@ -47,7 +47,7 @@ module.exports = function (grunt) {
 
     exec: {
       list_files: {
-        cmd: 'npm run exec-test'
+        cmd: 'echo npm run exec-test'
       }
     },
     mkdir: {
@@ -71,8 +71,8 @@ module.exports = function (grunt) {
           OriginalFilename: 'Majin',
           InternalName: 'Majin',
           FileDescription: 'Mobile Browser for the Desktop',
-          copyright: 'Copyright (c) 2017, Hugo V. Monteiro',
-          version: '1.2.1',
+          copyright: 'Copyright (c) 2018, Hugo V. Monteiro',
+          version: '1.3.0',
           buildVersion: '00',
           strictSSL: true,
           ignore: 'node_modules/*',
@@ -93,8 +93,8 @@ module.exports = function (grunt) {
           OriginalFilename: 'Majin',
           InternalName: 'Majin',
           FileDescription: 'Mobile Browser for the Desktop',
-          copyright: 'Copyright (c) 2017, Hugo V. Monteiro',
-          version: '1.2.1',
+          copyright: 'Copyright (c) 2018, Hugo V. Monteiro',
+          version: '1.3.0',
           buildVersion: '00',
           strictSSL: true,
           ignore: 'node_modules/*',
