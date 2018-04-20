@@ -112,3 +112,18 @@ http://choosealicense.com/licenses/
 
 # CSS Tooltip Generator
 http://www.cssportal.com/css-tooltip-generator/
+
+
+# How-to Create a Release
+
+## Create a new release version tag referencing a successful commit (which had a green build in travis-ci)
+`git tag v1.3.0 <commitId>`
+
+## Create/Modify 'latest' release version tag referencing the same commit as above (ex: v1.3.0)
+`git tag -f latest <commitId>`
+
+## Push tags to central repository
+`git push --tags origin master`
+
+## Check https://travis-ci.org/hvmonteiro/majin for a green build and https://github.com/hvmonteiro/majin/releases for a new release
+
