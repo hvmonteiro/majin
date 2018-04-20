@@ -5,9 +5,9 @@
   "description": "Mobile Browser for the Desktop",
   "author": "Hugo V. Monteiro",
   "license": "GPL-2.0",
-  "url": "https://gitlab.com/hvmonteiro/majin",
+  "url": "https://github.com/hvmonteiro/majin",
   "bugs": {
-    "url": "https://gitlab.com/hvmonteiro/majin/issues"
+    "url": "https://github.com/hvmonteiro/majin/issues"
   },
   "main": "majin.js",
   "scripts": {
@@ -28,7 +28,7 @@
   "homepage": "http://majin.info/",
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/hvmonteiro/majin.git"
+    "url": "git+https://github.com/hvmonteiro/majin.git"
   },
   "keywords": [
     "majin",
@@ -40,25 +40,25 @@
     "ontop"
   ],
   "devDependencies": {
-    "dialog": "0.1.x",
-    "electron": ">1.6.4",
-    "electron-builder": "16.6.x",
-    "electron-packager": "7.x.x",
-    "electron-updater": "^1.11.2",
-    "grunt": "0.4.x",
+    "dialog": "^0.3.x",
+    "electron": "^1.8.x",
+    "electron-builder": "^20.10.x",
+    "electron-packager": "^12.x.x",
+    "electron-updater": "^2.21.x",
+    "grunt": "1.0.x",
     "grunt-cli": "1.2.x",
-    "grunt-contrib-clean": "1.x.x",
+    "grunt-contrib-clean": "^1.x.x",
     "grunt-contrib-copy": "1.x.x",
-    "grunt-contrib-jshint": "1.x.x",
-    "grunt-electron": "4.x.x",
-    "grunt-exec": "0.4.x",
+    "grunt-contrib-jshint": "^1.x.x",
+    "grunt-electron": "9.x.x",
+    "grunt-exec": "3.x.x",
     "grunt-mkdir": "1.x.x",
-    "grunt-replace": "^1.0.1",
-    "grunt-version": "1.x.x",
+    "grunt-replace": "^1.x.x",
+    "grunt-version": "^1.x.x",
     "grunt-zip": "0.17.x",
     "load-grunt-tasks": "3.5.x",
     "menu": "0.2.x",
-    "rcedit": "0.5.x",
+    "rcedit": "^1.x.x",
     "remote": "0.2.x"
   },
   "engines": {
