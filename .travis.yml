@@ -43,9 +43,8 @@ after_failure:
   - echo "WARNING: Build unsuccessful!!!"
 
 before_deploy: 
-  - echo "Building packages for GitHub releases..."
-  - npm run build
-  - git add src/version.json
+  - echo "Building packages for GitHub release..."
+  - npm run make
 
 deploy:
   provider: releases
