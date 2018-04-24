@@ -34,11 +34,6 @@
     "remote": "0.2.x",
     "dialog": "0.1.x"
   },
-  "engines": {
-    "node": "6.10.x",
-    "npm": "4.5.x",
-    "electron": "1.6.x"
-  },
   "os": [
     "darwin",
     "mas",
