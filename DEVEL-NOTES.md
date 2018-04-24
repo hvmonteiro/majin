@@ -114,12 +114,14 @@ http://choosealicense.com/licenses/
 http://www.cssportal.com/css-tooltip-generator/
 
 
-# How-to Create a Release
+# How-to Create a Release (or development release)
+
 
 ## Create a new release version tag referencing a successful commit (which had a green build in travis-ci)
-`git tag v1.3.0 <commitId>`
+### commitId or HEAD
+`git tag 1.3.0 <commitId>`
 
-## Create/Modify 'latest' release version tag referencing the same commit as above (ex: v1.3.0)
+## Create/Modify 'latest' (or latest-devel) release version tag referencing the same commit as above (ex: v1.3.0)
 `git tag -f latest <commitId>`
 
 ## Push tags to central repository
