@@ -9,9 +9,9 @@
   "bugs": {
     "url": "https://github.com/hvmonteiro/majin/issues"
   },
-  "main": "majin.js",
+  "main": "src/majin.js",
   "scripts": {
-    "start": "electron src/majin.js --enable-logging",
+    "start": "electron-forge start",
     "clean": "grunt clean --verbose",
     "test": "grunt --verbose",
     "exec-test": "electron src/majin.js --test",
@@ -23,7 +23,9 @@
     "preversion": "npm run test && npm run exec-test",
     "version": "",
     "postversion": "#git push && git push --tags && npm clean",
-    "release": "npm version minor && npm run build"
+    "release": "npm version minor && npm run build",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "homepage": "http://majin.info/",
   "repository": {
@@ -40,10 +42,12 @@
     "ontop"
   ],
   "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
     "dialog": "^0.3.x",
-    "electron": "^1.8.x",
-    "electron-builder": "^20.10.x",
-    "electron-packager": "^12.x.x",
+    "electron-forge": "^5.2.0",
+    "electron-prebuilt-compile": "1.8.4",
     "electron-updater": "^2.21.x",
     "grunt": "1.0.x",
     "grunt-cli": "1.2.x",
@@ -76,5 +80,41 @@
     "x64",
     "ia32"
   ],
-  "private": true
+  "private": true,
+  "dependencies": {
+    "electron-compile": "^6.4.2",
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronPackagerConfig": {
+        "packageManager": "yarn"
+      },
+      "electronWinstallerConfig": {
+        "name": "majin"
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "",
+        "name": ""
+      },
+      "windowsStoreConfig": {
+        "packageName": "",
+        "name": "Majin"
+      }
+    }
+  }
 }
