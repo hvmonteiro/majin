@@ -25,6 +25,7 @@
     "postversion": "#git push && git push --tags && npm clean",
     "release": "npm version minor && npm run build",
     "package": "electron-forge package",
+    "lint": "electron-forge lint",
     "make": "electron-forge make"
   },
   "homepage": "http://majin.info/",
@@ -82,34 +83,40 @@
   },
   "config": {
     "forge": {
+      "github_repository": {
+        "owner": "hvmonteiro",
+        "name": "majin"
+      },
       "make_targets": {
         "win32": [
           "squirrel"
         ],
         "darwin": [
-          "zip"
+          "zip",
+          "dmg"
         ],
         "linux": [
           "deb",
-          "rpm"
+          "rpm",
+          "flatpak"
         ]
       },
       "electronPackagerConfig": {
         "packageManager": "yarn"
       },
       "electronWinstallerConfig": {
-        "name": "majin"
+        "name": "Majin"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
-      "github_repository": {
-        "owner": "",
-        "name": ""
-      },
       "windowsStoreConfig": {
-        "packageName": "",
+        "packageName": "Majin",
         "name": "Majin"
-      }
+      },
+      "electronRebuildConfig": {},
+      "electronInstallerDMG": {},
+      "electronInstallerFlatpak": {},
+      "electronInstallerSnap": {}
     }
   }
 }
