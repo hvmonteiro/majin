@@ -1,0 +1,11 @@
+{
+    "name": "Majin",
+    "version": "1.3.0",
+    "build": "0000",
+    "description": "Mobile Browser for the Desktop",
+    "author": "Hugo V. Monteiro <hugo@hugovmonteiro.net>",
+    "copyright": "Copyright (c) 2018, Hugo V. Monteiro <hugo@hugovmonteiro.net>",
+    "license": "GPL-2.0",
+    "homepageURL": "http://majin.info/",
+    "supportURL": "https://github.com/hvmonteiro/majin/issues"
+}
