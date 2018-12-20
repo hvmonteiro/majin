@@ -75,8 +75,15 @@ if ( /^win/.test(process.platform) ) {
 } else {
     var homePageURL = 'file://' + path.join(__dirname, 'majin.html');
 }*/
-var homePageURL = 'https://www.google.com/';
+var homePageURL = url.format({
+  pathname: path.join(__dirname, "app.html"),
+  protocol: "file:",
+  slashes: true
+  });
 
+if (env.name === "production") {
+   homePageURL = 'https://www.google.com/';
+}
 
 var mainWindow = null;
 var trayIcon = null;
@@ -319,15 +326,7 @@ app.on('ready', () => {
       }
     });
 
-    /*
-    mainWindow.loadURL(
-        url.format({
-        pathname: path.join(__dirname, "app.html"),
-        protocol: "file:",
-        slashes: true
-        })
-    );
-    */
+
     // mainWindow.loadURL('about:config', browserOptions);
     mainWindow.loadURL(homePageURL, browserOptions);
 
