@@ -29,7 +29,10 @@ const osMap = {
 document.querySelector("#app").style.display = "block";
 document.querySelector("#greet").innerHTML = greet();
 document.querySelector("#os").innerHTML = osMap[process.platform];
-document.querySelector("#author").innerHTML = manifest.author;
+document.querySelector("#app-name").innerHTML = process.env.npm_package_productName;
+document.querySelector("#app-version").innerHTML = process.env.npm_package_version;
+document.querySelector("#app-copyright").innerHTML = process.env.npm_package_copyright;
+document.querySelector("#app-license").innerHTML = process.env.npm_package_license;
 document.querySelector("#env").innerHTML = env.name;
-document.querySelector("#electron-version").innerHTML =
-  process.versions.electron;
+document.querySelector("#electron-version").innerHTML = process.versions.electron;
+

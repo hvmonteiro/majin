@@ -7,24 +7,15 @@
 // Use of this source code is governed by the GPL-2.0 license that can be
 // found in the LICENSE file.
 
-// Debug Log
-// console.log(require('module').globalPaths);
-// console.log(require('electron'));
+// This is main process, started as first thing when your
+// window starts. It runs through entire life of the application process.
 
-
-// This is main process of Electron, started as first thing when your
-// app starts. It runs through entire life of your application.
-
+const electron = require('electron');
 import path from "path";
 import url from "url";
-const electron = require('electron');
-import { app, Menu, dialog, BrowserWindow } from "electron";
+import { app, Menu, Dialog, Tray, BrowserWindow } from "electron";
 import { devMenuTemplate } from "./menu/dev_menu_template";
-//import { mainMenuTemplate } from "./menu/main_menu_template";
-//import { navigationMenuTemplate } from "./menu/navigation_menu_template";
-//import { aboutMenuTemplate } from "./menu/about_menu_template";
 import { editMenuTemplate } from "./menu/edit_menu_template";
-//import { syscontextMenu } from "./menu/systray_menu_template.js";
 import createWindow from "./helpers/window";
 
 // Special module holding environment variables which you declared
@@ -40,32 +31,19 @@ if (env.name !== "production") {
     app.setPath("userData", `${userDataPath} (${env.name})`);
 }
 
-
-// Module to create window main menu
-//const Menu = electron.Menu;
-
-// Module to create window systrem tray icon
-const Tray = electron.Tray;
-
 const browserOptions = {
     'extraHeaders': 'pragma: no-cache\n',
     // could also be used using webContents.setUserAgent(userAgent)
     'userAgent': 'Mozilla/5.0 (Linux; Android 7.0; SM-G892A Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/60.0.3112.107 Mobile Safari/537.36'
 };
 
-
-//import { vjson } from 'app/version.json';
-
-var date = new Date();
-var currentYear = date.getFullYear();
-
-const appName = 'vjson.name';
-const appVersion = 'vjson.version';
-const appBuildID = 'vjson.buildID';
-const appCopyright = 'vjson.copyright';
-const appLicense = 'vjson.license';
-const appWebURL = 'vjson.homepageURL';
-const appSupportURL = 'vjson.supportURL';
+const appName = process.env.npm_package_productName;
+const appVersion = process.env.npm_package_version;
+const appBuildID = process.env.npm_package_build_appId;
+const appCopyright = process.env.npm_package_copyright;
+const appLicense = process.env.npm_package_license;
+const appWebURL = process.env.npm_package_url;
+const appSupportURL = process.env.npm_package_bugs_url;
 
 // Solving a bug where in windows, files inside a asar packages,
 // cannot be directly opened because of incorrect handling of '/' instead of '\'.
@@ -196,7 +174,6 @@ var mainMenu = [{
     click: function () {
       electron.shell.openExternal(appSupportURL);
     }
-// Create a developer menu which is enabled using a command line argument --devel(?)
   }, {
     type: 'separator'
   }, {
@@ -225,12 +202,13 @@ var syscontextMenu = [{
   type: 'checkbox',
   checked: true,
   click: function (item, BrowserWindow) {
-//      if (BrowserWindow.isVisible()) {
-  if (BrowserWindow) {
-      BrowserWindow.hide();
+    console.log('Show/Hide Window');
+    console.log(mainWindow);
+    if (mainWindow.isVisible()) {
+      mainWindow.hide();
       item.checked = false;
     } else {
-      app.BrowserWindow.show();
+      mainWindow.show();
       item.checked = true;
     }
   }
@@ -268,185 +246,170 @@ var syscontextMenu = [{
 const setApplicationMenu = () => {
   appMenu = Menu.buildFromTemplate(mainMenu);
   contextMenu = Menu.buildFromTemplate(syscontextMenu);
-/*
-  if (env.name !== "production") {
-      appMenu.push(devMenuTemplate);
-  }
-*/
   Menu.setApplicationMenu(appMenu);
 };
 
 app.setName(appName);
 
-app.on('ready', () => {
+function createMainWindow() {
 
-//function createMainWindow () {
   setApplicationMenu(appMenu);
 
   // Create the browser window.
   const mainWindow = createWindow('main', {
-      title: appName,
-      width: 400,
-      height: 400,
-      minWidth: 400,
-      minHeight: 250,
-      // maxWidth: 400,
-      // maxHeight: 400,
-      autoHideMenuBar: false,
-      maximizable: false,
-      skipTaskbar: false,
-      resizable: true,
-      // closable: false,
-      show: false,
-      icon: path.join(__dirname, 'assets/icons/png/32x32.png')
-    });
+    title: appName,
+    width: 400,
+    height: 400,
+    minWidth: 400,
+    minHeight: 250,
+    // maxWidth: 400,
+    // maxHeight: 400,
+    autoHideMenuBar: false,
+    maximizable: false,
+    skipTaskbar: false,
+    resizable: true,
+    // closable: false,
+    show: false,
+    icon: path.join(__dirname, 'assets/icons/png/32x32.png')
+  });
 
-    trayIcon = new Tray(path.join(__dirname, 'assets/icons/png/32x32.png'));
-  
-    trayIcon.setToolTip(appName + ' - Mobile Browser for the Desktop');
-    trayIcon.setContextMenu(contextMenu);
-    trayIcon.setHighlightMode(false);
-  
-    trayIcon.on('click', function () {
-      if (mainWindow === null) {
-      mainWindow.createMainWindow();
-      }
-    });
-  
-    trayIcon.on('double-click', function (BrowserWindow) {
+  trayIcon = new Tray(path.join(__dirname, 'assets/icons/png/32x32.png'));
+
+  trayIcon.setToolTip(appName + ' - Mobile Browser for the Desktop');
+  trayIcon.setContextMenu(contextMenu);
+  trayIcon.setHighlightMode(false);
+
+  trayIcon.on('click', function () {
+    if (mainWindow === null) {
+    mainWindow.createMainWindow();
+    }
+  });
+
+  trayIcon.on('double-click', function (BrowserWindow) {
 //      if (BrowserWindow.isVisible()) {
-      if (BrowserWindow) {
-          contextMenu.items[0].checked = false; // contextMenu Item 'Show Window'
-        trayIcon.setContextMenu(contextMenu); // re-set contextMenu to reflect changes made above
-        BrowserWindow.hide();
-      } else {
-        contextMenu.items[0].checked = true; // contextMenu Item 'Show Window'
-        trayIcon.setContextMenu(contextMenu); // re-set contextMenu to reflect changes made above
-        BrowserWindow.show();
-      }
-    });
-
-
-    // mainWindow.loadURL('about:config', browserOptions);
-    mainWindow.loadURL(homePageURL, browserOptions);
-
-    mainWindow.on('show', function (BrowserWindow) {
-      mainWindow.setAlwaysOnTop(contextMenu.items[1].checked); // contextMenu Item 'On Top'
-      appMenu.items[0].submenu.items[0].checked = contextMenu.items[1].checked;
-      mainWindow.on('close', onBeforeUnload);
-    });
-
-    mainWindow.on('page-title-updated', function (e) {
-      e.preventDefault();
-      mainWindow.setTitle(appName + ' - ' + mainWindow.webContents.getTitle());
-      trayIcon.setToolTip(appName + ' - ' + mainWindow.webContents.getTitle());
-      trayIcon.setContextMenu(contextMenu);
-    });
-  
-    /*
-    mainWindow.webContents.on('did-finish-load', function (e) {
-      mainWindow.setTitle(appName + ' - ' +  mainWindow.webContents.getTitle());
-    });
-    */
-    //
-    /*
-    mainWindow.on('minimize', function () {
-    if (appMenu.items[0].submenu.items[2].checked) { // appMenu Item 'Minimize To Tray'
-      contextMenu.items[0].checked = false; // contextMenu Item 'Show Window'
+    if (BrowserWindow) {
+        contextMenu.items[0].checked = false; // contextMenu Item 'Show Window'
       trayIcon.setContextMenu(contextMenu); // re-set contextMenu to reflect changes made above
-        mainWindow.hide();
-      }
-    });
-  */
-    function onBeforeUnload (e, BrowserWindow) { // Working: but window is still always closed
-    if (appMenu.items[0].submenu.items[3].checked) { // appMenu Item 'Close To Tray'
-        e.preventDefault();
-      contextMenu.items[0].checked = false;
-      trayIcon.setContextMenu(contextMenu);
-        mainWindow.hide();
-        e.returnValue = false;
-      } else {
-        // If set, unset OnTop state so that the window doesn't hide the dialog
-        // and save existing OnTop state to re-set it later on
-      let onTopState = appMenu.items[0].submenu.items[0].checked;
-        if (mainWindow) {
-          mainWindow.setAlwaysOnTop(false);
-  
-          mainWindow.blur(); // Hide window temporarely so that doesn't overlaps dialog window
-          let dialogChoice = dialog.showMessageBox({
-            type: 'question',
-            title: 'Confirm',
-            message: 'Are you sure you want to quit?',
-            buttons: ['Yes', 'No']
-          });
-          mainWindow.show(); // show blured window again
-  
-          if (dialogChoice === 0) {   // Option: Yes
-            mainWindow._events.close = null; // Unreference function so that App can close
-            mainWindow.on('close', function () { app.quit(); }); // Re-set 'close' event so that App can close
-            e.returnValue = false;
-            mainWindow.close();
-            return 0;
-          } else {              // Option: No
-            // Re-set previously saved OnTop state
-            mainWindow.setAlwaysOnTop(onTopState);
-            e.preventDefault();
-            e.returnValue = true;
-            return 1;
-          }
-        } else {
-          app.quit();
-        }
-      }
-    }
-    // Emitted when the window is going to be closed, but it's still opened.
-    mainWindow.on('close', onBeforeUnload);
-  
-    mainWindow.webContents.on('did-start-loading', function (e) {
-      // console.log(mainWindow.webContents.canGoBack());
-      // Enable/Disable Navigation subMenu item "Back"
-      if (mainWindow.webContents.canGoBack()) {
-      appMenu.items[1].submenu.items[2].enabled = true;
-      } else {
-      appMenu.items[1].submenu.items[2].enabled = false;
-      }
-      // Enable/Disable Navigation subMenu item "Forward"
-      if (mainWindow.webContents.canGoForward()) {
-      appMenu.items[1].submenu.items[4].enabled = true;
-      } else {
-      appMenu.items[1].submenu.items[4].enabled = false;
-      }
-    });
-
-    mainWindow.webContents.on('new-window', function (e, goToURL) {
-      // prevent a new window of being created (ex: target='_blank', etc.)
-      e.preventDefault();
-      mainWindow.loadURL(goToURL);
-    });
-
-    // This is only used to test if the application start without any problem,
-    // the application immediatly exits after this if everything is ok
-    if (process.argv[2] === '--test') {
-      console.log('Application Execution Test: Ok');
-      mainWindow._events.close = null; // Unreference function so that App can close
-      mainWindow.close();
-      app.quit();
+      BrowserWindow.hide();
     } else {
-      mainWindow.show();
+      contextMenu.items[0].checked = true; // contextMenu Item 'Show Window'
+      trayIcon.setContextMenu(contextMenu); // re-set contextMenu to reflect changes made above
+      BrowserWindow.show();
     }
+  });
+
+  mainWindow.loadURL(homePageURL, browserOptions);
+
+  mainWindow.on('hide', () => {
+
+    console.log('on-hide');
+    console.log(mainWindow);
+
+  })
+
+  mainWindow.on('show', function (BrowserWindow) {
+    mainWindow.setAlwaysOnTop(contextMenu.items[1].checked); // contextMenu Item 'On Top'
+    appMenu.items[0].submenu.items[0].checked = contextMenu.items[1].checked;
+    mainWindow.on('close', onBeforeUnload);
+  });
+
+  mainWindow.on('page-title-updated', function (event) {
+    event.preventDefault();
+    mainWindow.setTitle(appName + ' - ' + mainWindow.webContents.getTitle());
+    trayIcon.setToolTip(appName + ' - ' + mainWindow.webContents.getTitle());
+    trayIcon.setContextMenu(contextMenu);
+  });
+
+  mainWindow.webContents.on('did-finish-load', function (event) {
+    mainWindow.setTitle(appName + ' - ' +  mainWindow.webContents.getTitle());
+  });
+
+  /*
+  mainWindow.on('minimize', function () {
+  if (appMenu.items[0].submenu.items[2].checked) { // appMenu Item 'Minimize To Tray'
+    contextMenu.items[0].checked = false; // contextMenu Item 'Show Window'
+    trayIcon.setContextMenu(contextMenu); // re-set contextMenu to reflect changes made above
+      mainWindow.hide();
+    }
+  });
+  */
+
+  function onBeforeUnload (event, BrowserWindow) { // Working: but window is still always closed
+
+  if (appMenu.items[0].submenu.items[3].checked) { // appMenu Item 'Close To Tray'
+    event.preventDefault();
+    contextMenu.items[0].checked = false;
+    trayIcon.setContextMenu(contextMenu);
+    mainWindow.hide();
+    event.returnValue = false;
     /*
-    if (env.name === "development") {
-        mainWindow.openDevTools();
-    }
+  } else {
+    // If OnTop is set, temporarely unset its state so that the window doesn't hide the dialog
+    // and save existing OnTop state to re-set it later on
+    let onTopState = appMenu.items[0].submenu.items[0].checked;
+      if (mainWindow) {
+        mainWindow.setAlwaysOnTop(false);
+
+        mainWindow.blur(); // Hide window temporarely so that doesn't overlaps dialog window
+
+        let dialogChoice = Dialog.showMessageBox({
+          type: 'question',
+          title: 'Confirm',
+          message: 'Are you sure you want to quit?',
+          buttons: ['Yes', 'No']
+        });
+        mainWindow.show(); // show blured window again
+
+        if (dialogChoice === 0) {   // Option: Yes
+          mainWindow._events.close = null; // Unreference function so that App can close
+          mainWindow.on('close', function () { app.quit(); }); // Re-set 'close' event so that App can close
+          event.returnValue = false;
+          mainWindow.close();
+          return 0;
+        } else {              // Option: No
+          // Re-set previously saved OnTop state
+          mainWindow.setAlwaysOnTop(onTopState);
+          event.preventDefault();
+          event.returnValue = true;
+          return 1;
+        }
+      } else {
+        app.quit();
+      }
     */
+    }
+  }
+  // Emitted when the window is going to be closed, but it's still opened.
+  mainWindow.on('close', onBeforeUnload);
 
-//} // function createMainWindow
-});
+  mainWindow.webContents.on('did-start-loading', function (event) {
+    // console.log(mainWindow.webContents.canGoBack());
+    // Enable/Disable Navigation subMenu item "Back"
+    if (mainWindow.webContents.canGoBack()) {
+    appMenu.items[1].submenu.items[2].enabled = true;
+    } else {
+    appMenu.items[1].submenu.items[2].enabled = false;
+    }
+    // Enable/Disable Navigation subMenu item "Forward"
+    if (mainWindow.webContents.canGoForward()) {
+    appMenu.items[1].submenu.items[4].enabled = true;
+    } else {
+    appMenu.items[1].submenu.items[4].enabled = false;
+    }
+  });
 
+  mainWindow.webContents.on('new-window', function (event, goToURL) {
+    // prevent a new window of being created (ex: target='_blank', etc.)
+    event.preventDefault();
+    mainWindow.loadURL(goToURL);
+  });
+
+  mainWindow.show();
+} // function createMainWindow
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
-//app.on('ready', createMainWindow);
+app.on('ready', createMainWindow);
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
@@ -461,6 +424,6 @@ app.on('activate', function () {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
-    createWindow();
+    createMainWindow();
   }
 });
