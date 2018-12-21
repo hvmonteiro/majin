@@ -1,0 +1,74 @@
+language: node_js
+
+node_js:
+  - 9.4.0
+
+notifications:
+  email: true
+
+env:
+  global:
+  - NPM_CONFIG_PROGRESS="true"
+
+sudo: true
+
+addons:
+  apt:
+    packages:
+    - wine
+    - xvfb
+    - zip
+    - rpm
+
+before_install:
+  - npm install --save-dev --quiet
+
+install:
+  - sudo add-apt-repository ppa:ubuntu-wine/ppa -y
+  - sudo apt-get update
+  - sudo apt-get install --no-install-recommends -y wine1.8 rpm icnsutils graphicsmagick xz-utils gcc-multilib g++-multilib libstdc++6-4.7-dev fakeroot
+
+before_script: true
+
+script:
+  - grunt --verbose
+
+after_script:
+  - echo "Finished Testing."
+
+after_success:
+  - echo "Build Successful"
+
+after_failure:
+  - echo "WARNING: Build unsuccessful!!!"
+
+before_deploy: 
+  - echo "Building packages for GitHub release..."
+  - npm run make
+
+deploy:
+  provider: releases
+#  prerelease: true
+  strategy: git
+  skip_cleanup: true
+  app: Majin
+  file: build/packages/*.zip
+    - src/dist/*.zip
+    - src/dist/*.dmg
+    - src/dist/*.pkg
+    - src/dist/*.exe
+    - src/dist/*.deb
+    - src/dist/*.rpm
+    - src/dist/*.tar.gz
+    - src/dist/*.AppImage
+  file_glob: true
+  overwrite: true
+  on:
+    tags: true
+    repo: hvmonteiro/majin
+    all_branches: true
+  api_key: "$API_KEY"
+
+after_deploy:
+  - echo "GitHub packages deploy finished."
+

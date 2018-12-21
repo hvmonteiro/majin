@@ -1,0 +1,10 @@
+/.*
+/Gruntfile.js
+/Majin-*
+/*.zip
+/test/
+/majin.iss
+/DEVEL-NOTES.md
+/build.sh
+/.travis.yml
+node_modules/.bin
