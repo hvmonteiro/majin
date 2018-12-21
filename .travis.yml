@@ -27,12 +27,14 @@ install:
   - sudo add-apt-repository ppa:ubuntu-wine/ppa -y
   - sudo apt-get update
   - sudo apt-get install --no-install-recommends -y wine1.8 rpm icnsutils graphicsmagick xz-utils gcc-multilib g++-multilib libstdc++6-4.7-dev fakeroot
+  - export DISPLAY=':99.0'
+  - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
 
 before_script: true
 
 script:
   - echo "Building packages..."
-  - npm run release
+  - Xvfb-maybe npm run release
 
 after_script:
   - echo "Finished Testing"
