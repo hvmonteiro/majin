@@ -33,8 +33,11 @@ https://github.com/atom/electron/blob/master/docs/api/native-image.md
 
 # Packaging & Distribution
 
+## Webpack
+https://webpack.js.org/
+
 ## Electron Builder
-https://github.com/electron-userland/electron-builder
+https://www.electron.build/
 
 ## package.json (NPM Documentation)
 https://docs.npmjs.com/files/package.json

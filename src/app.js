@@ -4,10 +4,6 @@ import "./stylesheets/main.css";
 import "./helpers/context_menu.js";
 import "./helpers/external_links.js";
 
-// ----------------------------------------------------------------------------
-// Everything below is just to show you how it works. You can delete all of it.
-// ----------------------------------------------------------------------------
-
 import { remote } from "electron";
 import jetpack from "fs-jetpack";
 import { greet } from "./hello_world/hello_world";
@@ -16,8 +12,6 @@ import env from "env";
 const app = remote.app;
 const appDir = jetpack.cwd(app.getAppPath());
 
-// Holy crap! This is browser window with HTML and stuff, but I can read
-// files from disk like it's node.js! Welcome to Electron world :)
 const manifest = appDir.read("package.json", "json");
 
 const osMap = {
@@ -29,10 +23,10 @@ const osMap = {
 document.querySelector("#app").style.display = "block";
 document.querySelector("#greet").innerHTML = greet();
 document.querySelector("#os").innerHTML = osMap[process.platform];
-document.querySelector("#app-name").innerHTML = process.env.npm_package_productName;
-document.querySelector("#app-version").innerHTML = process.env.npm_package_version;
-document.querySelector("#app-copyright").innerHTML = process.env.npm_package_copyright;
-document.querySelector("#app-license").innerHTML = process.env.npm_package_license;
+document.querySelector("#app-name").innerHTML = manifest.productName;
+document.querySelector("#app-version").innerHTML = manifest.version;
+document.querySelector("#app-copyright").innerHTML = manifest.copyright;
+document.querySelector("#app-license").innerHTML = manifest.license;
 document.querySelector("#env").innerHTML = env.name;
 document.querySelector("#electron-version").innerHTML = process.versions.electron;
 

@@ -14,6 +14,7 @@ export default (name, options) => {
     height: options.height
   };
   let state = {};
+  let appOptions = {};
   let win;
 
   const restore = () => {
@@ -25,6 +26,10 @@ export default (name, options) => {
       // No worries, we have defaults.
     }
     return Object.assign({}, defaultSize, restoredState);
+  };
+
+  const getAppOptions = () => {
+
   };
 
   const getCurrentPosition = () => {
@@ -59,11 +64,13 @@ export default (name, options) => {
     const visible = screen.getAllDisplays().some(display => {
       return windowWithinBounds(windowState, display.bounds);
     });
+
     if (!visible) {
       // Window is partially or fully not visible now.
       // Reset it to safe defaults.
       return resetToDefaults();
     }
+
     return windowState;
   };
 
@@ -72,6 +79,11 @@ export default (name, options) => {
       Object.assign(state, getCurrentPosition());
     }
     userDataDir.write(stateStoreFile, state, { atomic: true });
+  };
+
+  const saveAppOptions = () => {
+    Object.assign(appOptions, getAppOptions());
+    userDataDir.write(stateStoreFile, appOptions, { atomic: true });
   };
 
   state = ensureVisibleOnSomeDisplay(restore());
