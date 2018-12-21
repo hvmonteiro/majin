@@ -41,7 +41,8 @@ after_success:
   - echo "Build Successful"
 
 after_failure:
-  - echo "WARNING: Build unsuccessful!!!"
+  - echo "WARNING: Build unsuccessful"
+  - cat /home/travis/.npm/_logs/*-debug.log
 
 before_deploy: 
   - echo "Publishing packages on GitHub..."
