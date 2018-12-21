@@ -21,7 +21,7 @@ addons:
     - rpm
 
 before_install:
-  - npm install --save-dev --quiet
+  - npm install
 
 install:
   - sudo add-apt-repository ppa:ubuntu-wine/ppa -y
@@ -31,10 +31,11 @@ install:
 before_script: true
 
 script:
-  - grunt --verbose
+  - echo "Building packages..."
+  - npm run release
 
 after_script:
-  - echo "Finished Testing."
+  - echo "Finished Testing"
 
 after_success:
   - echo "Build Successful"
@@ -43,8 +44,8 @@ after_failure:
   - echo "WARNING: Build unsuccessful!!!"
 
 before_deploy: 
-  - echo "Building packages for GitHub release..."
-  - npm run make
+  - echo "Publishing packages on GitHub..."
+  - npm run publish
 
 deploy:
   provider: releases
@@ -52,15 +53,16 @@ deploy:
   strategy: git
   skip_cleanup: true
   app: Majin
-  file: build/packages/*.zip
-    - src/dist/*.zip
-    - src/dist/*.dmg
-    - src/dist/*.pkg
-    - src/dist/*.exe
-    - src/dist/*.deb
-    - src/dist/*.rpm
-    - src/dist/*.tar.gz
-    - src/dist/*.AppImage
+  file: 
+    - dist/*.zip
+    - dist/*.dmg
+    - dist/*.pkg
+    - dist/*.exe
+    - dist/*.deb
+    - dist/*.rpm
+    - dist/*.tar.gz
+    - dist/*.AppImage
+    - dist/*.snap
   file_glob: true
   overwrite: true
   on:
