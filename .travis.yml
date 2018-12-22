@@ -34,7 +34,7 @@ before_script: true
 
 script:
   - echo "Building packages..."
-  - Xvfb-maybe npm run release
+  - xvfb-run npm run release
 
 after_script:
   - echo "Finished Testing"
