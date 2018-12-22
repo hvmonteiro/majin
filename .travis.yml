@@ -34,7 +34,7 @@ before_script: true
 
 script:
   - echo "Building packages..."
-  - xvfb-run npm run release
+  - npm run release
 
 after_script:
   - echo "Finished Testing"
@@ -44,7 +44,7 @@ after_success:
 
 after_failure:
   - echo "WARNING: Build unsuccessful"
-  - cat /home/travis/.npm/_logs/*-debug.log
+  - [ -f "/home/travis/.npm/_logs/*-debug.log" ] && cat /home/travis/.npm/_logs/*-debug.log
 
 before_deploy: 
   - echo "Publishing packages on GitHub..."
