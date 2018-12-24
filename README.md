@@ -1,21 +1,54 @@
-# electron-boilerplate
+# Majin
 
-A minimalistic boilerplate for [Electron runtime](http://electron.atom.io). Tested on Windows, macOS and Linux.  
+Latest Release: [![Latest Release Status](https://github.com/hvmonteiro/majin/badges/master/build.svg)](https://github.com/hvmonteiro/majin/tags/latest)
 
-This project contains only bare minimum of tooling and dependencies to provide you with simple to understand and extensible base (but still, this is fully functional Electron environment). The boilerplate also doesn't impose on you any frontend technologies, so feel free to pick your favourite.
+Development Test Release: [![Latest Devel Test Release](https://github.com/hvmonteiro/majin/badges/latest-devel/build.svg)](https://github.com/hvmonteiro/majin/tags/latest-devel)
 
-# Quick start
+# About
+Majin is a small lightweight desktop browser that renders/requests mobile webpages from websites (when these are available).
 
-Make sure you have [Node.js](https://nodejs.org) installed, then type the following commands known to every Node developer...
+It was developed to avoid the hassle of using a full-blown browser just to keep music/videos playing in the background while you work. It also packs a few features like minimizing to desktop's tray and stay on top of other windows.
+
+![Majin Screenshot for Linux](https://github.com/hvmonteiro/majin/raw/master/src/images/majin-screenshot-linux.png)![Majin Screenshot for Windows](https://github.com/hvmonteiro/majin/raw/master/src/images/majin-screenshot-windows.png)
+![Majin Screenshot with Youtube](https://github.com/hvmonteiro/majin/raw/master/src/images/majin-screenshot-youtube.png)![Majin Screenshot with Spotify](https://github.com/hvmonteiro/majin/raw/master/src/images/majin-screenshot-spotify.png)
+
+# Releases & Usage
+
+It's made available for **Linux**, **OSX** and **Windows** desktop platforms. No configuration and no administration privileges are needed.
+You can download it from the [releases](https://github.com/hvmonteiro/majin/releases) pages.
+Just download the version you want, extract to a directory and execute it. 
+
+
+## Try directly from source
+
+**Clone and run for a quick way to see Majin in action.**
+
+You must be familiar with [Git](https://git-scm.com) version control system, [NPM](http://npmjs.com)) and [Node.js](https://nodejs.org/en/download/).
+Just clone this repository, install NodeJS dependency modules and start Majin with npm as showed in the following example:
 ```
-git clone https://github.com/szwacz/electron-boilerplate.git
-cd electron-boilerplate
+git clone https://github.com/hvmonteiro/majin
+cd majin
 npm install
 npm start
 ```
-...and you have a running desktop application on your screen.
+...and you have a Majin running in your desktop.
 
-# Structure of the project
+
+# License
+Majin, Copyright (C) 2018 Hugo V. Monteiro
+    
+This is free software, and you are welcome to redistribute it under certain conditions, see LICENSE file.
+    
+Majin comes with ABSOLUTELY NO WARRANTY.
+
+
+
+
+# Development
+
+
+
+## Structure of the project
 
 The application consists of two main folders...
 
@@ -29,7 +62,6 @@ Treat `src` and `app` folders like two halves of one bigger thing.
 
 The drawback of this design is that `app` folder contains some files which should be git-ignored and some which shouldn't (see `.gitignore` file). But this two-folders split makes development builds much, much faster.
 
-# Development
 
 ## Starting the app
 
@@ -61,11 +93,11 @@ To do so edit `package.json`:
 ```
 *Side note:* [Electron authors recommend](http://electron.atom.io/docs/tutorial/electron-versioning/) to use fixed version here.
 
-## Adding npm modules to your app
+## Adding npm modules
 
 Remember to respect the split between `dependencies` and `devDependencies` in `package.json` file. Your distributable app will contain modules listed in `dependencies` after running the release script.
 
-*Side note:* If the module you want to use in your app is a native one (not pure JavaScript but compiled binary) you should first  run `npm install name_of_npm_module` and then `npm run postinstall` to rebuild the module for Electron. You need to do this once after you're first time installing the module. Later on, the postinstall script will fire automatically with every `npm install`.
+*Side note:* If the module you want to use is a native one (not pure JavaScript but compiled binary) you should first  run `npm install name_of_npm_module` and then `npm run postinstall` to rebuild the module for Electron. You need to do this once after you're first time installing the module. Later on, the postinstall script will fire automatically with every `npm install`.
 
 # Testing
 
@@ -99,4 +131,4 @@ Once the packaging process finished, the `dist` directory will contain your dist
 
 We use [electron-builder](https://github.com/electron-userland/electron-builder) to handle the packaging process. It has a lot of [customization options](https://www.electron.build/configuration/configuration), which you can declare under `"build"` key in `package.json`.
 
-You can package your app cross-platform from a single operating system, [electron-builder kind of supports this](https://www.electron.build/multi-platform-build), but there are limitations and asterisks. That's why this boilerplate doesn't do that by default.
+You can package the app cross-platform from a single operating system, [electron-builder kind of supports this](https://www.electron.build/multi-platform-build), but there are limitations and asterisks. This doesn't do that YET!
