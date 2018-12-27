@@ -34,7 +34,7 @@ before_script: true
 
 script:
   - echo "Building packages..."
-  - npm run release & echo $1 > ~/npm.pid
+  - npm run release & echo $! > ~/npm.pid
   - while ( ps -p `cat ~/npm.pid`); do echo "."; sleep 60 ; done
 
 after_script:
