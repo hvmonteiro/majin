@@ -34,7 +34,8 @@ before_script: true
 
 script:
   - echo "Building packages..."
-  - travis_wait 20 npm run release
+  - npm run release
+  - until  pgrep $!; do echo $! ; sleep 60; done
 
 after_script:
   - echo "Finished Testing"
