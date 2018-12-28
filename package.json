@@ -95,7 +95,6 @@
       "packageCategory": "Network",
       "target": [
         "deb",
-        "rpm",
         "tar.gz",
         "AppImage"
       ],
