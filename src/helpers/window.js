@@ -65,11 +65,11 @@ export default (name, options) => {
       return windowWithinBounds(windowState, display.bounds);
     });
 
-    if (!visible) {
+//    if (!visible) {
       // Window is partially or fully not visible now.
       // Reset it to safe defaults.
-      return resetToDefaults();
-    }
+//      return resetToDefaults();
+//    }
 
     return windowState;
   };

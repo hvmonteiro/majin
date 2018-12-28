@@ -7,8 +7,8 @@
 // Use of this source code is governed by the GPL-2.0 license that can be
 // found in the LICENSE file.
 
-// This is main process, started as first thing when your
-// window starts. It runs through entire life of the application process.
+// This is main process, started as first thing when window starts. 
+// It runs through entire life of the application process.
 
 const electron = require('electron');
 import jetpack from "fs-jetpack";
@@ -17,7 +17,7 @@ import url from "url";
 import { app, Menu, dialog, Tray, BrowserWindow, nativeImage } from "electron";
 import { devMenuTemplate } from "./menu/dev_menu_template";
 import { editMenuTemplate } from "./menu/edit_menu_template";
-import createWindow from "./helpers/window";
+//import createWindow from "./helpers/window";
 
 // Special module holding environment variables which you declared
 // in config/env_xxx.json file.
@@ -27,7 +27,7 @@ import env from "env";
 // Save userData in separate folders for each environment.
 // Thanks to this you can use production and development versions of the app
 // on same machine like those are two separate apps.
-if (env.name !== "production") {
+if (env.name === "development") {
     const userDataPath = app.getPath("userData");
     app.setPath("userData", `${userDataPath} (${env.name})`);
 }
@@ -51,19 +51,13 @@ const appSupportURL = manifest.bugs.url;
 
 // Solving a bug where in windows, files inside a asar packages,
 // cannot be directly opened because of incorrect handling of '/' instead of '\'.
-/*
-if ( /^win/.test(process.platform) ) {
-    var homePageURL = 'https://www.google.com/';
-} else {
-    var homePageURL = 'file://' + path.join(__dirname, 'majin.html');
-}*/
 var homePageURL = url.format({
   pathname: path.join(__dirname, "app.html"),
   protocol: "file:",
   slashes: true
   });
 
-if (env.name === "production") {
+if (env.name !== "development") {
    homePageURL = 'https://www.google.com/';
 }
 
@@ -86,8 +80,8 @@ var mainMenu = [{
     accelerator: 'CmdOrCtrl+T',
     type: 'checkbox',
     checked: true,
-    click: function (item, BrowserWindow) {
-      BrowserWindow.setAlwaysOnTop(item.checked);
+    click: (item) => {
+      mainWindow.setAlwaysOnTop(item.checked);
       contextMenu.items[1].checked = item.checked;
       trayIcon.setContextMenu(contextMenu);
     }
@@ -108,9 +102,9 @@ var mainMenu = [{
     label: 'Auto-Hide Menu Bar',
     type: 'checkbox',
     checked: false,
-    click: function (item, BrowserWindow) {
-      BrowserWindow.setAutoHideMenuBar(item.checked);
-      BrowserWindow.setMenuBarVisibility(!item.checked);
+    click: (item) => {
+      mainWindow.setAutoHideMenuBar(item.checked);
+      mainWindow.setMenuBarVisibility(!item.checked);
       contextMenu.items[3].checked = item.checked;
       trayIcon.setContextMenu(contextMenu);
     }
@@ -119,10 +113,11 @@ var mainMenu = [{
   }, {
     label: 'Quit',
     accelerator: 'CmdOrCtrl+Q',
-    click: function (item, BrowserWindow) {
-        BrowserWindow.close();
-        BrowserWindow._events.close = null; // Unreference function show that App can close
+    click: (item) => {
+      if (mainWindow) {
+        mainWindow._events.close = null; // Unreference function show that App can close
         app.quit();
+      }
     }
   }
 ]}, {
@@ -130,8 +125,8 @@ var mainMenu = [{
   submenu: [{
     label: 'Home',
     accelerator: 'CmdOrCtrl+H',
-    click: function (item, BrowserWindow) {
-      BrowserWindow.loadURL(homePageURL, browserOptions);
+    click: (item) => {
+      mainWindow.loadURL(homePageURL, browserOptions);
     }
   }, {
     type: 'separator'
@@ -139,7 +134,7 @@ var mainMenu = [{
   }, {
     label: 'Open',
     accelerator: 'CmdOrCtrl+O',
-    click: function (item, BrowserWindow) {
+    click: function (item) {
       mainWindow.loadURL(homePageURL, browserOptions);
     }
   }, {
@@ -149,56 +144,56 @@ var mainMenu = [{
     label: 'Back',
     enabled: false,
     accelerator: 'Alt+Left',
-    click: function (item, BrowserWindow) {
-      if (BrowserWindow) BrowserWindow.webContents.goBack();
+    click: (item) => {
+      if (mainWindow) mainWindow.webContents.goBack();
     }
   }, {
     label: 'Reload',
     accelerator: 'F5',
-    click: function (item, BrowserWindow) {
-      BrowserWindow.webContents.reloadIgnoringCache();
+    click: (item) => {
+      if (mainWindow) mainWindow.reload();
     }
   }, {
     label: 'Forward',
     enabled: false,
     accelerator: 'Alt+Right',
-    click: function (item, BrowserWindow) {
-      if (BrowserWindow) BrowserWindow.webContents.goForward();
+    click: (item) => {
+      if (mainWindow) mainWindow.webContents.goForward();
     }
   }, {
     type: 'separator'
   }, {
     label: 'Clear All Web Cache',
-    click: function (item, BrowserWindow) {
-      BrowserWindow.webContents.session.clearStorageData(['storages: localstorage'], function() {});
+    click: (item) => {
+      mainWindow.webContents.session.clearStorageData(['storages: localstorage'], function() {});
     }
   } 
 ]}, {
   label: 'About',
   submenu: [{
     label: 'Learn More',
-    click: function () {
+    click: () => {
       electron.shell.openExternal(appWebURL);
     }
   }, {
     label: 'Support',
-    click: function () {
+    click: () => {
       electron.shell.openExternal(appSupportURL);
     }
   }, {
     type: 'separator'
   }, {
     label: 'About',
-    click: function (item, BrowserWindow) {
-      let onTopOption = BrowserWindow.isAlwaysOnTop();
-      BrowserWindow.setAlwaysOnTop(false);
+    click: (item) => {
+      let onTopOption = mainWindow.isAlwaysOnTop();
+      mainWindow.setAlwaysOnTop(false);
       dialog.showMessageBox({
         'type': 'info',
         'title': 'About',
         buttons: ['Close'],
         'message': appName + ' ' + appVersion + '\n' + 'Copyright ' + appCopyright + '\n' + appLicense
       });
-      BrowserWindow.setAlwaysOnTop(onTopOption);
+      mainWindow.setAlwaysOnTop(onTopOption);
     }
   }]
 }];
@@ -207,24 +202,18 @@ var syscontextMenu = [{
   label: 'Show Window',
   type: 'checkbox',
   checked: true,
-  click: function (item, mainWindow) {
-    if (mainWindow.isVisible()) {
-      mainWindow.hide();
-      item.checked = false;
-    } else {
-      mainWindow.show();
-      item.checked = true;
-    }
+  click: (item ) => {
+    mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
+    mainWindow.isVisible() ? trayIcon.setHighlightMode('always') : trayIcon.setHighlightMode('never');
+    item.checked = mainWindow.isVisible();
   }
 }, {
   label: 'On Top',
   type: 'checkbox',
   checked: true,
-  click: function (item, mainWindow) {
-    if (mainWindow.isVisible()) {
-      mainWindow.setAlwaysOnTop(item.checked);
-      appMenu.items[0].submenu.items[0].checked = item.checked;
-    }
+  click: (item) => {
+    mainWindow.setAlwaysOnTop(item.checked);
+    appMenu.items[0].submenu.items[0].checked = item.checked;
   }
 }, {
   type: 'separator'
@@ -232,18 +221,19 @@ var syscontextMenu = [{
   label: 'Auto-Hide Menu Bar',
   type: 'checkbox',
   checked: false,
-  click: function (item, BrowserWindow) {
-    BrowserWindow.setAutoHideMenuBar(item.checked);
-    BrowserWindow.setMenuBarVisibility(!item.checked);
+  click: (item) => {
+    mainWindow.setAutoHideMenuBar(item.checked);
+    mainWindow.setMenuBarVisibility(!item.checked);
     appMenu.items[0].submenu.items[5].checked = item.checked;
   }
 }, {
   label: 'Quit',
   accelerator: 'CmdOrCtrl+Q',
-  click: function (item, BrowserWindow) {
-    BrowserWindow.close();
-    BrowserWindow._events.close = null; // Unreference function show that App can close
-    app.quit();
+  click: (item) => {
+    if (mainWindow) {
+      mainWindow._events.close = null; // Unreference function show that App can close
+      app.quit();
+    }
   }
 }];
 
@@ -255,12 +245,13 @@ const setApplicationMenu = () => {
 
 app.setName(appName);
 
-function createMainWindow() {
+function createWindow() {
 
   setApplicationMenu(appMenu);
 
   // Create the browser window.
-  const mainWindow = createWindow('main', {
+//  const mainWindow = createWindow('main', {
+  mainWindow = new BrowserWindow({
     title: appName,
     width: 400,
     height: 400,
@@ -277,53 +268,46 @@ function createMainWindow() {
     icon: nativeImage.createFromPath(path.join(__dirname, 'assets/icons/png/32x32.png')),
     webPreferences: { backgroundThrottling: true }
   });
-console.log(mainWindow.webContents);
+
   trayIcon = new Tray(nativeImage.createFromPath(path.join(__dirname, 'assets/icons/png/32x32.png')));
 
   trayIcon.setToolTip(appName + ' - Mobile Browser for the Desktop');
   trayIcon.setContextMenu(contextMenu);
-  trayIcon.setHighlightMode(false);
+  trayIcon.setHighlightMode('always');
 
   trayIcon.on('click', function () {
     if (mainWindow === null) {
-    mainWindow.createMainWindow();
+      mainWindow.createWindow();
     }
   });
 
-  trayIcon.on('double-click', function (BrowserWindow) {
-    if (BrowserWindow.isVisible()) {
-      contextMenu.items[0].checked = false; // contextMenu Item 'Show Window'
-      trayIcon.setContextMenu(contextMenu); // re-set contextMenu to reflect changes made above
-      BrowserWindow.hide();
-    } else {
-      contextMenu.items[0].checked = true; // contextMenu Item 'Show Window'
-      trayIcon.setContextMenu(contextMenu); // re-set contextMenu to reflect changes made above
-      BrowserWindow.show();
-    }
+  trayIcon.on('double-click', () => {
+    mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
+    contextMenu.items[0].checked = mainWindow.isVisible(); // contextMenu Item 'Show Window'
+    trayIcon.setContextMenu(contextMenu); // re-set contextMenu to reflect changes made above
   });
 
   mainWindow.loadURL(homePageURL, browserOptions);
 
-  mainWindow.on('hide', () => {});
-
-  mainWindow.on('show', function (BrowserWindow) {
+  mainWindow.on('show', () => {
     mainWindow.setAlwaysOnTop(contextMenu.items[1].checked); // contextMenu Item 'On Top'
     appMenu.items[0].submenu.items[0].checked = contextMenu.items[1].checked;
     mainWindow.on('close', onBeforeUnload);
   });
 
-  mainWindow.on('page-title-updated', function (event) {
-    event.preventDefault();
+  mainWindow.on('page-title-updated', function (e) {
+    e.preventDefault();
     mainWindow.setTitle(appName + ' - ' + mainWindow.webContents.getTitle());
     trayIcon.setToolTip(appName + ' - ' + mainWindow.webContents.getTitle());
     trayIcon.setContextMenu(contextMenu);
   });
 
-  mainWindow.webContents.on('did-finish-load', function (event) {
+/*
+  mainWindow.webContents.on('did-finish-load', function (e) {
     mainWindow.setTitle(appName + ' - ' +  mainWindow.webContents.getTitle());
   });
+*/
 
-  /*
   mainWindow.on('minimize', function () {
   if (appMenu.items[0].submenu.items[2].checked) { // appMenu Item 'Minimize To Tray'
     contextMenu.items[0].checked = false; // contextMenu Item 'Show Window'
@@ -331,17 +315,16 @@ console.log(mainWindow.webContents);
       mainWindow.hide();
     }
   });
-  */
 
-  function onBeforeUnload (event, BrowserWindow) { // Working: but window is still always closed
+  function onBeforeUnload (e) { // Working: but window is still always closed
 
     if (appMenu.items[0].submenu.items[3].checked) { // appMenu Item 'Close To Tray'
-      event.preventDefault();
+      e.preventDefault();
       contextMenu.items[0].checked = false;
       trayIcon.setContextMenu(contextMenu);
       mainWindow.hide();
-      event.returnValue = false;
-      /*
+      e.returnValue = false;
+
     } else {
       // If OnTop is set, temporarely unset its state so that the window doesn't hide the dialog
       // and save existing OnTop state to re-set it later on
@@ -362,22 +345,22 @@ console.log(mainWindow.webContents);
         if (dialogChoice === 0) {   // Option: Yes
           mainWindow._events.close = null; // Unreference function so that App can close
           mainWindow.on('close', function () { app.quit(); }); // Re-set 'close' event so that App can close
-          event.returnValue = false;
+          e.returnValue = false;
           mainWindow.close();
           return 0;
         } else {              // Option: No
           // Re-set previously saved OnTop state
           mainWindow.setAlwaysOnTop(onTopState);
-          event.preventDefault();
-          event.returnValue = true;
+          e.preventDefault();
+          e.returnValue = true;
           return 1;
         }
       } else {
         app.quit();
       }
-    */
     }
-  }
+  } // function onBeforeUnload
+
   // Emitted when the window is going to be closed, but it's still opened.
   mainWindow.on('close', onBeforeUnload);
 
@@ -397,18 +380,18 @@ console.log(mainWindow.webContents);
     }
   });
 
-  mainWindow.webContents.on('new-window', function (event, goToURL) {
+  mainWindow.webContents.on('new-window', (e, goToURL) => {
     // prevent a new window of being created (ex: target='_blank', etc.)
-    event.preventDefault();
+    e.preventDefault();
     mainWindow.loadURL(goToURL);
   });
 
   mainWindow.show();
-} // function createMainWindow
+} // function createWindow
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
-app.on('ready', createMainWindow);
+app.on('ready', createWindow);
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
@@ -423,7 +406,7 @@ app.on('activate', () => {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
-    createMainWindow();
+    createWindow();
   }
 });
 
