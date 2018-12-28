@@ -27,7 +27,7 @@ import env from "env";
 // Save userData in separate folders for each environment.
 // Thanks to this you can use production and development versions of the app
 // on same machine like those are two separate apps.
-if (env.name === "development") {
+if (env.name !== "production") {
     const userDataPath = app.getPath("userData");
     app.setPath("userData", `${userDataPath} (${env.name})`);
 }
@@ -57,7 +57,7 @@ var homePageURL = url.format({
   slashes: true
   });
 
-if (env.name !== "development") {
+if (env.name === "production") {
    homePageURL = 'https://www.google.com/';
 }
 
