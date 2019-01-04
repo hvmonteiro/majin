@@ -34,8 +34,7 @@ before_script: true
 
 script:
   - echo "Building packages..."
-  - "travis_wait 30 sleep 1800 &"
-  - npm run release
+  - travis_wait 30 npm run release
 
 after_script:
   - echo "Finished Testing"
