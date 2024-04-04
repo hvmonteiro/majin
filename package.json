@@ -1,7 +1,7 @@
 {
   "name": "majin",
   "productName": "Majin",
-  "version": "1.3.0",
+  "version": "2.0.0",
   "description": "Mobile Browser for the Desktop",
   "author": "Hugo V. Monteiro",
   "license": "GPL-2.0",
@@ -9,14 +9,14 @@
   "bugs": {
     "url": "https://github.com/hvmonteiro/majin/issues"
   },
-  "main": "majin.js",
+  "main": "src/majin.js",
   "scripts": {
-    "start": "electron src/majin.js --enable-logging",
+    "start": "electron .",
     "clean": "grunt clean --verbose",
     "test": "grunt --verbose",
     "exec-test": "electron src/majin.js --test",
     "build": "npm run dist-linux && npm run dist-windows && npm run dist-mac",
-    "dev": "NODE_ENV='development' npm run start",
+    "devel": "npm run start -- --enable-logging",
     "dist-mac": "build --projectDir ./src -c electron-builder.yml --mac --x64 --ia32",
     "dist-linux": "build --projectDir ./src -c electron-builder.yml --linux --x64 --ia32 --armv7l",
     "dist-windows": "build --projectDir ./src -c electron-builder.yml --win --x64 --ia32",
@@ -41,30 +41,30 @@
   ],
   "devDependencies": {
     "dialog": "^0.3.x",
-    "electron": "^1.8.x",
+    "electron": "^29.1.6",
     "electron-builder": "^20.10.x",
-    "electron-packager": "^12.x.x",
+    "electron-packager": "^17.1.2",
     "electron-updater": "^2.21.x",
-    "grunt": "1.0.x",
+    "grunt": "^1.6.1",
     "grunt-cli": "1.2.x",
     "grunt-contrib-clean": "^1.x.x",
     "grunt-contrib-copy": "1.x.x",
-    "grunt-contrib-jshint": "^1.x.x",
-    "grunt-electron": "9.x.x",
+    "grunt-contrib-jshint": "^3.2.0",
+    "grunt-electron": "^10.0.0",
     "grunt-exec": "3.x.x",
     "grunt-mkdir": "1.x.x",
-    "grunt-replace": "^1.x.x",
+    "grunt-replace": "^2.0.2",
     "grunt-version": "^1.x.x",
-    "grunt-zip": "0.17.x",
+    "grunt-zip": "^1.0.0",
     "load-grunt-tasks": "3.5.x",
     "menu": "0.2.x",
     "rcedit": "^1.x.x",
-    "remote": "0.2.x"
+    "remote": "^0.0.5"
   },
   "engines": {
+    "electron": "1.6.4",
     "node": "6.10.x",
-    "npm": "4.5.x",
-    "electron": "1.6.4"
+    "npm": "4.5.x"
   },
   "os": [
     "darwin",

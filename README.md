@@ -5,12 +5,12 @@ Latest Release: [![Latest Release Status](https://github.com/hvmonteiro/majin/ba
 Development Test Release: [![Latest Devel Test Release](https://github.com/hvmonteiro/majin/badges/latest-devel/build.svg)](https://github.com/hvmonteiro/majin/tags/latest-devel)
 
 # About
-Majin is a small lightweight desktop browser that renders/requests mobile webpages from websites (when these are available).
+Majin is a small lightweight desktop browser that renders/requests mobile webpages.
 
 It was developed to avoid the hassle of using a full-blown browser just to keep music/videos playing in the background while you work. It also packs a few features like minimizing to desktop's tray and stay on top of other windows.
 
-![Majin Screenshot for Linux](https://github.com/hvmonteiro/majin/raw/master/src/images/majin-screenshot-linux.png)![Majin Screenshot for Windows](https://github.com/hvmonteiro/majin/raw/master/src/images/majin-screenshot-windows.png)
-![Majin Screenshot with Youtube](https://github.com/hvmonteiro/majin/raw/master/src/images/majin-screenshot-youtube.png)![Majin Screenshot with Spotify](https://github.com/hvmonteiro/majin/raw/master/src/images/majin-screenshot-spotify.png)
+![Majin Screenshot for Linux](https://github.com/hvmonteiro/majin/raw/master/src/assets/images/majin-screenshot-linux.png)![Majin Screenshot for Windows](https://github.com/hvmonteiro/majin/raw/master/src/assets/images/majin-screenshot-windows.png)
+![Majin Screenshot with Youtube](https://github.com/hvmonteiro/majin/raw/master/src/assets/images/majin-screenshot-youtube.png)![Majin Screenshot with Spotify](https://github.com/hvmonteiro/majin/raw/master/src/assets/images/majin-screenshot-spotify.png)
 
 # Releases & Usage
 
@@ -42,7 +42,7 @@ npm start
 ```
 
 # License
-Majin, Copyright (C) 2018 Hugo V. Monteiro
+Majin, Copyright (C) 2024 Hugo V. Monteiro
     
 This is free software, and you are welcome to redistribute it under certain conditions, see LICENSE file.
     
