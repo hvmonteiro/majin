@@ -207,10 +207,146 @@ var mainMenu = [{
 					storages: ['appcache', 'cookies', 'filesystem', 'indexdb', 'localstorage', 'shadercache', 'websql', 'serviceworkers']
 				  }, () => {
 					console.log('Web data cleared');
-				  });		
+				  });
 				}
 		}
 		]}, {
+			label: 'Resize',
+			submenu: [{
+				label: 'Default Size',
+				click() {
+					mainWindow.setSize(650, 650);
+					mainWindow.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
+						details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (Linux; Android 10; Pixel 3 XL) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.6312.40 Mobile Safari/537.36 EdgA/122.0.2365.86';
+						callback({ cancel: false, requestHeaders: details.requestHeaders });
+					});
+				},
+			}, {
+				label: 'Portrait',
+				submenu: [{
+					label: '640x360 (Android Phone)',
+					click() {
+							mainWindow.setSize(360, 640);
+							mainWindow.userAgent = '';
+							mainWindow.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
+								details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (Linux; Android <AndroidVersion>; <DeviceModel>) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/<ChromeVersion> Mobile Safari/537.36';
+								callback({ cancel: false, requestHeaders: details.requestHeaders });
+							});
+					}
+				}, {
+					label: '667x375 (iPhone 6/7/8)',
+					click() {
+						mainWindow.setSize(375, 667);
+						mainWindow.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
+							details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/97.0.4692.99 Mobile/15E148 Safari/605.1.15';
+							callback({ cancel: false, requestHeaders: details.requestHeaders });
+						});
+					}
+				}, {
+					label: '896x375 (iPhone X/XS/11)',
+					click() {
+						mainWindow.setSize(375, 896);
+						mainWindow.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
+							details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/97.0.4692.99 Mobile/15E148 Safari/605.1.15';
+							callback({ cancel: false, requestHeaders: details.requestHeaders });
+						});
+					}
+				}, {
+					label: '1024x768 (iPad)',
+					click() {
+						mainWindow.setSize(768, 1024);
+						mainWindow.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
+							details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (iPad; CPU OS 15_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/97.0.4692.99 Mobile/15E148 Safari/605.1.15';
+							callback({ cancel: false, requestHeaders: details.requestHeaders });
+						});
+					}
+				}, {
+					label: '1280x800 (Android Tablets)',
+					click() {
+						mainWindow.setSize(800, 1280);
+						mainWindow.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
+							details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (Linux; Android 12; Galaxy Tab S7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36';
+							callback({ cancel: false, requestHeaders: details.requestHeaders });
+						});
+					}
+				}, {
+					label: '2048x1536 (iPad Retina)',
+					click() {
+						mainWindow.setSize(1536, 2048);
+						mainWindow.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
+							details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (iPad; CPU OS 15_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/97.0.4692.99 Mobile/15E148 Safari/605.1.15';
+							callback({ cancel: false, requestHeaders: details.requestHeaders });
+						});
+					}
+				}
+				]}, {
+					label: 'Landscape',
+					submenu: [{
+						label: '640x360 (Android)',
+						click() {
+							mainWindow.setSize(640, 360);
+							mainWindow.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
+								details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (Linux; Android 11; Pixel C) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36';
+								callback({ cancel: false, requestHeaders: details.requestHeaders });
+							});
+						}
+					}, {
+						label: '667x375 (iPhone 6/7/8)',
+						click() {
+							mainWindow.setSize(667, 375);
+							mainWindow.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
+								details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/97.0.4692.99 Mobile/15E148 Safari/605.1.15';
+								callback({ cancel: false, requestHeaders: details.requestHeaders });
+							});
+						}
+					}, {
+						label: '812x375 (iPhone X/XS/11)',
+						click() {
+							mainWindow.setSize(812, 375);
+							mainWindow.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
+								details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/97.0.4692.99 Mobile/15E148 Safari/605.1.15';
+								callback({ cancel: false, requestHeaders: details.requestHeaders });
+							});
+						}
+					}, {
+						label: '1024x768 (iPad)',
+						click() {
+							mainWindow.setSize(1024, 768);
+							mainWindow.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
+								details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (iPad; CPU OS 15_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/97.0.4692.99 Mobile/15E148 Safari/605.1.15';
+								callback({ cancel: false, requestHeaders: details.requestHeaders });
+							});
+						}
+					}, {
+						label: '1280x800 (Android Tablets)',
+						click() {
+							mainWindow.setSize(1280, 800);
+							mainWindow.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
+								details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (Linux; Android 12; Galaxy Tab S7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36';
+								callback({ cancel: false, requestHeaders: details.requestHeaders });
+							});
+						},
+					}, {
+						label: '1920x1080 (Desktop Full HD)',
+						click() {
+							mainWindow.setSize(1920, 1080);
+							mainWindow.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
+								details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36';
+								callback({ cancel: false, requestHeaders: details.requestHeaders });
+							});
+						}
+					}, {
+						label: '2048x1536 (iPad Retina)',
+						click() {
+							mainWindow.setSize(2048, 1536);
+							mainWindow.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
+								details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (iPad; CPU OS 15_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/97.0.4692.99 Mobile/15E148 Safari/605.1.15';
+								callback({ cancel: false, requestHeaders: details.requestHeaders });
+							});
+						}
+					}
+				]}
+			]}, {
 			label: 'About',
 			submenu: [{
 				label: 'Learn More',
@@ -311,8 +447,8 @@ function createWindow () {
 	// Create the browser window.
 	mainWindow = new BrowserWindow({
 		title: appName,
-		width: 600,
-		height: 400,
+		width: 650,
+		height: 650,
 		minWidth: 400,
 		minHeight: 400,
 		// maxWidth: 400,

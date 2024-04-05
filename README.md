@@ -7,10 +7,10 @@ Development Test Release: [![Latest Devel Test Release](https://github.com/hvmon
 # About
 Majin is a small lightweight desktop browser that renders/requests mobile webpages.
 
-It was developed to avoid the hassle of using a full-blown browser just to keep music/videos playing in the background while you work. It also packs a few features like minimizing to desktop's tray and stay on top of other windows.
+It was developed to avoid the hassle of using a full-blown desktop browser just to keep music/videos playing in the background while you work. It also packs a few features like minimizing to desktop's tray, stay on top of other windows, quick window resizing in landscape and portrait mode for the most used display devices, changing the user-agent accordingly .
 
-![Majin Screenshot for Linux](https://github.com/hvmonteiro/majin/raw/master/src/assets/images/majin-screenshot-linux.png)![Majin Screenshot for Windows](https://github.com/hvmonteiro/majin/raw/master/src/assets/images/majin-screenshot-windows.png)
-![Majin Screenshot with Youtube](https://github.com/hvmonteiro/majin/raw/master/src/assets/images/majin-screenshot-youtube.png)![Majin Screenshot with Spotify](https://github.com/hvmonteiro/majin/raw/master/src/assets/images/majin-screenshot-spotify.png)
+![Main Start Page](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-default.png)![Spotify in portrait mode](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-spotify.png)
+![Youtube](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-youtube.png)![Twitch in landscape mode](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-twitch.png)![Apple Music in landscape mode](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-applemusic.png)![BlueSky in landscape mode](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-bluesky.png)
 
 # Releases & Usage
 
