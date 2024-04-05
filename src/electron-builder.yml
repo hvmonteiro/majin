@@ -1,16 +1,18 @@
----
-productName: Majin
 appId: com.younity-studios.majin
+productName: Majin
 directories:
   output: dist
 asar: true
+
+electronVersion: '29.2.0'
 
 files:
   - majin.js
   - start.html
   - package.json
   - version.json
-  - src/assets/**
+  - src/assets/**/*
+  - src/node_modules/**/*
   - LICENSE
 
 linux:
@@ -26,7 +28,7 @@ linux:
   executableName: majin
 
 mac:
-  category: com.younity-studios.majin
+  category: public.app-category.utilities
   icon: assets/icons/mac/icon.icns
   target: 
     - zip
