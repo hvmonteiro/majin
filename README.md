@@ -7,16 +7,24 @@ Development Test Release: [![Latest Devel Test Release](https://camo.githubuserc
 # About
 Majin is a small lightweight desktop browser that renders/requests mobile webpages.
 
-It was developed to avoid the hassle of using a full-blown desktop browser just to keep music/videos playing in the background while you work. It also packs a few features like minimizing to desktop's tray, stay on top of other windows, quick window resizing in landscape and portrait mode for the most used display devices, changing the user-agent accordingly .
-
-![Main Start Page](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-default.png)![Spotify in portrait mode](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-spotify.png)
-![Youtube](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-youtube.png)![Twitch in landscape mode](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-twitch.png)![Apple Music in landscape mode](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-applemusic.png)![BlueSky in landscape mode](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-bluesky.png)
+It was developed to avoid the hassle of using a full-blown desktop browser just to keep music/videos playing in the background while you work. It also packs a few features like minimizing to desktop's tray, stay on top of other windows, quick window resizing in landscape and portrait mode for the most used display devices, changing the user-agent accordingly.
+(See screenshots below)
 
 # Releases & Usage
 
 It's made available for **Linux**, **OSX** and **Windows** desktop platforms. No configuration and no administration privileges are needed.
 You can download it from the [releases](https://github.com/hvmonteiro/majin/releases) pages.
 Just download the version you want, extract to a directory and execute it. 
+
+
+# Screenshots
+
+![Main Start Page](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-default.png)
+![Spotify in portrait mode](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-spotify.png)
+![Youtube in portrait mode](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-youtube.png)
+![Twitch in landscape mode](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-twitch.png)
+![Apple Music in landscape mode](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-applemusic.png)
+![BlueSky in landscape mode](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-bluesky.png)
 
 
 ## Try directly from source
