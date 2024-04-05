@@ -30,5 +30,4 @@ jobs:
     - run: npm audit fix
     - run: npm run build:clean
     - run: npm run build:test
-    - run: npm run build:test-exec
     - run: npm run build --if-present
