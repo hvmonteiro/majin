@@ -218,7 +218,7 @@ var mainMenu = [{
 				click() {
 					mainWindow.setSize(650, 650);
 					mainWindow.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
-						details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (Linux; Android 10; Pixel 3 XL) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.6312.40 Mobile Safari/537.36 EdgA/122.0.2365.86';
+						details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (Linux; Android 12; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Mobile Safari/537.36';
 						callback({ cancel: false, requestHeaders: details.requestHeaders });
 					});
 				},
@@ -230,7 +230,7 @@ var mainMenu = [{
 							mainWindow.setSize(360, 640);
 							mainWindow.userAgent = '';
 							mainWindow.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
-								details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (Linux; Android <AndroidVersion>; <DeviceModel>) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/<ChromeVersion> Mobile Safari/537.36';
+								details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (Linux; Android 12; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Mobile Safari/537.36';
 								callback({ cancel: false, requestHeaders: details.requestHeaders });
 							});
 					}
@@ -287,7 +287,7 @@ var mainMenu = [{
 						click() {
 							mainWindow.setSize(640, 360);
 							mainWindow.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
-								details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (Linux; Android 11; Pixel C) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36';
+								details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (Linux; Android 12; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Mobile Safari/537.36';
 								callback({ cancel: false, requestHeaders: details.requestHeaders });
 							});
 						}
