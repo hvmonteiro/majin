@@ -17,15 +17,20 @@
     "exec-test": "electron src/majin.js --test",
     "build": "npm run dist-linux && npm run dist-windows && npm run dist-mac",
     "devel": "npm run start -- --enable-logging",
-    "dist-mac": "build --projectDir ./src -c electron-builder.yml --mac --x64 --ia32",
-    "dist-linux": "build --projectDir ./src -c electron-builder.yml --linux --x64 --ia32 --armv7l",
-    "dist-windows": "build --projectDir ./src -c electron-builder.yml --win --x64 --ia32",
+    "dist-mac": "build  --projectDir ./src -c electron-builder.yml --mac --x64 --ia32",
+    "dist-linux": "build  --projectDir ./src -c electron-builder.yml --linux --x64 --ia32 --armv7l",
+    "dist-windows": "build  --projectDir ./src -c electron-builder.yml --win --x64 --ia32",
     "preversion": "npm run test && npm run exec-test",
     "version": "",
     "postversion": "#git push && git push --tags && npm clean",
     "release": "npm version minor && npm run build"
   },
-  "homepage": "http://majin.info/",
+  "build": {
+    "win": {
+      "icon": "src/assets/icons/win/icon.ico"
+    }
+  },
+  "homepage": "https://github.com/hvmonteiro/majin",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hvmonteiro/majin.git"
@@ -40,31 +45,18 @@
     "ontop"
   ],
   "devDependencies": {
-    "dialog": "^0.3.x",
-    "electron": "^29.1.6",
-    "electron-builder": "^20.10.x",
-    "electron-packager": "^17.1.2",
-    "electron-updater": "^2.21.x",
-    "grunt": "^1.6.1",
-    "grunt-cli": "1.2.x",
-    "grunt-contrib-clean": "^1.x.x",
-    "grunt-contrib-copy": "1.x.x",
-    "grunt-contrib-jshint": "^3.2.0",
-    "grunt-electron": "^10.0.0",
-    "grunt-exec": "3.x.x",
-    "grunt-mkdir": "1.x.x",
-    "grunt-replace": "^2.0.2",
-    "grunt-version": "^1.x.x",
-    "grunt-zip": "^1.0.0",
-    "load-grunt-tasks": "3.5.x",
-    "menu": "0.2.x",
-    "rcedit": "^1.x.x",
-    "remote": "^0.0.5"
+    "@electron/packager": "^18.3.2",
+    "electron": "^29.2.0",
+    "electron-builder": "^24.13.3",
+    "electron-installer-snap": "^5.2.0",
+    "electron-updater": "^6.2.1",
+    "electron-windows-store": "^2.1.0",
+    "rcedit": "^4.0.1"
   },
   "engines": {
-    "electron": "1.6.4",
-    "node": "6.10.x",
-    "npm": "4.5.x"
+    "electron": "latest",
+    "node": "latest",
+    "npm": "latest"
   },
   "os": [
     "darwin",

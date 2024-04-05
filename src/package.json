@@ -28,16 +28,10 @@
     "start": "electron .",
     "exec-test": "electron majin.js --test"
   },
-  "devDependencies": {
-    "electron": "1.6.4",
-    "menu": "0.2.x",
-    "remote": "0.2.x",
-    "dialog": "0.1.x"
-  },
   "engines": {
-    "electron": "1.6.x",
-    "node": "6.10.x",
-    "npm": "4.5.x"
+    "electron": "latest",
+    "node": "latest",
+    "npm": "latest"
   },
   "os": [
     "darwin",

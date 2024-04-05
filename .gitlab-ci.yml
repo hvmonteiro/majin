@@ -66,7 +66,7 @@ dist-mac:
       - src/dist/*.dmg
       - src/dist/*.pkg
   script:
-   - echo "Creating MacOS installation packagese..."
+   - echo "Creating MacOS installation packages..."
    - npm run dist-mac
    - ls -la src/dist/
 

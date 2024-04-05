@@ -104,39 +104,39 @@ case "$1" in
         win32)
             APP_PLATFORM="win32"
             APP_ARCH="ia32"
-            APP_ICON="$SAVED_DIR/src/majin.ico"
+            APP_ICON="$SAVED_DIR/src/assets/icons/win/majin.ico"
             #export DISPLAY=$SAVED_DISPLAY
             ;;
         win64)
             APP_PLATFORM="win32"
             APP_ARCH="x64"
-            APP_ICON="$SAVED_DIR/src/majin.ico"
+            APP_ICON="$SAVED_DIR/src/assets/icons/winc/majin.ico"
             #export DISPLAY=$SAVED_DISPLAY
             ;;
         linux32)
             APP_PLATFORM="linux"
             APP_ARCH="ia32"
-            APP_ICON="$SAVED_DIR/src/majin.ico"
+            APP_ICON="$SAVED_DIR/src/assets/icons/win/majin.ico"
             ;;
         linux64)
             APP_PLATFORM="linux"
             APP_ARCH="x64"
-            APP_ICON="$SAVED_DIR/src/majin.ico"
+            APP_ICON="$SAVED_DIR/src/assets/icons/win/majin.ico"
             ;;
         darwin)
             APP_PLATFORM="darwin"
             APP_ARCH="x64"
-            APP_ICON="$SAVED_DIR/src/images/icon@5.hqx"
+            APP_ICON="$SAVED_DIR/src/assets/icons/mac/icon@5.hqx"
             ;;
         mas)
             APP_PLATFORM="mas"
             APP_ARCH="x64"
-            APP_ICON="$SAVED_DIR/src/images/icon@5.hqx"
+            APP_ICON="$SAVED_DIR/src/assets/icons/mac/icon@5.hqx"
             ;;
         all)
             APP_PLATFORM="all"
             APP_ARCH="all"
-            APP_ICON="$SAVED_DIR/src/majin.ico"
+            APP_ICON="$SAVED_DIR/src/assets/icons/win/icon.ico"
             ;;
         *)
             echo ""

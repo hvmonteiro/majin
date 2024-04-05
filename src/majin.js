@@ -11,7 +11,6 @@
 // console.log(require('module').globalPaths);
 // console.log(require('electron'));
 
-
 // Electron module
 const { app, BrowserWindow, dialog, Menu, shell, Tray  } = require ('electron');
 
@@ -31,10 +30,11 @@ var currentYear = date.getFullYear();
 // Solving a bug where in windows, files inside asar packages
 // cannot be directly opened because of incorrect handling of '/' instead of '\'.
 if ( /^win/.test(process.platform) ) {
-	var homePageURL = 'file:///start.html';
+	var homePageURL = `file://${path.join(__dirname, 'start.html')}`;
 } else {
-	var homePageURL = 'file://' + path.join(__dirname, 'start.html');
+	var homePageURL = `file://${path.join(__dirname, 'start.html')}`;
 }
+// var homePageURL = 'about:config';
 
 const appName = vjson.name;
 const appVersion = vjson.version;
@@ -109,7 +109,6 @@ var mainMenu = [{
 			const centerY = y + (height - dialogHeight) / 2;
 
 			mainWindow.setAlwaysOnTop(false);
-			//mainWindow.blur(); // Hide window temporarely so that doesn't overlaps dialog window
 
 		    // Show a question dialog when attempting to close the window
 			dialog.showMessageBox(mainWindow, {
@@ -350,7 +349,6 @@ function createWindow () {
 		}
 	});
 
-	// mainWindow.loadURL('about:config', browserOptions);
 	mainWindow.loadURL(homePageURL, browserOptions);
 
 	mainWindow.on('show', function (BrowserWindow) {
@@ -417,7 +415,6 @@ function createWindow () {
 
 // Initialization is ready to create main window
 app.whenReady().then(createWindow);
-
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
