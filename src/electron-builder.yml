@@ -11,8 +11,7 @@ files:
   - start.html
   - package.json
   - version.json
-  - src/assets/**/*
-  - src/node_modules/**/*
+  - assets/**/*
   - LICENSE
 
 linux:

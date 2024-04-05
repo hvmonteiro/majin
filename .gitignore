@@ -1,5 +1,6 @@
 build/*
 node_modules/*
 src/dist/*
+src/src/*
 src/node_modules/*
 dist/*

@@ -18,6 +18,7 @@ module.exports = function (grunt) {
         src: ['src/*.html']
       }
     },
+    /*
     copy: {
       main: {
         files: [
@@ -26,6 +27,7 @@ module.exports = function (grunt) {
         ]
       }
     },
+    */
     replace: {
       dist: {
         options: {
@@ -65,7 +67,7 @@ module.exports = function (grunt) {
           name: 'Majin',
           platform: 'darwin',
           arch: 'x64',
-          icon: 'src/assets/icons/mac/icon@3.hqx',
+          icon: 'assets/icons/mac/icon@3.hqx',
           CompanyName: '',
           ProductName: 'Majin',
           OriginalFilename: 'Majin',
@@ -87,7 +89,7 @@ module.exports = function (grunt) {
           name: 'Majin',
           platform: 'linux',
           arch: 'x64',
-          icon: 'src/assets/icons/png/48x48.png',
+          icon: 'assets/icons/png/48x48.png',
           CompanyName: 'Hugo V. Monteiro',
           ProductName: 'Majin',
           OriginalFilename: 'Majin',
@@ -112,6 +114,7 @@ module.exports = function (grunt) {
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-htmllint');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-replace');
   grunt.loadNpmTasks('grunt-exec');
@@ -126,4 +129,7 @@ module.exports = function (grunt) {
   grunt.registerTask('default', ['clean', 'copy', 'version', 'jshint', 'exec']);
   grunt.registerTask('packages', ['clean', 'copy', 'jshint', 'exec', 'mkdir', 'electron', 'zip']);
   grunt.registerTask('release', ['clean', 'copy', 'version', 'jshint', 'exec', 'mkdir', 'electron', 'zip']);
+//  grunt.registerTask('default', ['clean', 'copy', 'version', 'jshint', 'htmllint', 'exec']);
+//  grunt.registerTask('packages', ['clean', 'copy', 'jshint', 'htmllint', 'exec', 'mkdir', 'electron', 'zip']);
+//  grunt.registerTask('release', ['clean', 'copy', 'version', 'jshint', 'htmllint', 'exec', 'mkdir', 'electron', 'zip']);
 };

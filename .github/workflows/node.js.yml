@@ -26,8 +26,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - run: npm ci
     - run: npm install --loglevel=error
     - run: npm audit fix --loglevel=error
     - run: npm run build:clean --loglevel=error
     - run: npm run build:test --loglevel=error
-    - run: npm run build --if-present --loglevel=error
+    - run: npm run build --loglevel=error

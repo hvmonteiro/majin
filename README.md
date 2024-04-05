@@ -1,14 +1,20 @@
 # Majin
 
-Latest Release: [![Latest Release Status](https://github.com/hvmonteiro/majin/badges/master/build.svg)](https://github.com/hvmonteiro/majin/releases/latest)
+Latest Release: [Latest Release Status](https://github.com/hvmonteiro/majin/releases/latest)
 
-Development Test Release: [![Latest Devel Test Release](https://camo.githubusercontent.com/e428fbe8f12b2b88a513c5945347355b0ab4e4829ff3368b2456b45ff92e5901/68747470733a2f2f7472617669732d63692e6f72672f68766d6f6e746569726f2f6d616a696e2e7376673f6272616e63683d6c61746573742d646576656c)](https://github.com/hvmonteiro/majin/releases/latest-devel)
+Development Test Release: [Latest Devel Test Release](https://github.com/hvmonteiro/majin/releases/latest-devel)
+
 
 # About
-Majin is a small lightweight desktop browser that renders/requests mobile webpages.
+Majin is a small lightweight desktop browser that renders/requests mobile webpages and keeps on top of other windows.
+
+![Majin usage animation](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-animation-02.gif)
 
 It was developed to avoid the hassle of using a full-blown desktop browser just to keep music/videos playing in the background while you work. It also packs a few features like minimizing to desktop's tray, stay on top of other windows, quick window resizing in landscape and portrait mode for the most used display devices, changing the user-agent accordingly.
 (See screenshots below)
+
+![Majin usage animation](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-animation-01.gif)
+
 
 # Releases & Usage
 
@@ -32,7 +38,7 @@ Just download the version you want, extract to a directory and execute it.
 
 **Clone and run for a quick way to see Majin in action.**
 
-You must be familiar with [Git](https://git-scm.com) version control system, [NPM](http://npmjs.com)) and [Node.js](https://nodejs.org/en/download/).
+You must be familiar with [Git](https://git-scm.com) version control system, [NPM](http://npmjs.com) and [Node.js](https://nodejs.org/en/download/).
 Just clone this repository, install NodeJS dependency modules and start Majin with npm as showed in the following example:
 
 Command line example:
@@ -56,6 +62,7 @@ npm start
 **If you want to build distributble packages**
 
 You must be familiar with [Git](https://git-scm.com) version control system, [NPM](http://npmjs.com)) and [Node.js](https://nodejs.org/en/download/).
+It's recommended to use [Visual Studio Code](https://code.visualstudio.com/).
 Just clone this repository, install NodeJS dependency modules and start Majin with npm as showed in the following example:
 
 Command line example:
@@ -75,14 +82,6 @@ npm run build:clean
 npm run build:test
 npm run build:test-exec
 npm build
-
-
-# Build a release
-npm run build:clean
-npm run build:test
-npm run build:test-exec
-npm run build:release
-npm run build:post-release
 ```
 
 
