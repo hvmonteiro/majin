@@ -20,11 +20,12 @@ Just download the version you want, extract to a directory and execute it.
 # Screenshots
 
 ![Main Start Page](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-default.png)
+
 ![Spotify in portrait mode](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-spotify.png)
 ![Youtube in portrait mode](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-youtube.png)
+![BlueSky in landscape mode](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-bluesky.png)
 ![Twitch in landscape mode](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-twitch.png)
 ![Apple Music in landscape mode](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-applemusic.png)
-![BlueSky in landscape mode](https://github.com/hvmonteiro/majin/raw/master/assets/images/majin-screenshot-bluesky.png)
 
 
 ## Try directly from source
@@ -48,6 +49,42 @@ npm install
 # Run the app 
 npm start
 ```
+
+
+## How to build
+
+**If you want to build distributble packages**
+
+You must be familiar with [Git](https://git-scm.com) version control system, [NPM](http://npmjs.com)) and [Node.js](https://nodejs.org/en/download/).
+Just clone this repository, install NodeJS dependency modules and start Majin with npm as showed in the following example:
+
+Command line example:
+```bash
+# Clone this repository
+git clone https://github.com/hvmonteiro/majin
+
+# Go into the repository
+cd majin
+
+# Install dependencies
+npm install
+
+# Build the app 
+npm audit fix
+npm run build:clean
+npm run build:test
+npm run build:test-exec
+npm build
+
+
+# Build a release
+npm run build:clean
+npm run build:test
+npm run build:test-exec
+npm run build:release
+npm run build:post-release
+```
+
 
 # License
 Majin, Copyright (C) 2024 Hugo V. Monteiro

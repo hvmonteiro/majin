@@ -43,5 +43,8 @@
     "x64",
     "ia32"
   ],
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "electron": "^29.2.0"
+  }
 }

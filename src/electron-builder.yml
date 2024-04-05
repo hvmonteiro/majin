@@ -1,20 +1,20 @@
 ---
 productName: Majin
-appId: com.younity-studios.${productName}
+appId: com.younity-studios.majin
 directories:
   output: dist
 asar: true
 
 files:
-  - ./majin.js
-  - ./start.html
-  - ./package.json
-  - ./version.json
-  - ./src/assets/**/*
-  - ./LICENSE
+  - majin.js
+  - start.html
+  - package.json
+  - version.json
+  - src/assets/**
+  - LICENSE
 
 linux:
-  icon: ./src/assets/icons/png
+  icon: src/assets/icons/win/icon.png
   category: Network
   packageCategory: Network
   target:
@@ -27,23 +27,20 @@ linux:
 
 mac:
   category: com.younity-studios.majin
-  icon: ./src/assets/icons/mac/icon.icns
-  legalTrademarks: (c) Hugo V. Monteiro
-  runs-on: macos-10.15
+  icon: assets/icons/mac/icon.icns
   target: 
     - zip
 #    - dmg
 
 win:
-  icon: src/assets/icons/win/icon.ico
+  icon: assets/icons/win/icon.ico
   target:
     - nsis
     - portable
     - zip
-  arch: x64
 
 nsis:
-  installerIcon: src/assets/icons/win/icon.ico
+  installerIcon: assets/icons/win/icon.ico
   deleteAppDataOnUninstall: true
   artifactName: ${productName}-${version}-setup.${ext}
   oneClick: false

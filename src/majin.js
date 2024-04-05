@@ -108,6 +108,7 @@ var mainMenu = [{
 			const centerX = x + (width - dialogWidth) / 2;
 			const centerY = y + (height - dialogHeight) / 2;
 
+			let onTopState = appMenu.items[0].submenu.items[0].checked;
 			mainWindow.setAlwaysOnTop(false);
 
 		    // Show a question dialog when attempting to close the window
@@ -493,8 +494,8 @@ function createWindow () {
 		mainWindow.on('close', onBeforeUnload);
 	});
 
-	mainWindow.on('page-title-updated', function (e) {
-		e.preventDefault();
+	mainWindow.on('page-title-updated', function (event) {
+		event.preventDefault();
 		mainWindow.setTitle(appName + ' - ' + mainWindow.webContents.getTitle());
 		tray.setToolTip(appName + ' - ' + mainWindow.webContents.getTitle());
 		tray.setContextMenu(contextMenu);
@@ -539,14 +540,15 @@ function createWindow () {
 	// This is only used to test if the application start without any problem,
 	// the application immediatly exits after this if everything is ok
 	if (process.argv[2] === '--test') {
-		console.log('Application Execution Test: Ok');
-		mainWindow._events.close = null; // Unreference function so that App can close
-		mainWindow.close();
+		if (mainWindow) {
+			mainWindow.destroy(); // Close the window
+		}
+		console.log('Application Execution Test: Ok\n\r');
 		app.quit();
 	} else {
 		mainWindow.show();
 	}
-	console.log(homePageURL);
+	console.log('Test file: %s\n\r', homePageURL);
 } // function createWindow
 
 // Initialization is ready to create main window
