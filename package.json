@@ -1,8 +1,7 @@
 {
   "name": "majin",
   "productName": "Majin",
-  "version": "2.0.0",
-  "buildId": "0",
+  "version": "2.1.0",
   "appId": "com.younity-studios.majin",
   "description": "Mobile Browser for the Desktop",
   "author": "Hugo V. Monteiro <hugo@hugovmonteiro.net>",

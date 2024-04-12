@@ -29,7 +29,6 @@ const packageJson = require(path.join(__dirname, 'package.json'));
 
 const appName = packageJson.productName;
 const appVersion = packageJson.version;
-const appBuildId = packageJson.buildId;
 const appCopyright = packageJson.copyright;
 const appAuthor = packageJson.author;
 const appLicense = packageJson.license;
@@ -409,7 +408,7 @@ var mainMenu = [{
 				buttons: ['Close'],
 				modal: true,
 				'message': appName + '\n' +
-					'Version ' + appVersion + ' (' + appBuildId + ')' + '\n' +
+					'Version ' + appVersion + '\n' +
 					appCopyright + '\n' +
 					appAuthor + '\n' +
 					appLicense,
@@ -622,7 +621,7 @@ function loadSession() {
 	}
 
 	// Window opened URL
-	savedOpenURL = storeSession.get('openURL',);
+	savedOpenURL = storeSession.get('OpenURL');
 	logDevelopment('> OpenURL: ' + savedOpenURL);
 
 	// Main Menu
