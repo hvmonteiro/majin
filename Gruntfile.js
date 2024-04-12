@@ -37,7 +37,7 @@ module.exports = function (grunt) {
           }]
         },
         files: [
-          {expand: true, flatten: true, src: ['src/version.json'], dest: 'src/'}
+          { expand: true, flatten: true, src: ['src/version.json'], dest: 'src/' }
         ]
       }
     },
@@ -129,7 +129,7 @@ module.exports = function (grunt) {
   grunt.registerTask('default', ['clean', 'copy', 'version', 'jshint', 'exec']);
   grunt.registerTask('packages', ['clean', 'copy', 'jshint', 'exec', 'mkdir', 'electron', 'zip']);
   grunt.registerTask('release', ['clean', 'copy', 'version', 'jshint', 'exec', 'mkdir', 'electron', 'zip']);
-//  grunt.registerTask('default', ['clean', 'copy', 'version', 'jshint', 'htmllint', 'exec']);
-//  grunt.registerTask('packages', ['clean', 'copy', 'jshint', 'htmllint', 'exec', 'mkdir', 'electron', 'zip']);
-//  grunt.registerTask('release', ['clean', 'copy', 'version', 'jshint', 'htmllint', 'exec', 'mkdir', 'electron', 'zip']);
+  //  grunt.registerTask('default', ['clean', 'copy', 'version', 'jshint', 'htmllint', 'exec']);
+  //  grunt.registerTask('packages', ['clean', 'copy', 'jshint', 'htmllint', 'exec', 'mkdir', 'electron', 'zip']);
+  //  grunt.registerTask('release', ['clean', 'copy', 'version', 'jshint', 'htmllint', 'exec', 'mkdir', 'electron', 'zip']);
 };

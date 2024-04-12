@@ -2,46 +2,17 @@
   "name": "majin",
   "productName": "Majin",
   "version": "2.0.0",
+  "buildId": "0",
+  "appId": "com.younity-studios.majin",
   "description": "Mobile Browser for the Desktop",
-  "author": "Hugo V. Monteiro",
+  "author": "Hugo V. Monteiro <hugo@hugovmonteiro.net>",
   "license": "GPL-2.0",
-  "url": "https://github.com/hvmonteiro/majin",
+  "copyright": "Copyright (c) 2024, Hugo V. Monteiro",
+  "homepage": "https://www.younity-studios/apps/majin/",
+  "startPage": "start.html",
   "bugs": {
     "url": "https://github.com/hvmonteiro/majin/issues"
   },
-  "main": "src/majin.js",
-  "scripts": {
-    "start": "electron .",
-    "dev": "npm run start -- --enable-logging",
-    "lint": "grunt jslint htmllint",
-    "build:clean": "grunt clean --verbose",
-    "build:test": "grunt",
-    "build:test-exec": "electron src/majin.js --test",
-    "build": "npm run dist-windows && npm run dist-linux && npm run dist-mac",
-    "dist-mac": "electron-builder --projectDir ./src -c electron-builder.yml --mac --x64",
-    "dist-linux": "electron-builder --projectDir ./src -c electron-builder.yml --linux --x64 --armv7l",
-    "dist-windows": "electron-builder --projectDir ./src -c electron-builder.yml --win --x64 --ia32",
-    "build:pre-release": "npm audit fix && npm run build:test && npm run build:test-exec",
-    "build:release": "npm version minor && npm run pre-release && npm run build",
-    "build:post-release": "#git push && git push --tags && npm clean"
-  },
-  "build": {
-    "productName": "mjain",
-    "appId": "com.younity-studios.majin",
-    "directories": {
-      "output": "build"
-    },
-    "win": {
-      "icon": "assets/icons/win/icon.ico"
-    },
-    "mac": {
-      "icon": "assets/icons/mac/icon.icns"
-    },
-    "linux": {
-      "icon": "assets/icons/win/icon.png"
-    }
-  },
-  "homepage": "https://github.com/hvmonteiro/majin",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hvmonteiro/majin.git"
@@ -55,6 +26,22 @@
     "tray",
     "ontop"
   ],
+  "main": "src/majin.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --enable-logging",
+    "lint": "grunt jslint htmllint",
+    "build:clean": "grunt clean --verbose",
+    "build:test": "grunt",
+    "build:test-exec": "NODE_ENV=development electron src/majin.js --test",
+    "build": "npm run dist-windows && npm run dist-linux && npm run dist-mac",
+    "dist-mac": "electron-builder --projectDir ./src -c electron-builder.yml --mac --x64",
+    "dist-linux": "electron-builder --projectDir ./src -c electron-builder.yml --linux --x64 --armv7l",
+    "dist-windows": "electron-builder --projectDir ./src -c electron-builder.yml --win --x64 --ia32",
+    "build:pre-release": "npm audit fix && npm run build:test && npm run build:test-exec",
+    "build:release": "npm version minor && npm run pre-release && npm run build",
+    "build:post-release": "#git push && git push --tags && npm clean"
+  },
   "devDependencies": {
     "@electron/packager": "^18.3.2",
     "electron": "^29.2.0",
@@ -90,5 +77,24 @@
     "x64",
     "ia32"
   ],
-  "private": true
+  "build": {
+    "productName": "mjain",
+    "appId": "com.younity-studios.majin",
+    "directories": {
+      "output": "build"
+    },
+    "win": {
+      "icon": "assets/icons/win/icon.ico"
+    },
+    "mac": {
+      "icon": "assets/icons/mac/icon.icns"
+    },
+    "linux": {
+      "icon": "assets/icons/win/icon.png"
+    }
+  },
+  "private": true,
+  "dependencies": {
+    "electron-store": "^8.2.0"
+  }
 }

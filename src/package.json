@@ -2,14 +2,17 @@
   "name": "majin",
   "productName": "Majin",
   "version": "2.0.0",
+  "buildId": "0",
+  "appId": "com.younity-studios.majin",
   "description": "Mobile Browser for the Desktop",
   "author": "Hugo V. Monteiro <hugo@hugovmonteiro.net>",
   "license": "GPL-2.0",
-  "url": "https://github.com/hvmonteiro/majin",
+  "copyright": "Copyright (c) 2024, Hugo V. Monteiro",
+  "homepage": "https://www.younity-studios/apps/majin/",
+  "startPage": "start.html",
   "bugs": {
     "url": "https://github.com/hvmonteiro/majin/issues"
   },
-  "homepage": "http://majin.info/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hvmonteiro/majin.git"
@@ -30,8 +33,7 @@
   },
   "engines": {
     "electron": "latest",
-    "node": "latest",
-    "npm": "latest"
+    "node": "latest"
   },
   "os": [
     "darwin",
@@ -46,5 +48,8 @@
   "private": true,
   "devDependencies": {
     "electron": "^29.2.0"
+  },
+  "dependencies": {
+    "path": "^0.12.7"
   }
 }
